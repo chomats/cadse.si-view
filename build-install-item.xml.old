@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Tool.Workspace.View"  basedir=".">
+
+	<!-- copy bin file to ${destination.temp.folder}/${plugin_vers} -->
+	<!-- copy src file to ${destination.temp.folder}/${plugin_vers}-src (for src.zip) or
+		${dir.plugins.sources}/${plugin_source_id.tstamp}/src/${plugin_vers} (for other) -->
+	
+	<target name="install.extra.bin">
+	</target>
+		
+	<target name="install.extra.src" >
+	</target>
+</project>
