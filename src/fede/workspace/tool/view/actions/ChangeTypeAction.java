@@ -38,6 +38,7 @@ import fr.imag.adele.cadse.core.impl.ui.AbstractActionPage;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 
+
 // TODO is disable.
 public class ChangeTypeAction implements IViewActionDelegate {
 

@@ -1,0 +1,272 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: fr.imag.adele.cadse.si.workspace.view
+Bundle-SymbolicName: fr.imag.adele.cadse.si.workspace.view;singleton:=true
+Bundle-Vendor: %Bundle-Vendor.0
+Bundle-Activator: fede.workspace.tool.view.WSPlugin
+Bundle-Version: 1.0.6.qualifier
+Bundle-Localization: plugin
+Bundle-ClassPath: .
+Eclipse-LazyStart: false
+Export-Package: SI.Workspace.View,
+ fede.workspace.ant;version="1.0.0",
+ fede.workspace.ant.properties,
+ fede.workspace.eclipse;version="1.0.0",
+ fede.workspace.eclipse.composer;version="1.0.0",
+ fede.workspace.eclipse.composition;version="1.0.0",
+ fede.workspace.eclipse.content;version="1.0.0",
+ fede.workspace.eclipse.core;version="1.0.0",
+ fede.workspace.eclipse.exporter;version="1.0.0",
+ fede.workspace.eclipse.validation;version="1.0.0",
+ fede.workspace.model.manager;version="1.0.0",
+ fede.workspace.model.manager.properties;version="1.0.0",
+ fede.workspace.model.manager.properties.editor;version="1.0.0",
+ fede.workspace.model.manager.properties.impl;version="1.0.0",
+ fede.workspace.model.manager.properties.impl.ic;version="1.0.0",
+ fede.workspace.model.manager.properties.impl.mc;version="1.0.0",
+ fede.workspace.model.manager.properties.impl.ui;version="1.0.0",
+ fede.workspace.model.manager.properties.type;version="1.0.0",
+ fede.workspace.model.wizard;version="1.0.0",
+ fede.workspace.tool;version="1.0.0",
+ fede.workspace.tool.eclipse;version="1.0.0",
+ fede.workspace.tool.exportImport;version="1.0.0",
+ fede.workspace.tool.fixer;version="1.0.0",
+ fede.workspace.tool.icon;version="1.0.0",
+ fede.workspace.tool.perspective;version="1.0.0",
+ fede.workspace.tool.view;version="1.0.0",
+ fede.workspace.tool.view.actions;version="1.0.0",
+ fede.workspace.tool.view.actions.delete;version="1.0.0",
+ fede.workspace.tool.view.actions.newitem;version="1.0.0",
+ fede.workspace.tool.view.actions.test;version="1.0.0",
+ fede.workspace.tool.view.adapter;version="1.0.0",
+ fede.workspace.tool.view.addlink;version="1.0.0",
+ fede.workspace.tool.view.content;version="1.0.0",
+ fede.workspace.tool.view.decorator;version="1.0.0",
+ fede.workspace.tool.view.dialog.create;version="1.0.0",
+ fede.workspace.tool.view.dnd;version="1.0.0",
+ fede.workspace.tool.view.filters;version="1.0.0",
+ fede.workspace.tool.view.menu,
+ fede.workspace.tool.view.node;version="1.0.0",
+ fede.workspace.tool.view.oper;version="1.0.0",
+ fede.workspace.tool.view.properties;version="1.0.0",
+ fede.workspace.tool.view.readonly;version="1.0.0",
+ fr.imag.adele.cadse.eclipse.view;version="1.0.0",
+ fr.imag.adele.fede.workspace.si.view;version="1.0.0"
+Import-Package: SI.Workspace.View,
+ fede.plugin.workspace.filters,
+ fede.workspace.ant;version="1.0.0",
+ fede.workspace.ant.properties,
+ fede.workspace.eclipse;version="1.0.0",
+ fede.workspace.eclipse.composer;version="1.0.0",
+ fede.workspace.eclipse.composition;version="1.0.0",
+ fede.workspace.eclipse.content;version="1.0.0",
+ fede.workspace.eclipse.core,
+ fede.workspace.eclipse.exporter;version="1.0.0",
+ fede.workspace.eclipse.validation;version="1.0.0",
+ fede.workspace.model.manager;version="1.0.0",
+ fede.workspace.model.manager.properties;version="1.0.0",
+ fede.workspace.model.manager.properties.editor;version="1.0.0",
+ fede.workspace.model.manager.properties.impl;version="1.0.0",
+ fede.workspace.model.manager.properties.impl.ic;version="1.0.0",
+ fede.workspace.model.manager.properties.impl.mc;version="1.0.0",
+ fede.workspace.model.manager.properties.impl.ui;version="1.0.0",
+ fede.workspace.model.manager.properties.type;version="1.0.0",
+ fede.workspace.model.wizard;version="1.0.0",
+ fede.workspace.role.eclipse,
+ fede.workspace.role.initmodel,
+ fede.workspace.tool;version="1.0.0",
+ fede.workspace.tool.eclipse;version="1.0.0",
+ fede.workspace.tool.exportImport;version="1.0.0",
+ fede.workspace.tool.fixer;version="1.0.0",
+ fede.workspace.tool.icon;version="1.0.0",
+ fede.workspace.tool.perspective;version="1.0.0",
+ fede.workspace.tool.view;version="1.0.0",
+ fede.workspace.tool.view.actions;version="1.0.0",
+ fede.workspace.tool.view.actions.delete;version="1.0.0",
+ fede.workspace.tool.view.actions.newitem;version="1.0.0",
+ fede.workspace.tool.view.actions.test;version="1.0.0",
+ fede.workspace.tool.view.adapter;version="1.0.0",
+ fede.workspace.tool.view.addlink;version="1.0.0",
+ fede.workspace.tool.view.content;version="1.0.0",
+ fede.workspace.tool.view.decorator;version="1.0.0",
+ fede.workspace.tool.view.dialog.create;version="1.0.0",
+ fede.workspace.tool.view.dnd;version="1.0.0",
+ fede.workspace.tool.view.filters;version="1.0.0",
+ fede.workspace.tool.view.menu,
+ fede.workspace.tool.view.node;version="1.0.0",
+ fede.workspace.tool.view.oper;version="1.0.0",
+ fede.workspace.tool.view.properties;version="1.0.0",
+ fede.workspace.tool.view.readonly;version="1.0.0",
+ fr.imag.adele.cadse.core,
+ fr.imag.adele.cadse.core.attribute,
+ fr.imag.adele.cadse.core.build,
+ fr.imag.adele.cadse.core.delta,
+ fr.imag.adele.cadse.core.impl,
+ fr.imag.adele.cadse.core.impl.internal,
+ fr.imag.adele.cadse.core.impl.internal.ui,
+ fr.imag.adele.cadse.core.impl.ui,
+ fr.imag.adele.cadse.core.internal,
+ fr.imag.adele.cadse.core.key,
+ fr.imag.adele.cadse.core.oper,
+ fr.imag.adele.cadse.core.oper.annotation,
+ fr.imag.adele.cadse.core.repos,
+ fr.imag.adele.cadse.core.transaction,
+ fr.imag.adele.cadse.core.ui,
+ fr.imag.adele.cadse.core.ui.view,
+ fr.imag.adele.cadse.core.util,
+ fr.imag.adele.cadse.core.var,
+ fr.imag.adele.cadse.eclipse.view;version="1.0.0",
+ fr.imag.adele.cadse.workspace.feature.eclipse,
+ fr.imag.adele.fede.workspace.as.eclipse;version="1.0.0",
+ fr.imag.adele.fede.workspace.as.initmodel,
+ fr.imag.adele.fede.workspace.as.persistence,
+ fr.imag.adele.fede.workspace.as.platformeclipse;version="1.0.0",
+ fr.imag.adele.fede.workspace.as.test;version="1.0.0",
+ fr.imag.adele.fede.workspace.si.view;version="1.0.0",
+ fr.imag.adele.packageinfo,
+ org.apache.commons.logging;version="1.1.0",
+ org.apache.felix.ipojo;version="0.8.0",
+ org.apache.felix.ipojo.architecture;version="0.8.0",
+ org.apache.tools.ant,
+ org.apache.tools.ant.taskdefs,
+ org.apache.tools.ant.types,
+ org.apache.tools.ant.util,
+ org.eclipse.ant.core,
+ org.eclipse.core.internal.resources,
+ org.eclipse.core.internal.runtime,
+ org.eclipse.core.resources,
+ org.eclipse.core.resources.team,
+ org.eclipse.core.runtime,
+ org.eclipse.core.runtime.jobs,
+ org.eclipse.debug.ui,
+ org.eclipse.jdt.core,
+ org.eclipse.jdt.internal.corext.refactoring.changes,
+ org.eclipse.jdt.ui,
+ org.eclipse.jface.action,
+ org.eclipse.jface.dialogs,
+ org.eclipse.jface.fieldassist,
+ org.eclipse.jface.operation,
+ org.eclipse.jface.preference,
+ org.eclipse.jface.resource,
+ org.eclipse.jface.text,
+ org.eclipse.jface.util,
+ org.eclipse.jface.viewers,
+ org.eclipse.jface.window,
+ org.eclipse.jface.wizard,
+ org.eclipse.ltk.core.refactoring,
+ org.eclipse.ltk.core.refactoring.participants,
+ org.eclipse.osgi.framework.debug,
+ org.eclipse.osgi.framework.internal.core,
+ org.eclipse.osgi.util,
+ org.eclipse.search.ui,
+ org.eclipse.swt,
+ org.eclipse.swt.custom,
+ org.eclipse.swt.dnd,
+ org.eclipse.swt.events,
+ org.eclipse.swt.graphics,
+ org.eclipse.swt.layout,
+ org.eclipse.swt.widgets,
+ org.eclipse.team.core,
+ org.eclipse.team.internal.ccvs.core.connection,
+ org.eclipse.team.svn.core.operation.file,
+ org.eclipse.ui.actions,
+ org.eclipse.ui.console,
+ org.eclipse.ui.dialogs,
+ org.eclipse.ui.fieldassist,
+ org.eclipse.ui.forms.widgets,
+ org.eclipse.ui.internal,
+ org.eclipse.ui.internal.progress,
+ org.eclipse.ui.internal.util,
+ org.eclipse.ui.model,
+ org.eclipse.ui.navigator,
+ org.eclipse.ui.part,
+ org.eclipse.ui.plugin,
+ org.eclipse.ui.progress,
+ org.eclipse.ui.texteditor,
+ org.eclipse.ui.themes,
+ org.eclipse.ui.views.markers,
+ org.eclipse.ui.views.properties,
+ org.osgi.framework,
+ org.osgi.service.cm;version="1.2",
+ org.osgi.service.log;version="1.3"
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.ui.ide,
+ org.eclipse.ui.workbench
+Created-By: envsam & iPOJO
+Bundle-Description: Bundle fr.imag.adele.cadse.si.workspace.view
+ipojo-auto-start: true
+iPOJO-Components: component { $immediate="true" $classname="fr.imag.ade
+ le.fede.workspace.si.view.View" $factory="fr.imag.adele.fede.workspace
+ .si.view.View" $architecture="true" callback { $transition="validate" 
+ $method="start" }callback { $transition="invalidate" $method="stop" }p
+ rovides { $interface="fr.imag.adele.fede.workspace.as.eclipse.IEclipse
+ " }manipulation { field { $name="persitence" $type="fr.imag.adele.fede
+ .workspace.as.persistence.IPersistence" }field { $name="testService" $
+ type="fr.imag.adele.fede.workspace.as.test.ITest" }field { $name="init
+ Model" $type="fr.imag.adele.fede.workspace.as.initmodel.IInitModel" }f
+ ield { $name="notifier" $type="fr.imag.adele.fede.workspace.si.view.Vi
+ ew$EclipseToolListener" }field { $name="lock" $type="org.eclipse.core.
+ runtime.jobs.ILock" }field { $name="platformEclipse" $type="fr.imag.ad
+ ele.fede.workspace.as.platformeclipse.IPlatformEclipse" }field { $name
+ ="workspaceCU" $type="fr.imag.adele.cadse.core.CadseDomain" }field { $
+ name="initProvider" $type="boolean" }method { $name="$init" }method { 
+ $name="getInstance" $return="fr.imag.adele.fede.workspace.si.view.View
+ " }method { $name="start" }method { $name="stop" }method { $name="getI
+ nitModel" $return="fr.imag.adele.fede.workspace.as.initmodel.IInitMode
+ l" }method { $name="getPersitence" $return="fr.imag.adele.fede.workspa
+ ce.as.persistence.IPersistence" }method { $name="getWorkspaceDomain" $
+ return="fr.imag.adele.cadse.core.CadseDomain" }method { $name="isStart
+ ed" $return="boolean" }method { $name="getWorkspaceLogique" $return="f
+ r.imag.adele.cadse.core.LogicalWorkspace" }method { $name="getPlatform
+ Eclipse" $return="fr.imag.adele.fede.workspace.as.platformeclipse.IPla
+ tformEclipse" }method { $name="getTestService" $return="fr.imag.adele.
+ fede.workspace.as.test.ITest" }method { $arguments="{fr.imag.adele.cad
+ se.core.Item,boolean,org.eclipse.core.runtime.IProgressMonitor}" $name
+ ="buildModifiedItem" }method { $arguments="{fr.imag.adele.cadse.core.I
+ tem}" $name="init" }method { $arguments="{org.eclipse.core.runtime.ISt
+ atus}" $name="log" }method { $arguments="{fr.imag.adele.cadse.core.Ite
+ m,boolean}" $name="setReadOnly" }method { $arguments="{org.eclipse.cor
+ e.resources.IResource,boolean}" $name="setReadOnly" }method { $argumen
+ ts="{org.eclipse.core.resources.IResource}" $name="getItemFromResource
+ " $return="fr.imag.adele.cadse.core.Item" }method { $arguments="{org.e
+ clipse.core.resources.IResource}" $name="getUUIDFromResource" $return=
+ "fr.imag.adele.cadse.core.CompactUUID" }method { $arguments="{org.ecli
+ pse.core.resources.IResource}" $name="getPersistanceID" $return="java.
+ lang.String" }method { $arguments="{fr.imag.adele.cadse.core.Item,bool
+ ean,boolean}" $name="getResourceFromItem" $return="org.eclipse.core.re
+ sources.IResource" }method { $arguments="{fr.imag.adele.cadse.core.Ite
+ m,boolean}" $name="getProjectFromItem" $return="org.eclipse.core.resou
+ rces.IProject" }method { $arguments="{org.eclipse.core.resources.IReso
+ urce,boolean,org.eclipse.core.runtime.IProgressMonitor}" $name="delete
+ EclipseResource" }method { $arguments="{org.eclipse.core.resources.IPr
+ oject}" $name="getStateFile" $return="java.io.File" }method { $argumen
+ ts="{fr.imag.adele.cadse.core.Item}" $name="refresh" }method { $argume
+ nts="{fr.imag.adele.cadse.core.Item}" $name="notifieChangedContent" }m
+ ethod { $arguments="{org.eclipse.core.runtime.IConfigurationElement}" 
+ $name="getItemTypeNames" $return="java.lang.String[]" }method { $argum
+ ents="{org.eclipse.core.runtime.IConfigurationElement}" $name="logErro
+ rProvider" }method { $arguments="{org.eclipse.core.runtime.IProgressMo
+ nitor}" $name="setDefaultMonitor" }method { $name="getDefaultMonitor" 
+ $return="org.eclipse.core.runtime.IProgressMonitor" }method { $name="u
+ nsetDefaultMonitor" }method { $arguments="{boolean,boolean}" $name="se
+ tDeleteOption" }method { $name="getDeleteOption" $return="java.lang.Bo
+ olean[]" }method { $name="unsetDeleteOption" }method { $arguments="{ja
+ va.lang.String,java.lang.String,java.lang.Throwable}" $name="log" }met
+ hod { $arguments="{java.lang.String}" $name="getTypeFrom" $return="int
+ " }method { $arguments="{java.lang.Object}" $name="beginRule" }method 
+ { $arguments="{java.lang.Object}" $name="endRule" }method { $arguments
+ ="{java.lang.String,fr.imag.adele.cadse.core.Item}" $name="setItemPers
+ istenceID" }method { $arguments="{fr.imag.adele.cadse.core.Item,java.l
+ ang.String,java.net.URL}" $name="copyResource" }method { $arguments="{
+ org.eclipse.core.resources.IResource,fr.imag.adele.cadse.core.Item}" $
+ name="setItemPersistenceID" }method { $name="getLocation" $return="jav
+ a.io.File" }method { $arguments="{boolean}" $name="openDialog" $return
+ ="fr.imag.adele.cadse.core.CadseRuntime[]" }interface { $name="fr.imag
+ .adele.fede.workspace.as.eclipse.IEclipse" }}requires { $field="worksp
+ aceCU" $optional="false" $filter="(sam.domain.root=Workspace)" }requir
+ es { $field="platformEclipse" $optional="false" }requires { $field="in
+ itModel" $optional="false" }requires { $field="persitence" $optional="
+ false" }requires { $field="testService" $optional="true" }}instance { 
+ $component="fr.imag.adele.fede.workspace.si.view.View" $name="fr.imag.
+ adele.cadse.si.workspace.view.instance" }
+

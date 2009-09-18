@@ -1,97 +1,136 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?eclipse version="3.2"?>
+<?eclipse version="3.3"?>
 <plugin>
    <extension
          id="melusine.cu.fixer"
          point="org.eclipse.ui.ide.markerResolution">
       <markerResolutionGenerator
-            class="fede.workspace.tool.fixer.CadseFixer"
-            markerType="fede.tool.workspace.view.validation.marker">
+            markerType="fede.tool.workspace.view.validation.marker"
+            class="fede.workspace.tool.fixer.CadseFixer">
       </markerResolutionGenerator>
    </extension>
-   <extension-point id="fede.tool.workspace.view.ItemTypeProvider" name="ItemTypeProvider" schema="schema/ItemTypeProvider.exsd"/>
-   <extension-point id="fede.tool.workspace.view.modelextension" name="model extension" schema="schema/ModelExtension.exsd"/>
-
-     <extension
-          id="fede.tool.workspace.view.Melusine"
-          name="Melusine Nature"
-
-          point="org.eclipse.core.resources.natures">
-       <runtime>
-          <run class="fede.workspace.eclipse.MelusineNature"/>
-       </runtime>
-       <builder id="fede.tool.workspace.view.validation.builder"/>
-       <builder id="fede.tool.workspace.view.packaging.builder"/>
-       <builder id="fede.tool.workspace.view.composition.builder"/>
-    </extension>
-    <extension
-          id="fede.tool.workspace.view.melusine.marker"
-          name="Melusine Marker"
-          point="org.eclipse.core.resources.markers">
-       <persistent value="true"/>
-       <super type="org.eclipse.core.resources.problemmarker"/>
-       <attribute name="itemType"/>
-       <attribute name="item"/>
-       <attribute name="description"/>
-       <attribute name="parameters"/>
-    </extension>
-    <extension
-          id="fede.tool.workspace.view.validation.builder"
-          name="Item Validation Builder"
-          point="org.eclipse.core.resources.builders">
-       <builder
-             hasNature="true"
-             isConfigurable="false">
-          <run class="fede.workspace.eclipse.validation.ValidationBuilder"/>
-       </builder>
-    </extension>
-    <extension
-          id="fede.tool.workspace.view.validation.marker"
-          name="Fede Validation"
-          point="org.eclipse.core.resources.markers">
-       <persistent value="true"/>
-       <super type="fede.tool.workspace.view.melusine.marker"/>
-       <attribute name="errorCode"/>
-    </extension>
-    <extension
-          id="fede.tool.workspace.view.packaging.builder"
-          name="Item Binary Packager Builder"
-          point="org.eclipse.core.resources.builders">
-       <builder
-             hasNature="true"
-             isConfigurable="false">
-          <run class="fede.workspace.eclipse.composition.ComponentBuilder"/>
-       </builder>
-    </extension>
-    <extension
-          id="fede.tool.workspace.view.component.builder.marker"
-          point="org.eclipse.core.resources.markers">
-       <persistent value="true"/>
-       <super type="fede.tool.workspace.view.melusine.marker"/>
-    </extension>
-    <extension
-          id="fede.tool.workspace.view.composition.builder"
-          name="Item Composition Builder"
-          point="org.eclipse.core.resources.builders">
-       <builder
-             hasNature="true"
-             isConfigurable="false">
-          <run class="fede.workspace.eclipse.composition.CompositeBuilder"/>
-       </builder>
-    </extension>
-    <extension
-          id="fede.tool.workspace.view.composite.builder.marker"
-          point="org.eclipse.core.resources.markers">
-       <persistent value="true"/>
-       <super type="fede.tool.workspace.view.melusine.marker"/>
-    </extension>
-    <extension
-          id="fede.tool.workspace.view.dependencies.resolution.marker"
-          point="org.eclipse.core.resources.markers">
-       <persistent value="true"/>
-       <super type="fede.tool.workspace.view.melusine.marker"/>
-    </extension>
-
+   <extension
+         id="fede.tool.workspace.view.Melusine"
+         name="Melusine Nature"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run
+               class="fede.workspace.eclipse.MelusineNature">
+         </run>
+      </runtime>
+      <builder
+            id="fede.tool.workspace.view.validation.builder">
+      </builder>
+      <builder
+            id="fede.tool.workspace.view.packaging.builder">
+      </builder>
+      <builder
+            id="fede.tool.workspace.view.composition.builder">
+      </builder>
+   </extension>
+   <extension
+         id="fede.tool.workspace.view.melusine.marker"
+         name="Melusine Marker"
+         point="org.eclipse.core.resources.markers">
+      <persistent
+            value="true">
+      </persistent>
+      <super
+            type="org.eclipse.core.resources.problemmarker">
+      </super>
+      <attribute
+            name="itemType">
+      </attribute>
+      <attribute
+            name="item">
+      </attribute>
+      <attribute
+            name="description">
+      </attribute>
+      <attribute
+            name="parameters">
+      </attribute>
+   </extension>
+   <extension
+         id="fede.tool.workspace.view.validation.builder"
+         name="Item Validation Builder"
+         point="org.eclipse.core.resources.builders">
+      <builder
+            isConfigurable="false"
+            hasNature="true">
+         <run
+               class="fede.workspace.eclipse.validation.ValidationBuilder">
+         </run>
+      </builder>
+   </extension>
+   <extension
+         id="fede.tool.workspace.view.validation.marker"
+         name="Fede Validation"
+         point="org.eclipse.core.resources.markers">
+      <persistent
+            value="true">
+      </persistent>
+      <super
+            type="fede.tool.workspace.view.melusine.marker">
+      </super>
+      <attribute
+            name="errorCode">
+      </attribute>
+   </extension>
+   <extension
+         id="fede.tool.workspace.view.packaging.builder"
+         name="Item Binary Packager Builder"
+         point="org.eclipse.core.resources.builders">
+      <builder
+            isConfigurable="false"
+            hasNature="true">
+         <run
+               class="fede.workspace.eclipse.composition.ComponentBuilder">
+         </run>
+      </builder>
+   </extension>
+   <extension
+         id="fede.tool.workspace.view.component.builder.marker"
+         point="org.eclipse.core.resources.markers">
+      <persistent
+            value="true">
+      </persistent>
+      <super
+            type="fede.tool.workspace.view.melusine.marker">
+      </super>
+   </extension>
+   <extension
+         id="fede.tool.workspace.view.composition.builder"
+         name="Item Composition Builder"
+         point="org.eclipse.core.resources.builders">
+      <builder
+            isConfigurable="false"
+            hasNature="true">
+         <run
+               class="fede.workspace.eclipse.composition.CompositeBuilder">
+         </run>
+      </builder>
+   </extension>
+   <extension
+         id="fede.tool.workspace.view.composite.builder.marker"
+         point="org.eclipse.core.resources.markers">
+      <persistent
+            value="true">
+      </persistent>
+      <super
+            type="fede.tool.workspace.view.melusine.marker">
+      </super>
+   </extension>
+   <extension
+         id="fede.tool.workspace.view.dependencies.resolution.marker"
+         point="org.eclipse.core.resources.markers">
+      <persistent
+            value="true">
+      </persistent>
+      <super
+            type="fede.tool.workspace.view.melusine.marker">
+      </super>
+   </extension>
    <extension
          point="org.eclipse.ui.views">
       <category
@@ -106,19 +145,20 @@
             id="fede.workspace.tool.view.WSView">
       </view>
       <view
+            name="Workspace link"
+            icon="icons/book14.gif"
             category="fede.workspace.tool.view"
             class="fede.workspace.tool.view.WSLinkView"
-            icon="icons/book14.gif"
-            id="fede.workspace.tool.view.WSLinkView"
-            name="Workspace link"/>
+            id="fede.workspace.tool.view.WSLinkView">
+      </view>
       <view
+            name="Workspace content"
+            icon="icons/folder.gif"
             category="fede.workspace.tool.view"
             class="fede.workspace.tool.view.content.WSContentView"
-            icon="icons/folder.gif"
-            id="fede.workspace.tool.view.WSContentView"
-            name="Workspace content"/>
+            id="fede.workspace.tool.view.WSContentView">
+      </view>
    </extension>
-
    <extension
          point="org.eclipse.ui.perspectives">
       <perspective
@@ -131,110 +171,69 @@
    <extension
          point="org.eclipse.ui.popupMenus">
       <viewerContribution
-            id="Tool.Workspace.View.viewerContribution12"
-            targetID="fede.workspace.tool.view.WSView">
-        <!-- <action
-               class="fede.workspace.tool.view.actions.UnloadAction"
-               id="Tool.Workspace.View.shadow"
-               label="%action.label.unload"
-               menubarPath="WS-Actions"/>-->
-         <!--action
-               class="fede.workspace.tool.view.actions.DeleteLink"
-               enablesFor="1"
-               id="Tool.Workspace.View.delete-link"
-               label="%action.label.delete-link"
-               menubarPath="WS-Actions"/  -->
-        <!-- <action
-               class="fede.workspace.tool.view.actions.LoadAction"
-               id="Tool.Workspace.View.load"
-               label="%action.label.load"
-               menubarPath="WS-Actions"/>-->
-
-          <!--<action
-               class="fede.workspace.tool.view.actions.ChangeTypeAction"
-               id="Tool.Workspace.View.changetype"
-               label="change type"
-               menubarPath="WS-Actions"/>-->
-
-         <!-- action
-               class="fede.workspace.tool.view.actions.AddLink"
-               enablesFor="2"
-               id="Tool.Workspace.View.addlink"
-               label="%action.label.create-link"
-               menubarPath="WS-Actions"/ -->
-
+            targetID="fede.workspace.tool.view.WSView"
+            id="Tool.Workspace.View.viewerContribution12">
       </viewerContribution>
-      <!-- objectContribution
-            adaptable="false"
-            id="Tool.Workspace.View.objectContribution1"
-            nameFilter="*.BND"
-            objectClass="org.eclipse.core.resources.IFile">
-         <action
-               class="tool.Workspace.View.Action1"
-               id="Tool.Workspace.View.action1"
-               label="Tool.Workspace.View.action1"/>
-      </objectContribution -->
-      <!-- objectContribution
-            id="SI.Workspace.View.objectContribution1"
-            objectClass="org.eclipse.core.resources.IResource">
-         <menu
-               id="SI.Workspace.View.menu1"
-               label="workspace test">
-            <groupMarker
-                  name="check">
-            </groupMarker>
-            <groupMarker
-                  name="test">
-            </groupMarker>
-         </menu>
-         <action
-               class="sI.Workspace.View.FileChangeAction"
-               id="SI.Workspace.View.action1"
-               label="registerOperation">
-         </action>
-      </objectContribution-->
    </extension>
    <extension
          point="org.eclipse.ui.propertyPages">
       <page
+            objectClass="fr.imag.adele.cadse.core.Item"
             adaptable="true"
-            class="fede.workspace.model.manager.properties.impl.ui.FieldsPropertyPage"
-            id="fede.workspace.tool.properties.1"
             name="%page.name.0"
-            objectClass="fede.workspace.domain.Item">
+            class="fede.workspace.model.manager.properties.impl.ui.FieldsPropertyPage"
+            id="fede.workspace.tool.properties.1">
       </page>
    </extension>
    <extension
          point="org.eclipse.core.runtime.adapters">
       <factory
-            adaptableType="fede.workspace.domain.Item"
-            class="fede.workspace.tool.view.adapter.WSAdapterFactory">
-         <adapter type="org.eclipse.core.resources.IResource"/>
-         <adapter type="org.eclipse.ui.views.properties.IPropertySource2"/>
-         <adapter type="org.eclipse.ui.views.properties.IPropertySource"/>
-         <adapter type="org.eclipse.ui.IActionFilter"/>
+            class="fede.workspace.tool.view.adapter.WSAdapterFactory"
+            adaptableType="fr.imag.adele.cadse.core.Item">
+         <adapter
+               type="org.eclipse.core.resources.IResource">
+         </adapter>
+         <adapter
+               type="org.eclipse.ui.views.properties.IPropertySource2">
+         </adapter>
+         <adapter
+               type="org.eclipse.ui.views.properties.IPropertySource">
+         </adapter>
+         <adapter
+               type="org.eclipse.ui.IActionFilter">
+         </adapter>
       </factory>
       <factory
-            adaptableType="fede.workspace.tool.view.ItemInViewer"
-            class="fede.workspace.tool.view.adapter.WSAdapterItemInViewFactory">
-         <adapter type="fede.workspace.domain.Item"/>
-         <adapter type="org.eclipse.core.resources.IResource"/>
-         <adapter type="org.eclipse.ui.views.properties.IPropertySource"/>
-         <adapter type="org.eclipse.ui.IActionFilter"/>
+            class="fede.workspace.tool.view.adapter.WSAdapterItemInViewFactory"
+            adaptableType="fede.workspace.tool.view.ItemInViewer">
+         <adapter
+               type="fr.imag.adele.cadse.core.Item">
+         </adapter>
+         <adapter
+               type="org.eclipse.core.resources.IResource">
+         </adapter>
+         <adapter
+               type="org.eclipse.ui.views.properties.IPropertySource">
+         </adapter>
+         <adapter
+               type="org.eclipse.ui.IActionFilter">
+         </adapter>
       </factory>
       <factory
-            adaptableType="org.eclipse.core.resources.IResource"
-            class="fede.workspace.tool.view.adapter.WSResourceAdapterFactory">
-         <adapter type="fede.workspace.domain.Item"/>
+            class="fede.workspace.tool.view.adapter.WSResourceAdapterFactory"
+            adaptableType="org.eclipse.core.resources.IResource">
+         <adapter
+               type="fr.imag.adele.cadse.core.Item">
+         </adapter>
       </factory>
    </extension>
-	<extension
-		point="org.eclipse.ui.decorators">
-	 <decorator
+   <extension
+         point="org.eclipse.ui.decorators">
+      <decorator
             lightweight="true"
             objectClass="org.eclipse.core.resources.IResource"
-            adaptable="true"
             location="BOTTOM_RIGHT"
+            adaptable="true"
             label="%decorator.label.0"
             state="false"
             class="fede.workspace.tool.view.decorator.ItemDecorator"
@@ -243,139 +242,138 @@
             %decorator.description.0
          </description>
       </decorator>
-  <decorator
-        class="fede.workspace.tool.view.decorator.WorkspaceCopyLabelDecorator"
-        id="SI.Workspace.View.decorator1"
-        label="item copy deco"
-        lightweight="true"
-        location="BOTTOM_LEFT">
-  </decorator>
- 	</extension>
+      <decorator
+            lightweight="true"
+            location="BOTTOM_LEFT"
+            label="item copy deco"
+            class="fede.workspace.tool.view.decorator.WorkspaceCopyLabelDecorator"
+            id="SI.Workspace.View.decorator1">
+      </decorator>
+   </extension>
+   <extension
+         point="fr.imag.workspace.custom.filter.elementFilters">
+      <filter
+            name="%filter.name.0"
+            enabled="true"
+            description="%filter.description.0"
+            hidden="false"
+            class="fede.workspace.tool.view.filters.FilterEmptyRelation"
+            multipleFilter="false"
+            id="filterEmptyRelationFede">
+      </filter>
+      <filter
+            name="%filter.name.1"
+            enabled="true"
+            description="%filter.description.1"
+            hidden="true"
+            class="fede.workspace.tool.view.filters.FilterNotAggregation"
+            multipleFilter="false"
+            id="NotAggregation">
+      </filter>
+      <filter
+            name="%filter.name.2"
+            enabled="true"
+            description="%filter.description.2"
+            hidden="true"
+            class="fede.workspace.tool.view.filters.FilterLinkTypeFrom"
+            multipleFilter="false"
+            id="FilterLinkTypeFrom">
+      </filter>
+      <filter
+            name="%filter.name.4"
+            enabled="false"
+            description="%filter.description.4"
+            hidden="true"
+            class="fede.workspace.tool.view.filters.FilterLinkTypeTo"
+            multipleFilter="false"
+            id="FilterLinkTypeTo">
+      </filter>
+      <filter
+            name="%filter.name.5"
+            enabled="true"
+            description="%filter.description.5"
+            hidden="false"
+            class="fede.workspace.tool.view.filters.FilterHidden"
+            multipleFilter="false"
+            id="FilterHidden">
+      </filter>
+      <filter
+            name="%filter.name.7"
+            enabled="true"
+            description="%filter.description.7"
+            hidden="false"
+            class="fede.workspace.tool.view.filters.FilterDerivedLink"
+            multipleFilter="false"
+            id="FilterDerivedLink">
+      </filter>
+      <filter
+            name="%filter.name.9"
+            enabled="false"
+            description="%filter.description.9"
+            hidden="false"
+            class="fede.workspace.tool.view.filters.FilterUnresolvedLink"
+            multipleFilter="false"
+            id="FilterUnresolvedLink">
+      </filter>
+      <filter
+            name="Doublon"
+            enabled="true"
+            description="Doublon"
+            hidden="false"
+            class="fede.workspace.tool.view.filters.FilterDoublon"
+            multipleFilter="false"
+            id="fede.workspace.tool.view.filters.FilterDoublon">
+      </filter>
+      <filter
+            name="instance of"
+            enabled="true"
+            description="link instance of"
+            hidden="false"
+            class="fede.workspace.tool.view.filters.FilterInstanceOf"
+            multipleFilter="false"
+            id="instanceof">
+      </filter>
+   </extension>
+   <extension
+         point="org.eclipse.ui.exportWizards">
+      <wizard
+            name="Export workspace items and resource"
+            class="fede.workspace.tool.exportImport.ExportWizard"
+            id="Tool.Workspace.View.exportwizard">
+      </wizard>
+   </extension>
+   <extension
+         point="org.eclipse.ui.importWizards">
+      <wizard
+            name="Import workspace items and resource"
+            class="fede.workspace.tool.exportImport.ImportWizard"
+            id="Tool.Workspace.View.impotwizard">
+      </wizard>
+   </extension>
+   <extension
+         point="org.eclipse.ant.core.antTasks">
+      <antTask
+            library="workspace-ant.jar"
+            name="fede.workspace.composite-jar"
+            headless="false"
+            eclipseRuntime="true"
+            class="fede.workspace.ant.CompositeJar">
+      </antTask>
+      <antTask
+            library="workspace-ant.jar"
+            name="fede.workspace.copy-item"
+            headless="false"
+            eclipseRuntime="true"
+            class="fede.workspace.ant.CopyItem">
+      </antTask>
+   </extension>
+   <extension
+         point="org.eclipse.ant.core.extraClasspathEntries">
+      <extraClasspathEntry
+            library="workspace-ant.jar"
+            headless="false"
+            eclipseRuntime="true">
+      </extraClasspathEntry>
+   </extension>
 
-
-
-    <extension
-          point="fr.imag.workspace.custom.filter.elementFilters">
-       <filter
-             class="fede.workspace.tool.view.filters.FilterEmptyRelation"
-             description="%filter.description.0"
-             enabled="true"
-             hidden="false"
-             id="filterEmptyRelationFede"
-             multipleFilter="false"
-             name="%filter.name.0"/>
-       <filter
-             class="fede.workspace.tool.view.filters.FilterNotAggregation"
-             description="%filter.description.1"
-             enabled="true"
-             hidden="true"
-             id="NotAggregation"
-             multipleFilter="false"
-             name="%filter.name.1"/>
-       <filter
-             class="fede.workspace.tool.view.filters.FilterLinkTypeFrom"
-             description="%filter.description.2"
-             enabled="true"
-             hidden="true"
-             id="FilterLinkTypeFrom"
-             multipleFilter="false"
-             name="%filter.name.2"/>
-       <filter
-             class="fede.workspace.tool.view.filters.FilterLinkTypeTo"
-             description="%filter.description.4"
-             enabled="false"
-             hidden="true"
-             id="FilterLinkTypeTo"
-             multipleFilter="false"
-             name="%filter.name.4"/>
-        <filter
-             class="fede.workspace.tool.view.filters.FilterHidden"
-             description="%filter.description.5"
-             enabled="true"
-             hidden="false"
-             id="FilterHidden"
-             multipleFilter="false"
-             name="%filter.name.5"/>
-         <filter
-             class="fede.workspace.tool.view.filters.FilterDerivedLink"
-             description="%filter.description.7"
-             enabled="true"
-             hidden="false"
-             id="FilterDerivedLink"
-             multipleFilter="false"
-             name="%filter.name.7"/>
-        <filter
-             class="fede.workspace.tool.view.filters.FilterUnresolvedLink"
-             description="%filter.description.9"
-             enabled="false"
-             hidden="false"
-             id="FilterUnresolvedLink"
-             multipleFilter="false"
-             name="%filter.name.9"/>
-        <filter
-             class="fede.workspace.tool.view.filters.FilterDoublon"
-             description="Doublon"
-             enabled="true"
-             hidden="false"
-             id="fede.workspace.tool.view.filters.FilterDoublon"
-             multipleFilter="false"
-             name="Doublon"/>
-        <filter
-              class="fede.workspace.tool.view.filters.FilterInstanceOf"
-              description="link instance of"
-              enabled="true"
-              hidden="false"
-              id="instanceof"
-              multipleFilter="false"
-              name="instance of">
-        </filter>
-    </extension>
-
-
-
-    <extension
-          point="org.eclipse.ui.exportWizards">
-       <wizard
-             class="fede.workspace.tool.exportImport.ExportWizard"
-             id="Tool.Workspace.View.exportwizard"
-             name="Export workspace items and resource"/>
-    </extension>
-    <extension
-          point="org.eclipse.ui.importWizards">
-       <wizard
-             class="fede.workspace.tool.exportImport.ImportWizard"
-             id="Tool.Workspace.View.impotwizard"
-             name="Import workspace items and resource"/>
-    </extension>
-    <extension
-          point="org.eclipse.ant.core.antTasks">
-       <antTask
-             class="fede.workspace.ant.CompositeJar"
-             eclipseRuntime="true"
-             headless="false"
-             library="workspace-ant.jar"
-             name="fede.workspace.composite-jar"/>
-       <antTask
-             class="fede.workspace.ant.CopyItem"
-             eclipseRuntime="true"
-             headless="false"
-             library="workspace-ant.jar"
-             name="fede.workspace.copy-item"/>
-    </extension>
-    <extension
-          point="org.eclipse.ant.core.extraClasspathEntries">
-       <extraClasspathEntry
-             eclipseRuntime="true"
-             headless="false"
-             library="workspace-ant.jar"/>
-    </extension>
-    <!-- extension
-          point="org.eclipse.ui.editors">
-       <editor
-             class="fede.workspace.model.manager.properties.editor.ItemEditorPart"
-             default="false"
-             icon="icons/ws_perspective.gif"
-             id="fede.mel.workspace.editor-item"
-             name="Item editor"/>
-    </extension -->
 </plugin>
