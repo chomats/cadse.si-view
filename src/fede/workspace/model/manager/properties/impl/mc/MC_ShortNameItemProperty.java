@@ -29,6 +29,7 @@ import fr.imag.adele.cadse.core.ItemState;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.impl.CadseCore;
 import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
+import fr.imag.adele.cadse.core.key.ISpaceKey;
 import fr.imag.adele.cadse.core.ui.UIField;
 
 /**
@@ -136,28 +137,32 @@ public class MC_ShortNameItemProperty extends MC_AttributesItem {
 			setMessageError(message);
 			return true;
 		}
-
-		try {
-			item.setName(shortId);
-		} catch (CadseException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-			setMessageError(Messages.bind(Messages.mc_cannot_set_name, e1.getMessage()));
-			return true;
-		}
+		
 		if (item.getType().hasQualifiedNameAttribute()) {
 			String un = im.computeQualifiedName(item, shortId, item.getPartParent(), item.getPartParentLinkType());
+			Item foundItem = item.getLogicalWorkspace().getItem(un);
+			if (foundItem != null && foundItem != item) {
+				setMessageError(Messages.mc_name_already_exists);
+				return true;
+			}
+		}
+		
+		if (item.getType().getSpaceKeyType() != null) {
+			ISpaceKey key;
 			try {
-				item.setQualifiedName(un);
+				key = item.getType().getSpaceKeyType().computeKey(item);
+				key.setName(shortId);
 			} catch (CadseException e) {
 				WSPlugin.logException(e);
 				setMessageError(e.getMessage());
 				return true;
 			}
-		}
-		if (item.getLogicalWorkspace().existsItem(item)) {
-			setMessageError(Messages.mc_name_already_exists);
-			return true;
+			Item foundItem = item.getLogicalWorkspace().getItem(key);
+			if (foundItem != null && foundItem != item) {
+				setMessageError(Messages.mc_name_already_exists);
+				return true;
+			}
+			
 		}
 
 		return false;
