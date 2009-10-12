@@ -65,6 +65,7 @@ public class ValidationBuilder extends MelusineBuilder implements IItemManager.P
 
 			for (Item aItem : model.getItems()) {
 				try {
+					if (aItem == null && aItem.getType() == null) continue;
 					performValidation(aItem, monitor);
 				} catch (Throwable e) {
 					e.printStackTrace();
@@ -152,7 +153,6 @@ public class ValidationBuilder extends MelusineBuilder implements IItemManager.P
 	 */
 	private List<Item> performValidation(Item item, IProgressMonitor monitor) throws CoreException {
 		monitor.subTask("Item Validation " + item.getName());
-
 		IItemManager manager = item.getType().getItemManager();
 		List<Item> dependantOnItems = manager.validate(item, this);
 		if (dependantOnItems == null) {

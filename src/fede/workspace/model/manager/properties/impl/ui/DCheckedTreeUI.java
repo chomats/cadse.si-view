@@ -41,7 +41,7 @@ import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.PlatformUI;
 
 import fede.workspace.model.manager.properties.impl.ic.IC_TreeCheckedUI;
-import fr.imag.adele.cadse.core.CadseRootCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 import fr.imag.adele.cadse.core.ui.IFedeFormToolkit;
@@ -341,7 +341,7 @@ public class DCheckedTreeUI extends DAbstractField implements SelectionListener,
 	}
 
 	public ItemType getType() {
-		return CadseRootCST.DCHECKED_TREE;
+		return CadseGCST.DCHECKED_TREE;
 	}
 
 	@Override
@@ -405,6 +405,8 @@ public class DCheckedTreeUI extends DAbstractField implements SelectionListener,
 	}
 
 	public void selectObject(final Object obj, final boolean sel) {
+		if (_treeItems == null)
+			return;
 		PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 			public void run() {
 				selectObject_(obj, sel);
