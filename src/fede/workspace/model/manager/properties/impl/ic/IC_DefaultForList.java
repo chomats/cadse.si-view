@@ -30,7 +30,7 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Shell;
 
 import fede.workspace.model.manager.properties.IInteractionControllerForList;
-import fr.imag.adele.cadse.core.CadseRootCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.attribute.CheckStatus;
@@ -78,8 +78,8 @@ public class IC_DefaultForList extends IC_AbstractForList implements IInteractio
 
 	@Override
 	public boolean commitSetAttribute(IAttributeType<?> type, String key, Object value) {
-		if (type == CadseRootCST.IC_STRING_LIST_FOR_LIST_at_ALLOW_DUPLICATE_) {
-			_allowDuplicate = Convert.toBoolean(value, CadseRootCST.IC_STRING_LIST_FOR_LIST_at_ALLOW_DUPLICATE_, false);
+		if (type == CadseGCST.IC_STRING_LIST_FOR_LIST_at_ALLOW_DUPLICATE_) {
+			_allowDuplicate = Convert.toBoolean(value, CadseGCST.IC_STRING_LIST_FOR_LIST_at_ALLOW_DUPLICATE_, false);
 		}
 		return super.commitSetAttribute(type, key, value);
 	}
@@ -97,7 +97,7 @@ public class IC_DefaultForList extends IC_AbstractForList implements IInteractio
 	}
 
 	public ItemType getType() {
-		return CadseRootCST.IC_STRING_LIST_FOR_LIST;
+		return CadseGCST.IC_STRING_LIST_FOR_LIST;
 	}
 
 	@Override
@@ -107,7 +107,7 @@ public class IC_DefaultForList extends IC_AbstractForList implements IInteractio
 
 	@Override
 	public <T> T internalGetGenericOwnerAttribute(IAttributeType<T> type) {
-		if (type == CadseRootCST.IC_STRING_LIST_FOR_LIST_at_ALLOW_DUPLICATE_) {
+		if (type == CadseGCST.IC_STRING_LIST_FOR_LIST_at_ALLOW_DUPLICATE_) {
 			return (T) Boolean.valueOf(_allowDuplicate);
 		}
 		return super.internalGetGenericOwnerAttribute(type);
@@ -142,7 +142,7 @@ public class IC_DefaultForList extends IC_AbstractForList implements IInteractio
 				if (subAtt != null) {
 					CheckStatus error = subAtt.check(getItem(), newText);
 					if (error != null) {
-						return error._message;
+						return error.getFormatedMessage();
 					}
 				}
 				return null;
