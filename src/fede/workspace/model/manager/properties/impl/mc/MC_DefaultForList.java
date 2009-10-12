@@ -30,8 +30,8 @@ import fr.imag.adele.cadse.core.ui.UIField;
 
 public class MC_DefaultForList extends MC_AttributesItem {
 
-	final int	min;
-	final int	max;
+	int	min;
+	int	max;
 
 	public MC_DefaultForList(int min, int max) {
 		this.min = min;
@@ -87,8 +87,8 @@ public class MC_DefaultForList extends MC_AttributesItem {
 			for (Object o : l) {
 				CheckStatus error = subatt.check(getItem(), o);
 				if (error != null) {
-					if (error._type == IPageController.ERROR) {
-						setMessageError(error._message);
+					if (error.getType() == IPageController.ERROR) {
+						setMessageError(error.getFormatedMessage());
 						return true;
 					}
 				}
@@ -100,5 +100,7 @@ public class MC_DefaultForList extends MC_AttributesItem {
 	protected boolean isEnable() {
 		return true;
 	}
+	
+	
 
 }
