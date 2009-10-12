@@ -78,7 +78,7 @@ public class FieldsCore {
 
 	static public Pages createWizard(AbstractActionPage action, IPage... pages) {
 
-		return new PagesImpl(action, pages);
+		return new PagesImpl(false, action, pages);
 	}
 
 	static public DBrowserUI createOneFolderOrFileField(String key, String label, String title, String message,

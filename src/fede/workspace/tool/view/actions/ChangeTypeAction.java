@@ -38,7 +38,6 @@ import fr.imag.adele.cadse.core.impl.ui.AbstractActionPage;
 import fr.imag.adele.cadse.core.impl.ui.PageImpl;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
 
-
 // TODO is disable.
 public class ChangeTypeAction implements IViewActionDelegate {
 
@@ -116,7 +115,7 @@ public class ChangeTypeAction implements IViewActionDelegate {
 		PageImpl p1 = new PageImpl("page-item", "selector", "Select an item type", "Select an item type", false, 3,
 				null, treeUI);
 
-		return new PagesImpl(new ChangeTypeActionPage(treeUI), p1);
+		return new PagesImpl(false, new ChangeTypeActionPage(treeUI), p1);
 
 	}
 

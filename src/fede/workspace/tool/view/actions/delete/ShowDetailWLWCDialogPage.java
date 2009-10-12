@@ -58,7 +58,7 @@ import fede.workspace.tool.view.node.ItemsRule;
 import fede.workspace.tool.view.node.LinkNode;
 import fede.workspace.tool.view.node.Rule;
 import fr.imag.adele.cadse.core.CadseException;
-import fr.imag.adele.cadse.core.CadseRootCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -510,9 +510,9 @@ public class ShowDetailWLWCDialogPage extends PageImpl {
 				model.addRule(FilteredItemNodeModel.ROOT_ENTRY, new ItemsRule(null, _rootElements));
 
 				// children are all destinations items
-				// model.addRule(CadseRootCST.ITEM_TYPE, new
+				// model.addRule(CadseGCST.ITEM, new
 				// LinkTypeCategoryRule());
-				model.addRule(CadseRootCST.ITEM_TYPE, new ItemOperationFromCurrentItemOperation());
+				model.addRule(CadseGCST.ITEM, new ItemOperationFromCurrentItemOperation());
 			}
 			return super.getTreeModel();
 		}
@@ -786,7 +786,7 @@ public class ShowDetailWLWCDialogPage extends PageImpl {
 			public void run() {
 				try {
 					final ShowDetailWLWCDialogPage p = new ShowDetailWLWCDialogPage(copy, title, label);
-					final Pages f = new PagesImpl(p.getFinishAction(), p);
+					final Pages f = new PagesImpl(false, p.getFinishAction(), p);
 					WizardController wc = new WizardController(f) {
 
 						@Override
@@ -865,7 +865,7 @@ public class ShowDetailWLWCDialogPage extends PageImpl {
 
 	@Override
 	public ItemType getParentItemType() {
-		return CadseRootCST.ITEM_TYPE;
+		return CadseGCST.ITEM;
 	}
 
 	protected void computeItemsToShow() {

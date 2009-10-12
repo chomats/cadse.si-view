@@ -42,7 +42,7 @@ import fede.workspace.tool.view.node.FilteredItemNode;
 import fede.workspace.tool.view.node.FilteredItemNodeModel;
 import fede.workspace.tool.view.node.ItemNode;
 import fede.workspace.tool.view.node.FilteredItemNode.Category;
-import fr.imag.adele.cadse.core.CadseRootCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseRuntime;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
@@ -99,7 +99,7 @@ public class CadseDialogPage extends PageImpl {
 			HashSet<CadseRuntime> selection = new HashSet<CadseRuntime>();
 			for (int i = 0; i < array.length; i++) {
 				IItemNode node = (IItemNode) array[i];
-				if (node.getItem() != null && node.getItem().getType() == CadseRootCST.CADSE_RUNTIME) {
+				if (node.getItem() != null && node.getItem().getType() == CadseGCST.CADSE_RUNTIME) {
 					selection.add((CadseRuntime) node.getItem());
 				}
 			}
@@ -135,7 +135,7 @@ public class CadseDialogPage extends PageImpl {
 		@Override
 		public String canObjectDeselected(Object object) {
 			IItemNode node = (IItemNode) object;
-			if (node.getItem() == null || node.getItem().getType() != CadseRootCST.CADSE_RUNTIME) {
+			if (node.getItem() == null || node.getItem().getType() != CadseGCST.CADSE_RUNTIME) {
 				return "not good item";
 			}
 			CadseRuntime cadseRuntime = ((CadseRuntime) node.getItem());
@@ -164,7 +164,7 @@ public class CadseDialogPage extends PageImpl {
 		@Override
 		public String canObjectSelected(Object object) {
 			IItemNode node = (IItemNode) object;
-			if (node.getItem() == null || node.getItem().getType() != CadseRootCST.CADSE_RUNTIME) {
+			if (node.getItem() == null || node.getItem().getType() != CadseGCST.CADSE_RUNTIME) {
 				return "not good item";
 			}
 			if (((CadseRuntime) node.getItem()).getErrors() != null) {
@@ -188,7 +188,7 @@ public class CadseDialogPage extends PageImpl {
 				model = new FilteredItemNodeModel();
 				// en premier on rajoute les insances de cadse runtime trier par
 				// le nom
-				model.addItemFromItemTypeEntry(null, CadseRootCST.CADSE_RUNTIME, ItemShortNameComparator.INSTANCE);
+				model.addItemFromItemTypeEntry(null, CadseGCST.CADSE_RUNTIME, ItemShortNameComparator.INSTANCE);
 
 				// on creer deux categories
 				categoryExtendsTo = new FilteredItemNode.Category();
@@ -198,10 +198,10 @@ public class CadseDialogPage extends PageImpl {
 				categoryExtendedBy.name = "extended by";
 
 				// on lie les deux category à un instance de ce Cadseruntime
-				model.addCategories(CadseRootCST.CADSE_RUNTIME, categoryExtendsTo, categoryExtendedBy);
-				model.addItemFromLinkTypeEntry(categoryExtendsTo, CadseRootCST.CADSE_RUNTIME_lt_EXTENDS,
+				model.addCategories(CadseGCST.CADSE_RUNTIME, categoryExtendsTo, categoryExtendedBy);
+				model.addItemFromLinkTypeEntry(categoryExtendsTo, CadseGCST.CADSE_RUNTIME_lt_EXTENDS,
 						ItemShortNameComparator.INSTANCE, false, false);
-				model.addItemFromLinkTypeEntry(categoryExtendedBy, CadseRootCST.CADSE_RUNTIME_lt_EXTENDS,
+				model.addItemFromLinkTypeEntry(categoryExtendedBy, CadseGCST.CADSE_RUNTIME_lt_EXTENDS,
 						ItemShortNameComparator.INSTANCE, false, true);
 
 			}
@@ -230,7 +230,7 @@ public class CadseDialogPage extends PageImpl {
 		@Override
 		public void select(Object data) {
 			IItemNode node = (IItemNode) data;
-			if (node.getItem() == null || node.getItem().getType() != CadseRootCST.CADSE_RUNTIME) {
+			if (node.getItem() == null || node.getItem().getType() != CadseGCST.CADSE_RUNTIME) {
 				return;
 			}
 			setSelectedItem(node.getItem());
@@ -284,7 +284,7 @@ public class CadseDialogPage extends PageImpl {
 		public void notifieSubValueAdded(UIField field, Object added) {
 			if (added instanceof CategoryNode) {
 				for (IItemNode n : ((CategoryNode) added).getChildren()) {
-					if (n.getItem() != null && n.getItem().getType() == CadseRootCST.CADSE_RUNTIME) {
+					if (n.getItem() != null && n.getItem().getType() == CadseGCST.CADSE_RUNTIME) {
 						((DTreeModelUI) field).selectNode(n);
 					}
 				}
@@ -292,12 +292,12 @@ public class CadseDialogPage extends PageImpl {
 			}
 			if (added instanceof IItemNode) {
 				IItemNode n = (IItemNode) added;
-				if (n.getItem() != null && n.getItem().getType() == CadseRootCST.CADSE_RUNTIME) {
+				if (n.getItem() != null && n.getItem().getType() == CadseGCST.CADSE_RUNTIME) {
 					selected.add((CadseRuntime) n.getItem());
 					for (IItemNode nc : n.getChildren()) {
 						if (nc instanceof CategoryNode && ((CategoryNode) nc).getCategory() == categoryExtendsTo) {
 							for (IItemNode nnc : nc.getChildren()) {
-								if (nnc.getItem() != null && n.getItem().getType() == CadseRootCST.CADSE_RUNTIME) {
+								if (nnc.getItem() != null && n.getItem().getType() == CadseGCST.CADSE_RUNTIME) {
 									if (selected.add((CadseRuntime) nnc.getItem())) {
 										((DTreeModelUI) field).selectNode(nnc);
 										notifieSubValueAdded(field, nnc);
@@ -314,7 +314,7 @@ public class CadseDialogPage extends PageImpl {
 		public void notifieSubValueRemoved(UIField field, Object removed) {
 			if (removed instanceof IItemNode) {
 				IItemNode n = (IItemNode) removed;
-				if (n.getItem() != null && n.getItem().getType() == CadseRootCST.CADSE_RUNTIME) {
+				if (n.getItem() != null && n.getItem().getType() == CadseGCST.CADSE_RUNTIME) {
 					selected.remove(n.getItem());
 				}
 			}
@@ -435,7 +435,7 @@ public class CadseDialogPage extends PageImpl {
 	 * Create a text field to display the description's CadseRuntime item
 	 */
 	public DTextUI createFieldDescription() {
-		return new DTextUI(CadseRootCST.CADSE_RUNTIME_at_DESCRIPTION, "description", EPosLabel.left,
+		return new DTextUI(CadseGCST.CADSE_RUNTIME_at_DESCRIPTION, "description", EPosLabel.left,
 				new MyMC_AttributesItem(), null, 20, "", true, false, true);
 	}
 
@@ -443,7 +443,7 @@ public class CadseDialogPage extends PageImpl {
 	 * Create a text field to display the version's CadseRuntime item
 	 */
 	public DTextUI createFieldTWVersion() {
-		return new DTextUI(CadseRootCST.ITEM_TYPE_at_TW_VERSION, "version", EPosLabel.left, new MyMC_AttributesItem(),
+		return new DTextUI(CadseGCST.ITEM_at_TW_VERSION, "version", EPosLabel.left, new MyMC_AttributesItem(),
 				null, 1, "", false, false, false);
 	}
 
@@ -455,7 +455,7 @@ public class CadseDialogPage extends PageImpl {
 	 */
 	public static Pages createPages(CadseRuntime[][] ret) {
 		CadseDialogPage p = new CadseDialogPage(ret);
-		return new PagesImpl(p.newAction(), p);
+		return new PagesImpl(false, p.newAction(), p);
 	}
 
 	/**
@@ -557,6 +557,6 @@ public class CadseDialogPage extends PageImpl {
 
 	@Override
 	public ItemType getParentItemType() {
-		return CadseRootCST.ITEM_TYPE;
+		return CadseGCST.ITEM;
 	}
 }

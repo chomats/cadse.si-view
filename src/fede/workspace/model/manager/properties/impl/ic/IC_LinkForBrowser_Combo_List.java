@@ -41,7 +41,7 @@ import fede.workspace.model.manager.properties.IInteractionControllerForList;
 import fede.workspace.model.manager.properties.Proposal;
 import fede.workspace.tool.view.WSPlugin;
 import fr.imag.adele.cadse.core.CadseException;
-import fr.imag.adele.cadse.core.CadseRootCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
@@ -49,10 +49,14 @@ import fr.imag.adele.cadse.core.ItemState;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.delta.ItemDelta;
+import fr.imag.adele.cadse.core.delta.LinkDelta;
 import fr.imag.adele.cadse.core.impl.CadseCore;
+import fr.imag.adele.cadse.core.impl.CadseIllegalArgumentException;
 import fr.imag.adele.cadse.core.oper.WSOCreateLink;
 import fr.imag.adele.cadse.core.oper.WSODeleteLink;
 import fr.imag.adele.cadse.core.transaction.LogicalWorkspaceTransaction;
+import fr.imag.adele.cadse.core.ui.Pages;
 import fr.imag.adele.fede.workspace.si.view.View;
 
 /**
@@ -64,6 +68,8 @@ public class IC_LinkForBrowser_Combo_List extends IC_AbstractTreeDialogForList_B
 		IInteractionControllerForBrowserOrCombo, IFieldContenProposalProvider, IContentProposalProvider,
 		IInteractionControllerForList {
 	LinkType	linkType;
+	boolean 	deleteExistingLink = true;
+	
 
 	public IC_LinkForBrowser_Combo_List(String title, String message, LinkType linkType) {
 		super(title, message);
@@ -100,27 +106,30 @@ public class IC_LinkForBrowser_Combo_List extends IC_AbstractTreeDialogForList_B
 	}
 
 	public Link createLink(Item item, Item dest) throws CadseException {
-
-		List<Link> result = item.getOutgoingLinks(getLinkType());
-		if (result != null) {
-			for (Link l : result) {
-				WSODeleteLink oper = new WSODeleteLink(l);
-				oper.execute();
-				CadseCore.registerInTestIfNeed(oper);
+		LogicalWorkspaceTransaction copy = null;
+		Pages pages = getUIField().getPages();
+		if (pages.isModificationPages()) {
+			copy = getUIField().getLogicalWorkspace().createTransaction();
+		} else
+			copy = pages.getCopy();
+		
+		ItemDelta deltaItem = copy.loadItem(item);
+		if (deleteExistingLink) {
+			List<Link> result = deltaItem.getOutgoingLinks(getLinkType());
+			if (result != null) {
+				for (Link l : result) {
+					((LinkDelta)l).delete();
+				}
 			}
 		}
-
-		WSOCreateLink createLinkOper = new WSOCreateLink(item, getLinkType(), dest);
-		createLinkOper.execute();
-		if ((item.getState() != ItemState.NOT_IN_WORKSPACE)) {
-			CadseCore.registerInTestIfNeed(createLinkOper);
+		LinkDelta linkDetla = deltaItem.createLink(getLinkType(), dest);
+		
+		if (pages.isModificationPages()) {
+			copy.commit();
+			return item.getOutgoingLink(getLinkType(), dest.getId());
 		}
-		createLinkOper.throwCadseException();
-
-		Link newLink = createLinkOper.getResultat();
-		// newLink = item.createLink(linkType,dest);
-
-		return newLink;
+		else
+			return linkDetla;
 	}
 
 	public char[] getAutoActivationCharacters() {
@@ -295,7 +304,10 @@ public class IC_LinkForBrowser_Combo_List extends IC_AbstractTreeDialogForList_B
 	public Object fromString(String value) {
 
 		Link v = (Link) getUIField().getVisualValue();
-
+		if (value == null) {
+			throw new CadseIllegalArgumentException("Argument value is null");
+		}
+		
 		if (value.equals("<none>")) {
 			if (v != null) {
 				try {
@@ -368,7 +380,7 @@ public class IC_LinkForBrowser_Combo_List extends IC_AbstractTreeDialogForList_B
 					+ " of type " + lt.getDisplayName();
 		}
 
-		if (lt.getMax() != -1) {
+		if (!deleteExistingLink && lt.getMax() != -1) {
 			if (source.getOutgoingItems(lt, false).size() >= lt.getMax()) {
 				return "error maximum cardinality is exceed of link type " + lt.getDisplayName();
 			}
@@ -377,7 +389,7 @@ public class IC_LinkForBrowser_Combo_List extends IC_AbstractTreeDialogForList_B
 	}
 
 	public ItemType getType() {
-		return CadseRootCST.IC_LINK_FOR_BROWSER_COMBO_LIST;
+		return CadseGCST.IC_LINK_FOR_BROWSER_COMBO_LIST;
 	}
 
 	public boolean moveDown(Object[] object) {
