@@ -441,78 +441,190 @@ iPOJO-Components: component { $immediate="true" $classname="fr.imag.ade
  .si.view.View" $architecture="true" callback { $transition="validate" 
  $method="start" }callback { $transition="invalidate" $method="stop" }p
  rovides { $specification="fr.imag.adele.fede.workspace.as.eclipse.IEcl
- ipse" }manipulation { field { $name="persitence" $type="fr.imag.adele.
- fede.workspace.as.persistence.IPersistence" }field { $name="testServic
- e" $type="fr.imag.adele.fede.workspace.as.test.ITest" }field { $name="
- initModel" $type="fr.imag.adele.fede.workspace.as.initmodel.IInitModel
- " }field { $name="notifier" $type="fr.imag.adele.fede.workspace.si.vie
- w.View$EclipseToolListener" }field { $name="lock" $type="org.eclipse.c
- ore.runtime.jobs.ILock" }field { $name="platformEclipse" $type="fr.ima
- g.adele.fede.workspace.as.platformeclipse.IPlatformEclipse" }field { $
- name="workspaceCU" $type="fr.imag.adele.cadse.core.CadseDomain" }field
-  { $name="initProvider" $type="boolean" }method { $name="$init" }metho
- d { $name="getInstance" $return="fr.imag.adele.fede.workspace.si.view.
- View" }method { $name="start" }method { $name="resetUIViews" }method {
-  $name="stop" }method { $name="getInitModel" $return="fr.imag.adele.fe
- de.workspace.as.initmodel.IInitModel" }method { $name="getPersitence" 
- $return="fr.imag.adele.fede.workspace.as.persistence.IPersistence" }me
- thod { $name="getWorkspaceDomain" $return="fr.imag.adele.cadse.core.Ca
- dseDomain" }method { $name="isStarted" $return="boolean" }method { $na
- me="getWorkspaceLogique" $return="fr.imag.adele.cadse.core.LogicalWork
- space" }method { $name="getPlatformEclipse" $return="fr.imag.adele.fed
- e.workspace.as.platformeclipse.IPlatformEclipse" }method { $name="getT
- estService" $return="fr.imag.adele.fede.workspace.as.test.ITest" }meth
- od { $arguments="{fr.imag.adele.cadse.core.Item,boolean,org.eclipse.co
- re.runtime.IProgressMonitor}" $name="buildModifiedItem" }method { $arg
- uments="{fr.imag.adele.cadse.core.Item}" $name="init" }method { $argum
- ents="{org.eclipse.core.runtime.IStatus}" $name="log" }method { $argum
- ents="{fr.imag.adele.cadse.core.Item,boolean}" $name="setReadOnly" }me
- thod { $arguments="{org.eclipse.core.resources.IResource,boolean}" $na
- me="setReadOnly" }method { $arguments="{org.eclipse.core.resources.IRe
- source}" $name="getItemFromResource" $return="fr.imag.adele.cadse.core
- .Item" }method { $arguments="{org.eclipse.core.resources.IResource}" $
- name="getUUIDFromResource" $return="fr.imag.adele.cadse.core.CompactUU
- ID" }method { $arguments="{org.eclipse.core.resources.IResource}" $nam
- e="getPersistanceID" $return="java.lang.String" }method { $arguments="
- {fr.imag.adele.cadse.core.Item,boolean,boolean}" $name="getResourceFro
- mItem" $return="org.eclipse.core.resources.IResource" }method { $argum
- ents="{fr.imag.adele.cadse.core.Item,boolean}" $name="getProjectFromIt
- em" $return="org.eclipse.core.resources.IProject" }method { $arguments
- ="{org.eclipse.core.resources.IResource,boolean,org.eclipse.core.runti
- me.IProgressMonitor}" $name="deleteEclipseResource" }method { $argumen
- ts="{org.eclipse.core.resources.IProject}" $name="getStateFile" $retur
- n="java.io.File" }method { $arguments="{fr.imag.adele.cadse.core.Item}
- " $name="refresh" }method { $arguments="{fr.imag.adele.cadse.core.Item
- }" $name="notifieChangedContent" }method { $arguments="{org.eclipse.co
- re.runtime.IConfigurationElement}" $name="getItemTypeNames" $return="j
- ava.lang.String[]" }method { $arguments="{org.eclipse.core.runtime.ICo
- nfigurationElement}" $name="logErrorProvider" }method { $arguments="{o
- rg.eclipse.core.runtime.IProgressMonitor}" $name="setDefaultMonitor" }
- method { $name="getDefaultMonitor" $return="org.eclipse.core.runtime.I
- ProgressMonitor" }method { $name="unsetDefaultMonitor" }method { $argu
- ments="{boolean,boolean}" $name="setDeleteOption" }method { $name="get
- DeleteOption" $return="java.lang.Boolean[]" }method { $name="unsetDele
- teOption" }method { $arguments="{java.lang.String,java.lang.String,jav
- a.lang.Throwable}" $name="log" }method { $arguments="{java.lang.String
- ,java.lang.String,java.lang.Throwable,fr.imag.adele.cadse.core.Item}" 
- $name="log" }method { $arguments="{java.lang.String}" $name="getTypeFr
- om" $return="int" }method { $arguments="{java.lang.Object}" $name="beg
- inRule" }method { $arguments="{java.lang.Object}" $name="endRule" }met
- hod { $arguments="{java.lang.String,fr.imag.adele.cadse.core.Item}" $n
- ame="setItemPersistenceID" }method { $arguments="{fr.imag.adele.cadse.
- core.Item,java.lang.String,java.net.URL}" $name="copyResource" }method
-  { $arguments="{org.eclipse.core.resources.IResource,fr.imag.adele.cad
- se.core.Item}" $name="setItemPersistenceID" }method { $name="getLocati
- on" $return="java.io.File" }method { $arguments="{boolean}" $name="ope
- nDialog" $return="fr.imag.adele.cadse.core.CadseRuntime[]" }method { $
- arguments="{fr.imag.adele.cadse.eclipse.view.ViewAfterInit}" $name="ad
- dAfterListener" }interface { $name="fr.imag.adele.fede.workspace.as.ec
- lipse.IEclipse" }}requires { $field="workspaceCU" $optional="true" $fi
- lter="(sam.domain.root=Workspace)" }requires { $field="platformEclipse
- " $optional="false" }requires { $field="initModel" $optional="false" }
- requires { $field="persitence" $optional="false" }requires { $field="t
- estService" $optional="true" }}instance { $component="fr.imag.adele.fe
- de.workspace.si.view.View" $name="fr.imag.adele.cadse.si.workspace.vie
- w.instance" }
+ ipse" }manipulation { field { $name="__Mstart" $type="boolean" }field 
+ { $name="__McopyResource$fr_imag_adele_cadse_core_Item$java_lang_Strin
+ g$java_net_URL" $type="boolean" }field { $name="initModel" $type="fr.i
+ mag.adele.fede.workspace.as.initmodel.IInitModel" }field { $name="plat
+ formEclipse" $type="fr.imag.adele.fede.workspace.as.platformeclipse.IP
+ latformEclipse" }field { $name="__Mlog$java_lang_String$java_lang_Stri
+ ng$java_lang_Throwable" $type="boolean" }field { $name="__MopenDialog$
+ boolean" $type="boolean" }field { $name="__IM" $type="org.apache.felix
+ .ipojo.InstanceManager" }field { $name="__FinitProvider" $type="boolea
+ n" }field { $name="__MsetReadOnly$fr_imag_adele_cadse_core_Item$boolea
+ n" $type="boolean" }field { $name="__MgetUUIDFromResource$org_eclipse_
+ core_resources_IResource" $type="boolean" }field { $name="__Fpersitenc
+ e" $type="boolean" }field { $name="__MsetReadOnly$org_eclipse_core_res
+ ources_IResource$boolean" $type="boolean" }field { $name="__FtestServi
+ ce" $type="boolean" }field { $name="__MgetTestService" $type="boolean"
+  }field { $name="notifier" $type="fr.imag.adele.fede.workspace.si.view
+ .View$EclipseToolListener" }field { $name="__MgetItemTypeNames$org_ecl
+ ipse_core_runtime_IConfigurationElement" $type="boolean" }field { $nam
+ e="__MgetPlatformEclipse" $type="boolean" }field { $name="__MbuildModi
+ fiedItem$fr_imag_adele_cadse_core_Item$boolean$org_eclipse_core_runtim
+ e_IProgressMonitor" $type="boolean" }field { $name="__MgetLocation" $t
+ ype="boolean" }field { $name="__MgetInitModel" $type="boolean" }field 
+ { $name="__Mrefresh$fr_imag_adele_cadse_core_Item" $type="boolean" }fi
+ eld { $name="__FworkspaceCU" $type="boolean" }field { $name="__Mnotifi
+ eChangedContent$fr_imag_adele_cadse_core_Item" $type="boolean" }field 
+ { $name="__MgetWorkspaceLogique" $type="boolean" }field { $name="__Fpl
+ atformEclipse" $type="boolean" }field { $name="__Mstop" $type="boolean
+ " }field { $name="__MsetItemPersistenceID$java_lang_String$fr_imag_ade
+ le_cadse_core_Item" $type="boolean" }field { $name="__MgetItemFromReso
+ urce$org_eclipse_core_resources_IResource" $type="boolean" }field { $n
+ ame="__MlogErrorProvider$org_eclipse_core_runtime_IConfigurationElemen
+ t" $type="boolean" }field { $name="persitence" $type="fr.imag.adele.fe
+ de.workspace.as.persistence.IPersistence" }field { $name="testService"
+  $type="fr.imag.adele.fede.workspace.as.test.ITest" }field { $name="__
+ Mlog$org_eclipse_core_runtime_IStatus" $type="boolean" }field { $name=
+ "__MgetProjectFromItem$fr_imag_adele_cadse_core_Item$boolean" $type="b
+ oolean" }field { $name="__Minit$fr_imag_adele_cadse_core_Item" $type="
+ boolean" }field { $name="__MgetStateFile$org_eclipse_core_resources_IP
+ roject" $type="boolean" }field { $name="__Flock" $type="boolean" }fiel
+ d { $name="__MbeginRule$java_lang_Object" $type="boolean" }field { $na
+ me="workspaceCU" $type="fr.imag.adele.cadse.core.CadseDomain" }field {
+  $name="__MgetResourceFromItem$fr_imag_adele_cadse_core_Item$boolean$b
+ oolean" $type="boolean" }field { $name="__Fnotifier" $type="boolean" }
+ field { $name="__MgetPersistanceID$org_eclipse_core_resources_IResourc
+ e" $type="boolean" }field { $name="__MresetUIViews" $type="boolean" }f
+ ield { $name="lock" $type="org.eclipse.core.runtime.jobs.ILock" }field
+  { $name="__MgetPersitence" $type="boolean" }field { $name="__FinitMod
+ el" $type="boolean" }field { $name="__MdeleteEclipseResource$org_eclip
+ se_core_resources_IResource$boolean$org_eclipse_core_runtime_IProgress
+ Monitor" $type="boolean" }field { $name="__MgetTypeFrom$java_lang_Stri
+ ng" $type="boolean" }field { $name="__MgetWorkspaceDomain" $type="bool
+ ean" }field { $name="__Mlog$java_lang_String$java_lang_String$java_lan
+ g_Throwable$fr_imag_adele_cadse_core_Item" $type="boolean" }field { $n
+ ame="__MendRule$java_lang_Object" $type="boolean" }field { $name="init
+ Provider" $type="boolean" }method { $name="__getworkspaceCU" $return="
+ fr.imag.adele.cadse.core.CadseDomain" }method { $arguments="{fr.imag.a
+ dele.cadse.core.CadseDomain}" $name="__setworkspaceCU" }method { $name
+ ="__getpersitence" $return="fr.imag.adele.fede.workspace.as.persistenc
+ e.IPersistence" }method { $arguments="{fr.imag.adele.fede.workspace.as
+ .persistence.IPersistence}" $name="__setpersitence" }method { $name="_
+ _gettestService" $return="fr.imag.adele.fede.workspace.as.test.ITest" 
+ }method { $arguments="{fr.imag.adele.fede.workspace.as.test.ITest}" $n
+ ame="__settestService" }method { $name="__getinitModel" $return="fr.im
+ ag.adele.fede.workspace.as.initmodel.IInitModel" }method { $arguments=
+ "{fr.imag.adele.fede.workspace.as.initmodel.IInitModel}" $name="__seti
+ nitModel" }method { $name="__getplatformEclipse" $return="fr.imag.adel
+ e.fede.workspace.as.platformeclipse.IPlatformEclipse" }method { $argum
+ ents="{fr.imag.adele.fede.workspace.as.platformeclipse.IPlatformEclips
+ e}" $name="__setplatformEclipse" }method { $name="__getinitProvider" $
+ return="boolean" }method { $arguments="{boolean}" $name="__setinitProv
+ ider" }method { $name="__getnotifier" $return="fr.imag.adele.fede.work
+ space.si.view.View$EclipseToolListener" }method { $arguments="{fr.imag
+ .adele.fede.workspace.si.view.View$EclipseToolListener}" $name="__setn
+ otifier" }method { $name="__getlock" $return="org.eclipse.core.runtime
+ .jobs.ILock" }method { $arguments="{org.eclipse.core.runtime.jobs.ILoc
+ k}" $name="__setlock" }method { $name="$init" }method { $arguments="{o
+ rg.apache.felix.ipojo.InstanceManager}" $name="$init" }method { $name=
+ "getInstance" $return="fr.imag.adele.fede.workspace.si.view.View" }met
+ hod { $name="start" }method { $name="__start" }method { $name="resetUI
+ Views" }method { $name="__resetUIViews" }method { $name="stop" }method
+  { $name="__stop" }method { $name="getInitModel" $return="fr.imag.adel
+ e.fede.workspace.as.initmodel.IInitModel" }method { $name="__getInitMo
+ del" $return="fr.imag.adele.fede.workspace.as.initmodel.IInitModel" }m
+ ethod { $name="getPersitence" $return="fr.imag.adele.fede.workspace.as
+ .persistence.IPersistence" }method { $name="__getPersitence" $return="
+ fr.imag.adele.fede.workspace.as.persistence.IPersistence" }method { $n
+ ame="getWorkspaceDomain" $return="fr.imag.adele.cadse.core.CadseDomain
+ " }method { $name="__getWorkspaceDomain" $return="fr.imag.adele.cadse.
+ core.CadseDomain" }method { $name="isStarted" $return="boolean" }metho
+ d { $name="getWorkspaceLogique" $return="fr.imag.adele.cadse.core.Logi
+ calWorkspace" }method { $name="__getWorkspaceLogique" $return="fr.imag
+ .adele.cadse.core.LogicalWorkspace" }method { $name="getPlatformEclips
+ e" $return="fr.imag.adele.fede.workspace.as.platformeclipse.IPlatformE
+ clipse" }method { $name="__getPlatformEclipse" $return="fr.imag.adele.
+ fede.workspace.as.platformeclipse.IPlatformEclipse" }method { $name="g
+ etTestService" $return="fr.imag.adele.fede.workspace.as.test.ITest" }m
+ ethod { $name="__getTestService" $return="fr.imag.adele.fede.workspace
+ .as.test.ITest" }method { $arguments="{fr.imag.adele.cadse.core.Item,b
+ oolean,org.eclipse.core.runtime.IProgressMonitor}" $name="buildModifie
+ dItem" }method { $arguments="{fr.imag.adele.cadse.core.Item,boolean,or
+ g.eclipse.core.runtime.IProgressMonitor}" $name="__buildModifiedItem" 
+ }method { $arguments="{fr.imag.adele.cadse.core.Item}" $name="init" }m
+ ethod { $arguments="{fr.imag.adele.cadse.core.Item}" $name="__init" }m
+ ethod { $arguments="{org.eclipse.core.runtime.IStatus}" $name="log" }m
+ ethod { $arguments="{org.eclipse.core.runtime.IStatus}" $name="__log" 
+ }method { $arguments="{fr.imag.adele.cadse.core.Item,boolean}" $name="
+ setReadOnly" }method { $arguments="{fr.imag.adele.cadse.core.Item,bool
+ ean}" $name="__setReadOnly" }method { $arguments="{org.eclipse.core.re
+ sources.IResource,boolean}" $name="setReadOnly" }method { $arguments="
+ {org.eclipse.core.resources.IResource,boolean}" $name="__setReadOnly" 
+ }method { $arguments="{org.eclipse.core.resources.IResource}" $name="g
+ etItemFromResource" $return="fr.imag.adele.cadse.core.Item" }method { 
+ $arguments="{org.eclipse.core.resources.IResource}" $name="__getItemFr
+ omResource" $return="fr.imag.adele.cadse.core.Item" }method { $argumen
+ ts="{org.eclipse.core.resources.IResource}" $name="getUUIDFromResource
+ " $return="fr.imag.adele.cadse.core.CompactUUID" }method { $arguments=
+ "{org.eclipse.core.resources.IResource}" $name="__getUUIDFromResource"
+  $return="fr.imag.adele.cadse.core.CompactUUID" }method { $arguments="
+ {org.eclipse.core.resources.IResource}" $name="getPersistanceID" $retu
+ rn="java.lang.String" }method { $arguments="{org.eclipse.core.resource
+ s.IResource}" $name="__getPersistanceID" $return="java.lang.String" }m
+ ethod { $arguments="{fr.imag.adele.cadse.core.Item,boolean,boolean}" $
+ name="getResourceFromItem" $return="org.eclipse.core.resources.IResour
+ ce" }method { $arguments="{fr.imag.adele.cadse.core.Item,boolean,boole
+ an}" $name="__getResourceFromItem" $return="org.eclipse.core.resources
+ .IResource" }method { $arguments="{fr.imag.adele.cadse.core.Item,boole
+ an}" $name="getProjectFromItem" $return="org.eclipse.core.resources.IP
+ roject" }method { $arguments="{fr.imag.adele.cadse.core.Item,boolean}"
+  $name="__getProjectFromItem" $return="org.eclipse.core.resources.IPro
+ ject" }method { $arguments="{org.eclipse.core.resources.IResource,bool
+ ean,org.eclipse.core.runtime.IProgressMonitor}" $name="deleteEclipseRe
+ source" }method { $arguments="{org.eclipse.core.resources.IResource,bo
+ olean,org.eclipse.core.runtime.IProgressMonitor}" $name="__deleteEclip
+ seResource" }method { $arguments="{org.eclipse.core.resources.IProject
+ }" $name="getStateFile" $return="java.io.File" }method { $arguments="{
+ org.eclipse.core.resources.IProject}" $name="__getStateFile" $return="
+ java.io.File" }method { $arguments="{fr.imag.adele.cadse.core.Item}" $
+ name="refresh" }method { $arguments="{fr.imag.adele.cadse.core.Item}" 
+ $name="__refresh" }method { $arguments="{fr.imag.adele.cadse.core.Item
+ }" $name="notifieChangedContent" }method { $arguments="{fr.imag.adele.
+ cadse.core.Item}" $name="__notifieChangedContent" }method { $arguments
+ ="{org.eclipse.core.runtime.IConfigurationElement}" $name="getItemType
+ Names" $return="java.lang.String[]" }method { $arguments="{org.eclipse
+ .core.runtime.IConfigurationElement}" $name="__getItemTypeNames" $retu
+ rn="java.lang.String[]" }method { $arguments="{org.eclipse.core.runtim
+ e.IConfigurationElement}" $name="logErrorProvider" }method { $argument
+ s="{org.eclipse.core.runtime.IConfigurationElement}" $name="__logError
+ Provider" }method { $arguments="{org.eclipse.core.runtime.IProgressMon
+ itor}" $name="setDefaultMonitor" }method { $name="getDefaultMonitor" $
+ return="org.eclipse.core.runtime.IProgressMonitor" }method { $name="un
+ setDefaultMonitor" }method { $arguments="{boolean,boolean}" $name="set
+ DeleteOption" }method { $name="getDeleteOption" $return="java.lang.Boo
+ lean[]" }method { $name="unsetDeleteOption" }method { $arguments="{jav
+ a.lang.String,java.lang.String,java.lang.Throwable}" $name="log" }meth
+ od { $arguments="{java.lang.String,java.lang.String,java.lang.Throwabl
+ e}" $name="__log" }method { $arguments="{java.lang.String,java.lang.St
+ ring,java.lang.Throwable,fr.imag.adele.cadse.core.Item}" $name="log" }
+ method { $arguments="{java.lang.String,java.lang.String,java.lang.Thro
+ wable,fr.imag.adele.cadse.core.Item}" $name="__log" }method { $argumen
+ ts="{java.lang.String}" $name="getTypeFrom" $return="int" }method { $a
+ rguments="{java.lang.String}" $name="__getTypeFrom" $return="int" }met
+ hod { $arguments="{java.lang.Object}" $name="beginRule" }method { $arg
+ uments="{java.lang.Object}" $name="__beginRule" }method { $arguments="
+ {java.lang.Object}" $name="endRule" }method { $arguments="{java.lang.O
+ bject}" $name="__endRule" }method { $arguments="{java.lang.String,fr.i
+ mag.adele.cadse.core.Item}" $name="setItemPersistenceID" }method { $ar
+ guments="{java.lang.String,fr.imag.adele.cadse.core.Item}" $name="__se
+ tItemPersistenceID" }method { $arguments="{fr.imag.adele.cadse.core.It
+ em,java.lang.String,java.net.URL}" $name="copyResource" }method { $arg
+ uments="{fr.imag.adele.cadse.core.Item,java.lang.String,java.net.URL}"
+  $name="__copyResource" }method { $arguments="{org.eclipse.core.resour
+ ces.IResource,fr.imag.adele.cadse.core.Item}" $name="setItemPersistenc
+ eID" }method { $name="getLocation" $return="java.io.File" }method { $n
+ ame="__getLocation" $return="java.io.File" }method { $arguments="{bool
+ ean}" $name="openDialog" $return="fr.imag.adele.cadse.core.CadseRuntim
+ e[]" }method { $arguments="{boolean}" $name="__openDialog" $return="fr
+ .imag.adele.cadse.core.CadseRuntime[]" }method { $arguments="{fr.imag.
+ adele.cadse.eclipse.view.ViewAfterInit}" $name="addAfterListener" }int
+ erface { $name="fr.imag.adele.fede.workspace.as.eclipse.IEclipse" }}re
+ quires { $field="workspaceCU" $optional="true" $filter="(sam.domain.ro
+ ot=Workspace)" }requires { $field="platformEclipse" $optional="false" 
+ }requires { $field="initModel" $optional="false" }requires { $field="p
+ ersitence" $optional="false" }requires { $field="testService" $optiona
+ l="true" }}instance { $component="fr.imag.adele.fede.workspace.si.view
+ .View" $name="fr.imag.adele.cadse.si.workspace.view.instance" }
 ipojo-auto-start: true
 

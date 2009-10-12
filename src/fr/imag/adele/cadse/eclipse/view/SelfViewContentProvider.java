@@ -108,6 +108,9 @@ public class SelfViewContentProvider implements ITreeContentProvider {
 							if (!itemDelta.getItem().isResolved()) {
 								continue;
 							}
+							if (rootWS == null) {
+								return;
+							}
 							ItemType it = itemDelta.getItem().getType();
 							if (itemDelta.isCreated() || itemDelta.isDeleted()) {
 								rootWS.recomputeChildren();
@@ -173,7 +176,7 @@ public class SelfViewContentProvider implements ITreeContentProvider {
 		if (currentItem != null && item.equals(currentItem)) {
 			current.recomputeChildren();
 		}
-		if (current.hasChildren()) {
+		if (current.isOpen() && current.hasChildren()) {
 			for (AbstractCadseViewNode childIIV : current.getChildren()) {
 				recomputeChildren(item, childIIV);
 			}
