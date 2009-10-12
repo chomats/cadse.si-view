@@ -89,7 +89,7 @@ public class ItemOperationsFromLinkOfLinkTypeRule extends Rule {
 		}
 
 		if (item != null) {
-			Collection<Item> values = null;
+			Collection<ItemDelta> values = null;
 			if (lt != null) {
 				if (inverse) {
 					values = item.getIncomingItems(lt, true, true);
@@ -104,7 +104,7 @@ public class ItemOperationsFromLinkOfLinkTypeRule extends Rule {
 				}
 			}
 			if (sortFct != null) {
-				TreeSet<Item> values2 = new TreeSet<Item>(sortFct);
+				TreeSet<ItemDelta> values2 = new TreeSet<ItemDelta>(sortFct);
 				values2.addAll(values);
 				values = values2;
 			}
