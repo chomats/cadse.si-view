@@ -21,7 +21,7 @@ package fede.workspace.model.manager.properties.impl.mc;
 import fede.workspace.model.manager.Messages;
 import fede.workspace.tool.view.WSPlugin;
 import fr.imag.adele.cadse.core.CadseException;
-import fr.imag.adele.cadse.core.CadseRootCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
@@ -120,6 +120,10 @@ public class MC_ShortNameItemProperty extends MC_AttributesItem {
 		if (item.getState() != ItemState.NOT_IN_WORKSPACE) {
 			return false;
 		}
+		
+		if (item.isReadOnly()) {
+			return false;
+		}
 
 		if (shortId.length() == 0) { // && item.getType().getSpaceKeyType()
 			setMessageError(Messages.mc_name_must_be_specified);
@@ -141,8 +145,8 @@ public class MC_ShortNameItemProperty extends MC_AttributesItem {
 			setMessageError(Messages.bind(Messages.mc_cannot_set_name, e1.getMessage()));
 			return true;
 		}
-		if (item.getType().hasUniqueNameAttribute()) {
-			String un = im.computeUniqueName(item, shortId, item.getPartParent(), item.getPartParentLinkType());
+		if (item.getType().hasQualifiedNameAttribute()) {
+			String un = im.computeQualifiedName(item, shortId, item.getPartParent(), item.getPartParentLinkType());
 			try {
 				item.setQualifiedName(un);
 			} catch (CadseException e) {
@@ -151,7 +155,7 @@ public class MC_ShortNameItemProperty extends MC_AttributesItem {
 				return true;
 			}
 		}
-		if (CadseCore.getLogicalWorkspace().existsItem(item)) {
+		if (item.getLogicalWorkspace().existsItem(item)) {
 			setMessageError(Messages.mc_name_already_exists);
 			return true;
 		}
@@ -175,7 +179,7 @@ public class MC_ShortNameItemProperty extends MC_AttributesItem {
 
 	@Override
 	public ItemType getType() {
-		return CadseRootCST.MC_SHORT_NAME_ITEM_PROPERTY;
+		return CadseGCST.MC_NAME_ATTRIBUTE;
 	}
 
 }
