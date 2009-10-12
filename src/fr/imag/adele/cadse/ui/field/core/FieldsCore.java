@@ -16,10 +16,13 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package fede.workspace.model.manager.properties;
+package fr.imag.adele.cadse.ui.field.core;
 
 import org.eclipse.swt.SWT;
 
+import fede.workspace.model.manager.properties.IC_ForCheckedViewer;
+import fede.workspace.model.manager.properties.IInteractionControllerForBrowserOrCombo;
+import fede.workspace.model.manager.properties.IInteractionControllerForList;
 import fede.workspace.model.manager.properties.impl.ParentPartGetAndSet;
 import fede.workspace.model.manager.properties.impl.ic.IC_FileResourceForBrowser_Combo_List;
 import fede.workspace.model.manager.properties.impl.ic.IC_FolderResource_ForBrowser_Combo_List;
@@ -42,7 +45,7 @@ import fede.workspace.model.manager.properties.impl.ui.DCheckedListUI;
 import fede.workspace.model.manager.properties.impl.ui.DComboUI;
 import fede.workspace.model.manager.properties.impl.ui.DListUI;
 import fede.workspace.model.manager.properties.impl.ui.DTextUI;
-import fr.imag.adele.cadse.core.CadseRootCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.impl.internal.ui.PagesImpl;
 import fr.imag.adele.cadse.core.impl.ui.AbstractActionPage;
@@ -100,13 +103,13 @@ public class FieldsCore {
 	}
 
 	static public DTextUI createShortNameField() {
-		return new DTextUI(CadseRootCST.ITEM_TYPE_at_NAME, "name:", EPosLabel.left, new MC_ShortNameItemProperty(),
+		return new DTextUI(CadseGCST.ITEM_at_NAME, "name:", EPosLabel.left, new MC_ShortNameItemProperty(),
 				null);
 
 	}
 
 	static public DTextUI createShortNameField_Noborder() {
-		return new DTextUI(CadseRootCST.ITEM_TYPE_at_NAME, "name:", EPosLabel.left, new MC_ShortNameItemProperty(),
+		return new DTextUI(CadseGCST.ITEM_at_NAME, "name:", EPosLabel.left, new MC_ShortNameItemProperty(),
 				null, SWT.SINGLE, 1, null);
 	}
 
@@ -116,12 +119,12 @@ public class FieldsCore {
 	}
 
 	static public DTextUI createDisplayNameField() {
-		return new DTextUI(CadseRootCST.ITEM_TYPE_at_DISPLAY_NAME, "display name:", EPosLabel.left,
+		return new DTextUI(CadseGCST.ITEM_at_DISPLAY_NAME, "display name:", EPosLabel.left,
 				new MC_DisplayNameItemProperty(), null, SWT.SINGLE, 1, null);
 	}
 
 	static public DTextUI createIDField() {
-		return new DTextUI(CadseRootCST.ITEM_TYPE_at_DISPLAY_NAME, "#ID:", EPosLabel.left, new MC_IDItemProperty(),
+		return new DTextUI(CadseGCST.ITEM_at_DISPLAY_NAME, "#ID:", EPosLabel.left, new MC_IDItemProperty(),
 				null, SWT.SINGLE, 1, null);
 	}
 
