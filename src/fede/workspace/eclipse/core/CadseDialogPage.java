@@ -26,6 +26,9 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -273,8 +276,24 @@ public class CadseDialogPage extends PageImpl {
 		}
 
 		public void notifieValueChanged(UIField field, Object value) {
-
 		}
+		
+		@Override
+		public void init(UIField field) {
+			TreeViewer viewer = ((DTreeModelUI) field).getTreeViewer();
+			viewer.addFilter(new ViewerFilter() {
+				
+				@Override
+				public boolean select(Viewer viewer, Object parentElement, Object element) {
+					if (element instanceof Item) {
+						return ((Item)element).getType() != CadseGCST.CADSE_DEFINITION;
+					}
+					return true;
+				}
+			});
+		}
+		
+		
 
 		public ItemType getType() {
 			return null;

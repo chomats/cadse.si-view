@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import fede.workspace.eclipse.core.CadseDialogPage;
 import fede.workspace.role.initmodel.ErrorWhenLoadedModel;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseRuntime;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.ui.MenuAction;
@@ -56,6 +57,8 @@ public class AddCadseModelAction extends MenuAction {
 		ArrayList<CadseRuntime> ret = new ArrayList<CadseRuntime>();
 		for (IItemNode n : selection) {
 			if (n.getItem() != null && n.getItem() instanceof CadseRuntime) {
+				if (n.getItem().getType() == CadseGCST.CADSE_DEFINITION)
+					continue;
 				ret.add((CadseRuntime) n.getItem());
 			}
 		}
