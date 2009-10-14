@@ -34,7 +34,6 @@ import org.eclipse.ui.PartInitException;
 import fede.workspace.tool.view.node.AbstractCadseViewNode;
 import fede.workspace.tool.view.node.ItemNode;
 import fede.workspace.tool.view.node.LinkNode;
-import fr.imag.adele.cadse.core.CadseRootCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -42,8 +41,12 @@ import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.impl.CadseCore;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.eclipse.view.AbstractCadseTreeViewUI;
 import fr.imag.adele.cadse.eclipse.view.AbstractCadseView;
+import fede.workspace.tool.view.node.AbstractCadseViewNode;
+import fede.workspace.tool.view.node.ItemNode;
+import fede.workspace.tool.view.node.LinkNode;
 
 /**
  * Cette vue repr?sente les item du workspace courant. Nous avons trois mode
@@ -248,7 +251,7 @@ class WSViewViewUI extends AbstractCadseTreeViewUI {
 					continue;
 				}
 
-				boolean isMetaItemtype = anItem.isInstanceOf(CadseRootCST.META_ITEM_TYPE);
+				boolean isMetaItemtype = anItem.isInstanceOf(CadseGCST.ITEM_TYPE);
 				if (!_showOrpholanMetaItemType && isMetaItemtype) {
 					continue;
 				}
@@ -262,7 +265,7 @@ class WSViewViewUI extends AbstractCadseTreeViewUI {
 						if (l.isAggregation()) {
 							continue ONE;
 						}
-						if (l.isPart()) {
+						if (l.getLinkType().isPart()) {
 							continue ONE;
 						}
 					}
@@ -292,7 +295,7 @@ class WSViewViewUI extends AbstractCadseTreeViewUI {
 					if (l.isAggregation()) {
 						break ONE;
 					}
-					if (l.isPart()) {
+					if (l.getLinkType().isPart()) {
 						break ONE;
 					}
 				}

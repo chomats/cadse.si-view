@@ -21,8 +21,9 @@
  */
 package fede.workspace.model.manager.properties.impl.mc;
 
-import fr.imag.adele.cadse.core.CadseRootCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CompactUUID;
+import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.attribute.IAttributeType;
 import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
 import fr.imag.adele.cadse.core.ui.UIField;
@@ -86,21 +87,26 @@ public final class IntModelController extends MC_AttributesItem {
 
 	@Override
 	public <T> T internalGetOwnerAttribute(IAttributeType<T> type) {
-		if (CadseRootCST.INT_MODEL_CONTROLLER_at_ERROR_MSG_MAX_ == type) {
+		if (CadseGCST.INT_MODEL_CONTROLLER_at_ERROR_MSG_MAX_ == type) {
 			return (T) msg_max;
 		}
-		if (CadseRootCST.INT_MODEL_CONTROLLER_at_MAX_ == type) {
+		if (CadseGCST.INT_MODEL_CONTROLLER_at_MAX_ == type) {
 			return (T) (Integer.valueOf(max));
 		}
-		if (CadseRootCST.INT_MODEL_CONTROLLER_at_ERROR_MSG_MIN_ == type) {
+		if (CadseGCST.INT_MODEL_CONTROLLER_at_ERROR_MSG_MIN_ == type) {
 			return (T) msg_min;
 		}
-		if (CadseRootCST.INT_MODEL_CONTROLLER_at_MIN_ == type) {
+		if (CadseGCST.INT_MODEL_CONTROLLER_at_MIN_ == type) {
 			return (T) (Integer.valueOf(min));
 		}
-		if (CadseRootCST.INT_MODEL_CONTROLLER_at_DEFAULT_VALUE_ == type) {
+		if (CadseGCST.INT_MODEL_CONTROLLER_at_DEFAULT_VALUE_ == type) {
 			return (T) defaultValue;
 		}
 		return super.internalGetOwnerAttribute(type);
+	}
+	
+	@Override
+	public ItemType getType() {
+		return CadseGCST.INT_MODEL_CONTROLLER;
 	}
 }

@@ -19,7 +19,7 @@ import org.eclipse.swt.widgets.TreeItem;
 
 import fede.workspace.model.manager.properties.impl.ic.IC_TreeModel;
 import fede.workspace.tool.view.node.FilteredItemNode;
-import fr.imag.adele.cadse.core.CadseRootCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.ItemType;
@@ -217,7 +217,7 @@ public class DTreeModelUI extends DAbstractField implements ISelectionChangedLis
 	}
 
 	public ItemType getType() {
-		return CadseRootCST.DISPLAY;
+		return CadseGCST.DISPLAY;
 	}
 
 	public void selectionChanged(SelectionChangedEvent event) {

@@ -28,7 +28,7 @@ import org.eclipse.ui.dialogs.ISelectionStatusValidator;
 
 import fede.workspace.model.manager.properties.IInteractionControllerForBrowserOrCombo;
 import fede.workspace.model.manager.properties.IInteractionControllerForList;
-import fr.imag.adele.cadse.core.CadseRootCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.attribute.IAttributeType;
 import fr.imag.adele.cadse.core.util.Convert;
@@ -143,10 +143,10 @@ public abstract class IC_AbstractTreeDialogForList_Browser_Combo extends IC_Abst
 
 	@Override
 	public <T> T internalGetOwnerAttribute(IAttributeType<T> type) {
-		if (CadseRootCST.IC_ABSTRACT_TREE_DIALOG_FOR_LIST_BROWSER_COMBO_at_MESSAGE_ == type) {
+		if (CadseGCST.IC_ABSTRACT_TREE_DIALOG_FOR_LIST_BROWSER_COMBO_at_MESSAGE_ == type) {
 			return (T) message;
 		}
-		if (CadseRootCST.IC_ABSTRACT_TREE_DIALOG_FOR_LIST_BROWSER_COMBO_at_TITLE_ == type) {
+		if (CadseGCST.IC_ABSTRACT_TREE_DIALOG_FOR_LIST_BROWSER_COMBO_at_TITLE_ == type) {
 			return (T) title;
 		}
 		return super.internalGetOwnerAttribute(type);
@@ -154,11 +154,11 @@ public abstract class IC_AbstractTreeDialogForList_Browser_Combo extends IC_Abst
 
 	@Override
 	public boolean commitSetAttribute(IAttributeType<?> type, String key, Object value) {
-		if (CadseRootCST.IC_ABSTRACT_TREE_DIALOG_FOR_LIST_BROWSER_COMBO_at_MESSAGE_ == type) {
+		if (CadseGCST.IC_ABSTRACT_TREE_DIALOG_FOR_LIST_BROWSER_COMBO_at_MESSAGE_ == type) {
 			message = Convert.toString(value);
 			return true;
 		}
-		if (CadseRootCST.IC_ABSTRACT_TREE_DIALOG_FOR_LIST_BROWSER_COMBO_at_TITLE_ == type) {
+		if (CadseGCST.IC_ABSTRACT_TREE_DIALOG_FOR_LIST_BROWSER_COMBO_at_TITLE_ == type) {
 			title = Convert.toString(value);
 			return true;
 		}

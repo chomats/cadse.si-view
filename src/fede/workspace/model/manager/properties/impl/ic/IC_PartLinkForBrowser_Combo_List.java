@@ -24,7 +24,10 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 
+import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.Item;
+import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
 import fede.workspace.tool.view.WSPlugin;
 
@@ -40,10 +43,10 @@ import fede.workspace.tool.view.WSPlugin;
 public class IC_PartLinkForBrowser_Combo_List extends IC_LinkForBrowser_Combo_List {
 	
 	/** The part link type. */
-	final LinkType partLinkType ;
+	LinkType partLinkType ;
 	
 	/** The error message. */
-	final String errorMessage;
+	String errorMessage;
 	
 	/**
 	 * The Constructor.
@@ -63,6 +66,11 @@ public class IC_PartLinkForBrowser_Combo_List extends IC_LinkForBrowser_Combo_Li
 		this.errorMessage = errormessage;
 	}
 	
+
+	public IC_PartLinkForBrowser_Combo_List(CompactUUID id) {
+		super(id);
+	}
+
 
 	/* (non-Javadoc)
 	 * @see fede.workspace.model.manager.properties.impl.ic.IC_LinkForBrowser_Combo_List#getTreeContentProvider()
@@ -136,5 +144,10 @@ public class IC_PartLinkForBrowser_Combo_List extends IC_LinkForBrowser_Combo_Li
 		}
 		
 		return new Status(IStatus.ERROR, WSPlugin.PLUGIN_ID, 0, errorMessage, null);
+	}
+	
+	@Override
+	public ItemType getType() {
+		return CadseGCST.IC_PART_LINK_FOR_BROWSER_COMBO_LIST;
 	}
 }

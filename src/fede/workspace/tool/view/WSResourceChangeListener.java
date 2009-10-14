@@ -43,6 +43,8 @@ public class WSResourceChangeListener implements IResourceChangeListener {
 	}
 
 	public void resourceChanged(IResourceChangeEvent event) {
+		if (CadseCore.isStopped() || !CadseCore.isStarted()) return;
+		
 		if (event.getType() == IResourceChangeEvent.POST_CHANGE || event.getType() == IResourceChangeEvent.PRE_DELETE) {
 			Map<Item, List<ContentChangeInfo>> changes = new HashMap<Item, List<ContentChangeInfo>>();
 			IResourceDelta rd = event.getDelta();

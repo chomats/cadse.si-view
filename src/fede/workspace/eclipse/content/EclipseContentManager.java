@@ -19,6 +19,7 @@
 package fede.workspace.eclipse.content;
 
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.impl.ContentItemImpl;
 
@@ -35,8 +36,8 @@ import fr.imag.adele.cadse.core.impl.ContentItemImpl;
  */
 public class EclipseContentManager extends ContentItemImpl {
 
-	public EclipseContentManager(Item item) {
-		super(item);
+	public EclipseContentManager(CompactUUID id) {
+		super(id);
 	}
 
 	@Override

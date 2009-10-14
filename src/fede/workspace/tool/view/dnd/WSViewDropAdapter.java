@@ -88,7 +88,7 @@ public class WSViewDropAdapter extends ViewerDropAdapter {
 			ItemType itTarget = targetItem.getType();
 
 			ArrayList<LinkType> selectingLinkType = new ArrayList<LinkType>();
-			List<LinkType> outgoingLinkType = itSource.getOugoingLinkTypes();
+			List<LinkType> outgoingLinkType = itSource.getOutgoingLinkTypes();
 			for (LinkType lt : outgoingLinkType) {
 				if (lt.getDestination() == itTarget || lt.getDestination().isSuperTypeOf(itTarget)) {
 					selectingLinkType.add(lt);

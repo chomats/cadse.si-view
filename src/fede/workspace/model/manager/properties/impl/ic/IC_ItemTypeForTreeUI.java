@@ -38,7 +38,7 @@ public class IC_ItemTypeForTreeUI extends IC_Abstract implements InteractifTreeC
 	}
 	
 	protected String getTreeText(LinkType lt) {
-		if (lt.getDestination().getId().equals(CadseDomain.ITEM_TYPE_ID)) 
+		if (lt.getDestination().getId().equals(CadseDomain.ITEM_ID)) 
         	return lt.getName();
         return MessageFormat.format(Messages.getString("dialog.run.create-item.4"), lt.getName() ,lt.getDestination().getId()); //$NON-NLS-1$
     }

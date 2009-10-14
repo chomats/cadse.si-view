@@ -41,7 +41,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
 import fede.workspace.model.manager.properties.IC_ForCheckedViewer;
-import fr.imag.adele.cadse.core.CadseRootCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
@@ -234,7 +234,7 @@ public class DCheckedListUI extends DAbstractField implements SelectionListener 
 	}
 
 	public ItemType getType() {
-		return CadseRootCST.DCHECKED_LIST;
+		return CadseGCST.DCHECKED_LIST;
 	}
 
 	@Override

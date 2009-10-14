@@ -21,18 +21,18 @@ package fede.workspace.model.manager.properties.impl.ic;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.Item;
+import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.attribute.IAttributeType;
 import fr.imag.adele.cadse.core.impl.internal.AbstractGeneratedItem;
-import fr.imag.adele.cadse.core.impl.ui.UIFieldImpl;
-import fr.imag.adele.cadse.core.CadseRootCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.ui.IFieldDescription;
 import fr.imag.adele.cadse.core.ui.IInteractionController;
 import fr.imag.adele.cadse.core.ui.IModelController;
 import fr.imag.adele.cadse.core.ui.UIField;
 
-public abstract class IC_Abstract extends AbstractGeneratedItem implements IInteractionController {
-	protected UIField	ui;
+public class IC_Abstract extends AbstractGeneratedItem implements IInteractionController {
+	
 
 	public IC_Abstract(CompactUUID id) {
 		super(id);
@@ -47,15 +47,15 @@ public abstract class IC_Abstract extends AbstractGeneratedItem implements IInte
 	}
 
 	public void setUIField(UIField ui) {
-		this.ui = ui;
+		this._parent = ui;
 	}
 
 	public IModelController getModelController() {
-		return ui.getModelController();
+		return ((UIField) _parent).getModelController();
 	}
 
 	public UIField getUIField() {
-		return ui;
+		return ((UIField) _parent);
 	}
 
 	public void dispose() {
@@ -68,23 +68,28 @@ public abstract class IC_Abstract extends AbstractGeneratedItem implements IInte
 	}
 
 	public Item getItem() {
-		return (Item) ui.getContext();
+		return (Item) ((UIField) _parent).getContext();
 	}
 
 	public Item getParentItem() {
-		return (Item) ui.get(IFieldDescription.PARENT_CONTEXT);
+		return (Item) ((UIField) _parent).get(IFieldDescription.PARENT_CONTEXT);
 	}
 
 	public void setParent(Item parent, LinkType lt) {
-		ui = (UIField) parent;
+		 _parent = (UIField) parent;
 	}
 
 	@Override
 	public <T> T internalGetOwnerAttribute(IAttributeType<T> type) {
-		if (CadseRootCST.ITEM_TYPE_at_NAME_ == type) {
+		if (CadseGCST.ITEM_at_NAME_ == type) {
 			return (T) "ic";
 		}
 		return super.internalGetOwnerAttribute(type);
+	}
+	
+	@Override
+	public ItemType getType() {
+		return CadseGCST.INTERACTION_CONTROLLER;
 	}
 
 }

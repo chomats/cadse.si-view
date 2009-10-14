@@ -135,7 +135,7 @@ public class View implements IEclipse {
 
 		Runnable r = new Runnable() {
 			public void run() {
-				while (getWorkspaceDomain() == null) {
+				while (getWorkspaceDomain() == null || getWorkspaceDomain().getLogicalWorkspace() == null) {
 					try {
 						Thread.sleep(5000);
 					} catch (InterruptedException e) {

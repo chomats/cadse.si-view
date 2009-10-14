@@ -266,7 +266,7 @@ public class ItemActionGroup extends ActionGroup {
 		if (types.size() == 0) {
 			// seul les contributor des sur le type "ItemType" de cadseRoot
 			// sont appelé.
-			runContributor(viewUIController, visited, principalMenu, selection, CadseCore.theItemType);
+			runContributor(viewUIController, visited, principalMenu, selection, CadseCore.theItem);
 		}
 
 		principalMenu.insert(IMenuAction.CONTEXT_2_MENU, new AddCadseModelAction(), true);
@@ -342,7 +342,7 @@ public class ItemActionGroup extends ActionGroup {
 				IItemNode iv = ((IItemNode) obj);
 				Link l = iv.getLink();
 
-				if (l != null && l.isPart() && l.isLinkResolved()) {
+				if (l != null && l.getLinkType().isPart() && l.isLinkResolved()) {
 					continue;
 				}
 
@@ -433,7 +433,7 @@ public class ItemActionGroup extends ActionGroup {
 			}
 			Link itemLink = iiv.getLink();
 
-			if (itemLink != null && !itemLink.isPart() && item.getType().hasIncomingParts()) {
+			if (itemLink != null && !itemLink.getLinkType().isPart() && item.getType().hasIncomingParts()) {
 				continue;
 			}
 
@@ -540,7 +540,7 @@ public class ItemActionGroup extends ActionGroup {
 		}
 
 		int addsep = 0;
-		for (LinkType lt : parent.getType().getOugoingLinkTypes()) {
+		for (LinkType lt : parent.getType().getOutgoingLinkTypes()) {
 			if (lt.isDerived()) {
 				continue;
 			}

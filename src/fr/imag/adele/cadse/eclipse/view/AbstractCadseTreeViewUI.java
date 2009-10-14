@@ -1509,9 +1509,11 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 				ret.add(node);
 			}
 
-			List<AbstractCadseViewNode> children = node.children();
-			if (children != null) {
-				visite.addAll(children);
+			if (node.isOpen()) {
+				List<AbstractCadseViewNode> children = node.children();
+				if (children != null) {
+					visite.addAll(children);
+				}
 			}
 		}
 

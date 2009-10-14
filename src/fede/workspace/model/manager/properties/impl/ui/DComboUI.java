@@ -27,7 +27,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 
 import fede.workspace.model.manager.properties.IInteractionControllerForBrowserOrCombo;
-import fr.imag.adele.cadse.core.CadseRootCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
@@ -143,7 +143,7 @@ public class DComboUI extends DAbstractField {
 	}
 
 	public ItemType getType() {
-		return CadseRootCST.DCOMBO;
+		return CadseGCST.DCOMBO;
 	}
 
 	@Override

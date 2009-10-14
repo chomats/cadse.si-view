@@ -29,7 +29,7 @@ import org.eclipse.jface.window.Window;
 
 import fede.workspace.tool.view.actions.delete.ShowDetailWLWCDialogPage;
 import fr.imag.adele.cadse.core.CadseException;
-import fr.imag.adele.cadse.core.CadseRootCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.delta.ItemDelta;
@@ -72,7 +72,7 @@ public class RenameAction extends AbstractEclipseMenuAction implements IInputVal
 					final String newShortName = id.getValue();
 					LogicalWorkspaceTransaction copy = item.getLogicalWorkspace().createTransaction();
 					ItemDelta itemOperation = copy.getItem(item.getId());
-					itemOperation.setAttribute(CadseRootCST.ITEM_TYPE_at_NAME_, newShortName);
+					itemOperation.setAttribute(CadseGCST.ITEM_at_NAME_, newShortName);
 					ShowDetailWLWCDialogPage.openDialog(copy, "Rename the item " + item.getName(), "Items to change",
 							true);
 

@@ -109,7 +109,7 @@ public class AddLinkWizardPage extends WizardPage {
 	}
 	
 	private static List<LinkType> selectLinkType(Item source, Item dest) {
-		List<LinkType> l = source.getType().getOugoingLinkTypes();
+		List<LinkType> l = source.getType().getOutgoingLinkTypes();
 		List<LinkType> selectRT = new ArrayList<LinkType>();
 		for (LinkType rt : l) {
 	        if (rt.isDerived())

@@ -19,7 +19,7 @@
 package fede.workspace.model.manager.properties.impl.ic;
 
 import fr.imag.adele.cadse.core.ItemType;
-import fr.imag.adele.cadse.core.CadseRootCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 
 
 public class IC_StaticArrayOfObjectForBrowser_Combo extends IC_AbstractForBrowser_Combo  {
@@ -47,6 +47,6 @@ public class IC_StaticArrayOfObjectForBrowser_Combo extends IC_AbstractForBrowse
 	}
 	
 	public ItemType getType() {
-		return CadseRootCST.IC_STATIC_ARRAY_OF_OBJECT_FOR_BROWSER_COMBO;
+		return CadseGCST.IC_STATIC_ARRAY_OF_OBJECT_FOR_BROWSER_COMBO;
 	}
 }

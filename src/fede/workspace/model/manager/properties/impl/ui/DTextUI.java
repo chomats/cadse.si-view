@@ -36,7 +36,7 @@ import org.eclipse.ui.fieldassist.ContentAssistCommandAdapter;
 
 import fede.workspace.model.manager.properties.IFieldContenProposalProvider;
 import fede.workspace.model.manager.properties.Proposal;
-import fr.imag.adele.cadse.core.CadseRootCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -101,40 +101,40 @@ public class DTextUI extends DAbstractField implements IContentProposalListener 
 
 	@Override
 	public boolean commitSetAttribute(IAttributeType<?> type, String key, Object value) {
-		if (key.equals(CadseRootCST.DTEXT_at_MULTI_LINE)) {
-			boolean ret = Convert.toBoolean(value, CadseRootCST.DTEXT_at_MULTI_LINE_, false);
+		if (key.equals(CadseGCST.DTEXT_at_MULTI_LINE)) {
+			boolean ret = Convert.toBoolean(value, CadseGCST.DTEXT_at_MULTI_LINE_, false);
 			if (ret != getFlag(Item.UI_TEXT_MULTI_LINE)) {
 				setFlagMultiLine(ret);
 				return true;
 			}
 			return false;
 		}
-		if (key.equals(CadseRootCST.DTEXT_at_NO_BORDER)) {
-			boolean ret = Convert.toBoolean(value, CadseRootCST.DTEXT_at_NO_BORDER_, false);
+		if (key.equals(CadseGCST.DTEXT_at_NO_BORDER)) {
+			boolean ret = Convert.toBoolean(value, CadseGCST.DTEXT_at_NO_BORDER_, false);
 			if (ret != getFlag(Item.UI_NO_BORDER)) {
 				setFlagNoBorder(ret);
 				return true;
 			}
 			return false;
 		}
-		if (key.equals(CadseRootCST.DTEXT_at_WRAP_LINE)) {
-			boolean ret = Convert.toBoolean(value, CadseRootCST.DTEXT_at_WRAP_LINE_, false);
+		if (key.equals(CadseGCST.DTEXT_at_WRAP_LINE)) {
+			boolean ret = Convert.toBoolean(value, CadseGCST.DTEXT_at_WRAP_LINE_, false);
 			if (ret != getFlag(Item.UI_TEXT_WRAP_LINE)) {
 				setFlagWrapLine(ret);
 				return true;
 			}
 			return false;
 		}
-		if (key.equals(CadseRootCST.DTEXT_at_TOOL_TIP)) {
-			String ret = Convert.toString(value, CadseRootCST.DTEXT_at_TOOL_TIP_, "");
+		if (key.equals(CadseGCST.DTEXT_at_TOOL_TIP)) {
+			String ret = Convert.toString(value, CadseGCST.DTEXT_at_TOOL_TIP_, "");
 			if (!Convert.equals(ret, _toolTips)) {
 				_toolTips = ret;
 				return true;
 			}
 			return false;
 		}
-		if (key.equals(CadseRootCST.DTEXT_at_VERTICAL_SPAN)) {
-			int ret = Convert.toInt(value, CadseRootCST.DTEXT_at_VERTICAL_SPAN_, 1);
+		if (key.equals(CadseGCST.DTEXT_at_VERTICAL_SPAN)) {
+			int ret = Convert.toInt(value, CadseGCST.DTEXT_at_VERTICAL_SPAN_, 1);
 			if (ret != this._vspan) {
 				this._vspan = ret;
 				return true;
@@ -259,7 +259,7 @@ public class DTextUI extends DAbstractField implements IContentProposalListener 
 	}
 
 	public ItemType getType() {
-		return CadseRootCST.DTEXT;
+		return CadseGCST.DTEXT;
 	}
 
 	@Override
@@ -282,19 +282,19 @@ public class DTextUI extends DAbstractField implements IContentProposalListener 
 
 	@Override
 	public <T> T internalGetOwnerAttribute(IAttributeType<T> type) {
-		if (CadseRootCST.DTEXT_at_MULTI_LINE_ == type) {
+		if (CadseGCST.DTEXT_at_MULTI_LINE_ == type) {
 			return (T) Boolean.valueOf(getFlag(Item.UI_TEXT_MULTI_LINE));
 		}
-		if (CadseRootCST.DTEXT_at_NO_BORDER_ == type) {
+		if (CadseGCST.DTEXT_at_NO_BORDER_ == type) {
 			return (T) Boolean.valueOf(getFlag(Item.UI_NO_BORDER));
 		}
-		if (CadseRootCST.DTEXT_at_WRAP_LINE_ == type) {
+		if (CadseGCST.DTEXT_at_WRAP_LINE_ == type) {
 			return (T) Boolean.valueOf(getFlag(Item.UI_TEXT_WRAP_LINE));
 		}
-		if (CadseRootCST.DTEXT_at_TOOL_TIP_ == type) {
+		if (CadseGCST.DTEXT_at_TOOL_TIP_ == type) {
 			return (T) this._toolTips;
 		}
-		if (CadseRootCST.DTEXT_at_VERTICAL_SPAN_ == type) {
+		if (CadseGCST.DTEXT_at_VERTICAL_SPAN_ == type) {
 			return (T) Integer.valueOf(this._vspan);
 		}
 
@@ -303,6 +303,7 @@ public class DTextUI extends DAbstractField implements IContentProposalListener 
 
 	@Override
 	public void internalSetEditable(boolean v) {
+		if (_textControl == null) return;
 		this._textControl.setEditable(v);
 		if (this._labelWidget != null) {
 			this._labelWidget.setEnabled(v);
@@ -385,9 +386,8 @@ public class DTextUI extends DAbstractField implements IContentProposalListener 
 		_sendNotification = sendNotification;
 		try {
 			_currentValueToSend = _currentValue = visualValue.toString();
-			_textControl.setText(_currentValue);
-			// _textControl.setSelection(_currentValue.length(),
-			// _currentValue.length());
+			if (_textControl != null && !_textControl.isDisposed()) 
+				_textControl.setText(_currentValue);
 		} finally {
 			_sendNotification = true;
 		}

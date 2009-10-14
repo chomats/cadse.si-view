@@ -44,7 +44,7 @@ import fede.workspace.model.manager.properties.IFieldContenProposalProvider;
 import fede.workspace.model.manager.properties.IInteractionControllerForBrowserOrCombo;
 import fede.workspace.model.manager.properties.Proposal;
 import fede.workspace.tool.view.WSPlugin;
-import fr.imag.adele.cadse.core.CadseRootCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
@@ -192,7 +192,8 @@ public class DBrowserUI extends DAbstractField implements IContentProposalListen
 			}
 
 			public void focusLost(FocusEvent e) {
-				sendModificationIfNeed(_currentValueTextToSend, true);
+				if (_currentValueTextToSend != null)
+					sendModificationIfNeed(_currentValueTextToSend, true);
 			}
 		});
 
@@ -269,7 +270,7 @@ public class DBrowserUI extends DAbstractField implements IContentProposalListen
 	}
 
 	public ItemType getType() {
-		return CadseRootCST.DBROWSER;
+		return CadseGCST.DBROWSER;
 	}
 
 	@Override
@@ -322,19 +323,20 @@ public class DBrowserUI extends DAbstractField implements IContentProposalListen
 
 	public void setVisualValue(Object visualValue, boolean sendNotification) {
 		_value = visualValue;
-		if (!_textControl.isDisposed()) {
-			final String valueText = toString(_value);
-			if (valueText.equals(_currentValueText)) {
-				return;
-			}
-			_currentValueText = valueText;
-			_sendNotification = sendNotification;
-			try {
-				_textControl.setText(valueText);
-				_textControl.setSelection(valueText.length(), valueText.length());
-			} finally {
-				_sendNotification = true;
-			}
+		if (_textControl == null || _textControl.isDisposed()) 
+			return ;
+		
+		final String valueText = toString(_value);
+		if (valueText.equals(_currentValueText)) {
+			return;
+		}
+		_currentValueText = valueText;
+		_sendNotification = sendNotification;
+		try {
+			_textControl.setText(valueText);
+			_textControl.setSelection(valueText.length(), valueText.length());
+		} finally {
+			_sendNotification = true;
 		}
 	}
 

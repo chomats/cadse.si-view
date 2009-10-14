@@ -32,8 +32,12 @@ import org.eclipse.ui.model.WorkbenchLabelProvider;
 import fede.workspace.tool.eclipse.MappingManager;
 import fede.workspace.tool.view.content.IViewContentModel;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.Item;
+import fr.imag.adele.cadse.core.ItemType;
+import fr.imag.adele.cadse.core.attribute.IAttributeType;
 import fr.imag.adele.cadse.core.impl.CadseIllegalArgumentException;
 import fr.imag.adele.cadse.core.impl.ContentItemImpl;
 import fr.imag.adele.cadse.core.var.ContextVariable;
@@ -44,8 +48,8 @@ public class FolderContentManager extends ContentItemImpl implements IViewConten
 	Variable			path;
 	protected boolean	forceDelete	= true;
 
-	public FolderContentManager(ContentItem parent, Item item, Variable path) {
-		super(parent, item);
+	public FolderContentManager(CompactUUID id, Variable path) {
+		super(id);
 		this.path = path;
 	}
 
@@ -183,5 +187,16 @@ public class FolderContentManager extends ContentItemImpl implements IViewConten
 	public Object getParent(Object o) {
 		return null;
 	}
+	
+	
+	
+		 
+		 @Override
+		public <T> T internalGetOwnerAttribute(IAttributeType<T> type) {
+			if (type == CadseGCST.FOLDER_CONTENT_MODEL_at_FOLDER_PATH_)
+				return (T) getPath(ContextVariable.DEFAULT);
+			
+			return super.internalGetOwnerAttribute(type);
+		}
 
 }

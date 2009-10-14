@@ -393,6 +393,13 @@ public class WSPlugin extends AbstractUIPlugin {
 		}
 		return null;
 	}
+	
+	public static URL getImageURL(String symbolicName, String imagePath) {
+		Bundle b = Platform.getBundle(symbolicName);
+		if (b== null) { return null; }
+		
+		return b.getEntry(imagePath);
+	}
 
 	public URL getImageURLFrom(ItemType it, Item item) {
 		IItemManager im = getManager(it);

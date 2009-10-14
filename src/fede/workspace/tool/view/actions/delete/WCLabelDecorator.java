@@ -16,7 +16,7 @@ import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.delta.ItemDelta;
 import fr.imag.adele.cadse.core.delta.LinkDelta;
 import fr.imag.adele.cadse.core.delta.SetAttributeOperation;
-import fr.imag.adele.cadse.core.CadseRootCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fede.workspace.tool.view.WSPlugin;
 import fr.imag.adele.cadse.eclipse.view.SelfViewLabelProvider;
 
@@ -55,7 +55,7 @@ public class WCLabelDecorator extends SelfViewLabelProvider implements ILabelDec
 
 		if (element instanceof SetAttributeOperation) {
 			if (image == null) {
-				image = WSPlugin.getDefault().getImageFrom(CadseRootCST.ATTRIBUTE_TYPE, CadseRootCST.ATTRIBUTE_TYPE);
+				image = WSPlugin.getDefault().getImageFrom(CadseGCST.ATTRIBUTE, CadseGCST.ATTRIBUTE);
 			}
 			if (((SetAttributeOperation) element).isRemoved()) {
 				return computeImage(image, "icons/deleted.gif");

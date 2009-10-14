@@ -26,7 +26,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 
-import fr.imag.adele.cadse.core.CadseRootCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
@@ -118,7 +118,7 @@ public class DCheckBoxUI extends DAbstractField {
 	}
 
 	public ItemType getType() {
-		return CadseRootCST.DCHECK_BOX;
+		return CadseGCST.DCHECK_BOX;
 	}
 
 	@Override
@@ -154,7 +154,8 @@ public class DCheckBoxUI extends DAbstractField {
 		assert visualValue instanceof Boolean;
 
 		_value = (Boolean) visualValue;
-		(_control).setSelection(_value.booleanValue());
+		if (_control != null && !_control.isDisposed())
+			(_control).setSelection(_value.booleanValue());
 	}
 
 }

@@ -42,7 +42,7 @@ import org.eclipse.ui.model.WorkbenchLabelProvider;
 import fede.workspace.eclipse.MelusineProjectManager;
 import fede.workspace.model.manager.properties.IInteractionControllerForBrowserOrCombo;
 import fede.workspace.model.manager.properties.IInteractionControllerForList;
-import fr.imag.adele.cadse.core.CadseRootCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.impl.CadseIllegalArgumentException;
@@ -196,7 +196,7 @@ public class IC_ResourceTreeDialogForBrowser_Combo_List extends IC_AbstractTreeD
 	}
 
 	public ItemType getType() {
-		return CadseRootCST.IC_RESOURCE_TREE_DIALOG_FOR_BROWSER_COMBO_LIST;
+		return CadseGCST.IC_RESOURCE_TREE_DIALOG_FOR_BROWSER_COMBO_LIST;
 	}
 
 	public void edit(Shell shell, ITreeSelection sel) {

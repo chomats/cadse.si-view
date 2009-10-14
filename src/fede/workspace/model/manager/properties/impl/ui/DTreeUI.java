@@ -33,7 +33,7 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
 import fede.workspace.tool.view.dialog.create.InteractifTreeController;
-import fr.imag.adele.cadse.core.CadseRootCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.ui.EPosLabel;
@@ -152,7 +152,7 @@ public class DTreeUI extends DAbstractField {
 	}
 
 	public ItemType getType() {
-		return CadseRootCST.DTREE;
+		return CadseGCST.DTREE;
 	}
 
 	@Override

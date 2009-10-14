@@ -18,7 +18,7 @@
  */
 package fede.workspace.model.manager.properties.impl.mc;
 
-import fr.imag.adele.cadse.core.CadseRootCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.attribute.IAttributeType;
@@ -66,7 +66,7 @@ public class StringToBooleanModelControler extends MC_AttributesItem {
 
 	@Override
 	public ItemType getType() {
-		return CadseRootCST.STRING_TO_BOOLEAN_MODEL_CONTROLLER;
+		return CadseGCST.STRING_TO_BOOLEAN_MODEL_CONTROLLER;
 	}
 
 }

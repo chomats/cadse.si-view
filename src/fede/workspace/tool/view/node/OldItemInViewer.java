@@ -575,7 +575,7 @@ public class OldItemInViewer extends ItemInViewer implements IAdaptable, IAction
 	// }
 
 	private void addLinkType(Item item, List<OldItemInViewer> ret) {
-		for (LinkType rt : item.getType().getOugoingLinkTypes()) {
+		for (LinkType rt : item.getType().getOutgoingLinkTypes()) {
 			ret.add(new OldItemInViewer(this, rt, OldItemInViewer.LINK_TYPE_OUTGOING));
 		}
 		for (LinkType rt : item.getType().getIncomingLinkTypes()) {

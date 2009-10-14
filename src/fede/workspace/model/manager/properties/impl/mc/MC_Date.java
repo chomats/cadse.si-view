@@ -26,7 +26,7 @@ import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.attribute.IAttributeType;
 import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
-import fr.imag.adele.cadse.core.CadseRootCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.core.util.Convert;
 
@@ -86,18 +86,18 @@ public class MC_Date extends MC_AttributesItem {
 
 	@Override
 	public boolean commitSetAttribute(IAttributeType<?> type, String key, Object value) {
-		if (type == CadseRootCST.MC_DATE_at_PATTERN_) {
+		if (type == CadseGCST.MC_DATE_at_PATTERN_) {
 			if (value == null || value.equals("")) {
 				value = DD_MM_YY;
 			}
-			_pattern = Convert.toString(value, CadseRootCST.MC_DATE_at_PATTERN_, DD_MM_YY);
+			_pattern = Convert.toString(value, CadseGCST.MC_DATE_at_PATTERN_, DD_MM_YY);
 		}
 		return super.commitSetAttribute(type, key, value);
 	}
 
 	@Override
 	public <T> T internalGetOwnerAttribute(IAttributeType<T> type) {
-		if (type == CadseRootCST.MC_DATE_at_PATTERN_) {
+		if (type == CadseGCST.MC_DATE_at_PATTERN_) {
 			return (T) _pattern;
 		}
 		return super.internalGetOwnerAttribute(type);
@@ -105,7 +105,7 @@ public class MC_Date extends MC_AttributesItem {
 
 	@Override
 	public ItemType getType() {
-		return CadseRootCST.MC_DATE;
+		return CadseGCST.MC_DATE;
 	}
 
 }

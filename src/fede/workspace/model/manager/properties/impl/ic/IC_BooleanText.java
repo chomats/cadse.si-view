@@ -25,7 +25,7 @@ import org.eclipse.ui.texteditor.ITextEditorActionDefinitionIds;
 
 import fede.workspace.model.manager.properties.IFieldContenProposalProvider;
 import fede.workspace.model.manager.properties.Proposal;
-import fr.imag.adele.cadse.core.CadseRootCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.ui.IInteractionController;
 
@@ -64,7 +64,7 @@ public final class IC_BooleanText extends IC_Abstract implements IInteractionCon
 	}
 
 	public ItemType getType() {
-		return CadseRootCST.IC_BOOLEAN_TEXT;
+		return CadseGCST.IC_BOOLEAN_TEXT;
 	}
 
 }

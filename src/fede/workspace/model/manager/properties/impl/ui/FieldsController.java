@@ -120,6 +120,8 @@ public class FieldsController implements IPageController {
 		container.setLayoutData(new GridData(GridData.FILL_BOTH));
 		for (IPage mf : pages.getPages()) {
 			String title = mf.getLabel();
+			if (title == null)
+				title = mf.getName();
 			TabItem ti = new TabItem(container, SWT.NONE);
 			ti.setText(title);
 			// TODO set an image...

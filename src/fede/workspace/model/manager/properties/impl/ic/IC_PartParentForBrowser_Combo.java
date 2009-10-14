@@ -21,7 +21,7 @@ package fede.workspace.model.manager.properties.impl.ic;
 import java.util.ArrayList;
 
 import fede.workspace.model.manager.properties.IInteractionControllerForBrowserOrCombo;
-import fr.imag.adele.cadse.core.CadseRootCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemState;
 import fr.imag.adele.cadse.core.ItemType;
@@ -77,8 +77,8 @@ public class IC_PartParentForBrowser_Combo extends IC_AbstractForBrowser_Combo i
 				break;
 			}
 		}
-		ui.putLocal(IFieldDescription.PARENT_CONTEXT, parentItem);
-		ui.putLocal(IFieldDescription.INCOMING_LINK_TYPE, ltselect);
+		getUIField().putLocal(IFieldDescription.PARENT_CONTEXT, parentItem);
+		getUIField().putLocal(IFieldDescription.INCOMING_LINK_TYPE, ltselect);
 		return parentItem;
 	}
 
@@ -87,6 +87,6 @@ public class IC_PartParentForBrowser_Combo extends IC_AbstractForBrowser_Combo i
 	}
 
 	public ItemType getType() {
-		return CadseRootCST.IC_PART_LINK_FOR_BROWSER_COMBO_LIST;
+		return CadseGCST.IC_PART_LINK_FOR_BROWSER_COMBO_LIST;
 	}
 }

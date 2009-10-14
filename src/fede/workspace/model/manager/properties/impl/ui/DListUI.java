@@ -29,6 +29,8 @@ import org.eclipse.jface.viewers.ITreeSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
@@ -39,7 +41,7 @@ import org.eclipse.ui.dialogs.FilteredTree;
 import org.eclipse.ui.dialogs.PatternFilter;
 
 import fede.workspace.model.manager.properties.IInteractionControllerForList;
-import fr.imag.adele.cadse.core.CadseRootCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.attribute.IAttributeType;
@@ -255,6 +257,13 @@ public class DListUI extends DAbstractField {
 						handleAdd(fieldController);
 					}
 				});
+				buttonAdd.addDisposeListener(new DisposeListener() {
+					
+					@Override
+					public void widgetDisposed(DisposeEvent e) {
+						buttonAdd = null;
+					}
+				});
 				buttonAdd.setData(CADSE_MODEL_KEY, this);
 
 				vspan++;
@@ -270,6 +279,13 @@ public class DListUI extends DAbstractField {
 							return;
 						}
 						handleRemove((ITreeSelection) sel, fieldController);
+					}
+				});
+				buttonRemove.addDisposeListener(new DisposeListener() {
+					
+					@Override
+					public void widgetDisposed(DisposeEvent e) {
+						buttonRemove = null;
 					}
 				});
 				buttonRemove.setData(CADSE_MODEL_KEY, this);
@@ -291,6 +307,13 @@ public class DListUI extends DAbstractField {
 						handleUp((ITreeSelection) sel, fieldController);
 					}
 				});
+				buttonUp.addDisposeListener(new DisposeListener() {
+					
+					@Override
+					public void widgetDisposed(DisposeEvent e) {
+						buttonUp = null;
+					}
+				});
 				buttonUp.setData(CADSE_MODEL_KEY, this);
 
 				vspan++;
@@ -306,6 +329,13 @@ public class DListUI extends DAbstractField {
 							return;
 						}
 						handleDown((ITreeSelection) sel, fieldController);
+					}
+				});
+				buttonDown.addDisposeListener(new DisposeListener() {
+					
+					@Override
+					public void widgetDisposed(DisposeEvent e) {
+						buttonDown = null;
 					}
 				});
 				buttonDown.setData(CADSE_MODEL_KEY, this);
@@ -326,6 +356,13 @@ public class DListUI extends DAbstractField {
 						handleReOrder((ITreeSelection) sel, fieldController);
 					}
 				});
+				buttonReOrder.addDisposeListener(new DisposeListener() {
+					
+					@Override
+					public void widgetDisposed(DisposeEvent e) {
+						buttonReOrder = null;
+					}
+				});
 				buttonReOrder.setData(CADSE_MODEL_KEY, this);
 				vspan++;
 			}
@@ -341,6 +378,13 @@ public class DListUI extends DAbstractField {
 							return;
 						}
 						handleEdit((ITreeSelection) sel, fieldController);
+					}
+				});
+				buttonEdit.addDisposeListener(new DisposeListener() {
+					
+					@Override
+					public void widgetDisposed(DisposeEvent e) {
+						buttonEdit = null;
 					}
 				});
 				buttonEdit.setData(CADSE_MODEL_KEY, this);
@@ -606,6 +650,12 @@ public class DListUI extends DAbstractField {
 			buttonUp.setEnabled(v);
 		}
 	}
+	
+	@Override
+	public void dispose() {
+		// TODO Auto-generated method stub
+		super.dispose();
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -618,7 +668,7 @@ public class DListUI extends DAbstractField {
 	}
 
 	public ItemType getType() {
-		return CadseRootCST.DLIST;
+		return CadseGCST.DLIST;
 	}
 
 	/*
@@ -633,16 +683,16 @@ public class DListUI extends DAbstractField {
 
 	@Override
 	public <T> T internalGetOwnerAttribute(IAttributeType<T> type) {
-		if (CadseRootCST.DLIST_at_EDITABLE_BUTTON_ == type) {
+		if (CadseGCST.DLIST_at_EDITABLE_BUTTON_ == type) {
 			return (T) Boolean.valueOf(add_remove);
 		}
-		if (CadseRootCST.DLIST_at_ORDER_BUTTON_ == type) {
+		if (CadseGCST.DLIST_at_ORDER_BUTTON_ == type) {
 			return (T) Boolean.valueOf(order);
 		}
-		if (CadseRootCST.DLIST_at_UPDATE_BUTTON_ == type) {
+		if (CadseGCST.DLIST_at_UPDATE_BUTTON_ == type) {
 			return (T) Boolean.valueOf(update);
 		}
-		if (CadseRootCST.DLIST_at_SHOW_FILTER_ == type) {
+		if (CadseGCST.DLIST_at_SHOW_FILTER_ == type) {
 			return (T) Boolean.valueOf(showfilter);
 		}
 
@@ -661,20 +711,20 @@ public class DListUI extends DAbstractField {
 
 	@Override
 	public boolean commitSetAttribute(IAttributeType<?> type, String key, Object value) {
-		if (type == (CadseRootCST.DLIST_at_EDITABLE_BUTTON_)) {
-			add_remove = Convert.toBoolean(value, CadseRootCST.DLIST_at_EDITABLE_BUTTON_, true);
+		if (type == (CadseGCST.DLIST_at_EDITABLE_BUTTON_)) {
+			add_remove = Convert.toBoolean(value, CadseGCST.DLIST_at_EDITABLE_BUTTON_, true);
 			return true;
 		}
-		if (type == (CadseRootCST.DLIST_at_ORDER_BUTTON_)) {
-			order = Convert.toBoolean(value, CadseRootCST.DLIST_at_ORDER_BUTTON_, true);
+		if (type == (CadseGCST.DLIST_at_ORDER_BUTTON_)) {
+			order = Convert.toBoolean(value, CadseGCST.DLIST_at_ORDER_BUTTON_, true);
 			return true;
 		}
-		if (type == (CadseRootCST.DLIST_at_UPDATE_BUTTON_)) {
-			update = Convert.toBoolean(value, CadseRootCST.DLIST_at_UPDATE_BUTTON_, true);
+		if (type == (CadseGCST.DLIST_at_UPDATE_BUTTON_)) {
+			update = Convert.toBoolean(value, CadseGCST.DLIST_at_UPDATE_BUTTON_, true);
 			return true;
 		}
-		if (type == (CadseRootCST.DLIST_at_SHOW_FILTER_)) {
-			showfilter = Convert.toBoolean(value, CadseRootCST.DLIST_at_SHOW_FILTER_, true);
+		if (type == (CadseGCST.DLIST_at_SHOW_FILTER_)) {
+			showfilter = Convert.toBoolean(value, CadseGCST.DLIST_at_SHOW_FILTER_, true);
 			return true;
 		}
 		return super.commitSetAttribute(type, key, value);

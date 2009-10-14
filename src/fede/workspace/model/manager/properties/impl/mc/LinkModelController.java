@@ -21,7 +21,7 @@ package fede.workspace.model.manager.properties.impl.mc;
 import java.util.List;
 
 import fr.imag.adele.cadse.core.CadseException;
-import fr.imag.adele.cadse.core.CadseRootCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.ChangeID;
 import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.Item;
@@ -71,7 +71,7 @@ public class LinkModelController extends AbstractModelController implements IMod
 				throw new CadseIllegalArgumentException("Cannot find the link type {0} in the item type {1}.",
 						getUIField().getAttributeName(), item.getType().getName());
 			}
-			if (attRef.getType() != CadseRootCST.LINK_DEFINITION_ATTIBUTE_TYPE) {
+			if (attRef.getType() != CadseGCST.LINK) {
 				throw new CadseIllegalArgumentException("The attribute {0} in the item type {1} is not a link type.",
 						getUIField().getAttributeName(), item.getType().getName());
 			}
@@ -139,12 +139,12 @@ public class LinkModelController extends AbstractModelController implements IMod
 	}
 
 	public ItemType getType() {
-		return CadseRootCST.LINK_MODEL_CONTROLLER;
+		return CadseGCST.LINK_MODEL_CONTROLLER;
 	}
 
 	@Override
 	public <T> T internalGetOwnerAttribute(IAttributeType<T> type) {
-		if (CadseRootCST.LINK_MODEL_CONTROLLER_at_ERROR_MESSAGE_ == type) {
+		if (CadseGCST.LINK_MODEL_CONTROLLER_at_ERROR_MESSAGE_ == type) {
 			return (T) msg;
 		}
 		return super.internalGetOwnerAttribute(type);
@@ -152,7 +152,7 @@ public class LinkModelController extends AbstractModelController implements IMod
 
 	@Override
 	public boolean commitSetAttribute(IAttributeType<?> type, String key, Object value) {
-		if (CadseRootCST.LINK_MODEL_CONTROLLER_at_ERROR_MESSAGE_ == type) {
+		if (CadseGCST.LINK_MODEL_CONTROLLER_at_ERROR_MESSAGE_ == type) {
 			msg = Convert.toString(value);
 			return true;
 		}

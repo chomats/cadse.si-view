@@ -25,7 +25,7 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 
 import fr.imag.adele.cadse.core.Link;
-import fr.imag.adele.cadse.core.CadseRootCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fede.workspace.tool.view.ItemInViewer;
 
 public class FilterInstanceOf extends ViewerFilter {
@@ -35,7 +35,7 @@ public class FilterInstanceOf extends ViewerFilter {
 		if (element instanceof ItemInViewer) {
 			ItemInViewer itemInViewer = ((ItemInViewer)element);
 			Link l = itemInViewer.getLink();
-			return l== null || l.getLinkType() != CadseRootCST.ITEM_TYPE_lt_INSTANCE_OF;
+			return l== null || l.getLinkType() != CadseGCST.ITEM_lt_INSTANCE_OF;
 		}
 		return true;
 	}

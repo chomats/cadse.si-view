@@ -31,6 +31,7 @@ import org.eclipse.ui.dialogs.PropertyPage;
 
 import fr.imag.adele.cadse.core.Item;
 
+@Deprecated
 public class WSPropertyPage extends PropertyPage implements IWorkbenchPropertyPage {
 
 	private static final String PATH_TITLE = "Id:";

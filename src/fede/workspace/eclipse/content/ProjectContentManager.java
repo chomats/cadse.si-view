@@ -39,7 +39,11 @@ import org.eclipse.ui.model.WorkbenchLabelProvider;
 import fede.workspace.eclipse.MelusineProjectManager;
 import fede.workspace.tool.view.content.IViewContentModel;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.Item;
+import fr.imag.adele.cadse.core.ItemType;
+import fr.imag.adele.cadse.core.attribute.IAttributeType;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 import fr.imag.adele.cadse.core.var.Variable;
 import fr.imag.adele.fede.workspace.si.view.View;
@@ -99,8 +103,8 @@ public class ProjectContentManager extends EclipseContentManager implements IVie
 	 * @param projectName
 	 * 
 	 */
-	public ProjectContentManager(Item item, Variable projectname) {
-		super(item);
+	public ProjectContentManager(CompactUUID id, Variable projectname) {
+		super(id);
 		this.projectname = projectname;
 	}
 
@@ -117,7 +121,7 @@ public class ProjectContentManager extends EclipseContentManager implements IVie
 			create();
 		}
 
-		View.setItemPersistenceID(p, getItem());
+		View.setItemPersistenceID(p, getOwnerItem());
 	}
 
 	/**
@@ -126,7 +130,7 @@ public class ProjectContentManager extends EclipseContentManager implements IVie
 	 * @return
 	 */
 	public String getProjectName(ContextVariable context) {
-		return projectname.compute(context, getItem());
+		return projectname.compute(context, getOwnerItem());
 	}
 
 	/**
@@ -138,8 +142,8 @@ public class ProjectContentManager extends EclipseContentManager implements IVie
 	public void create() throws CadseException {
 		IProject p = getProject();
 		MelusineProjectManager.createAndOpenProject(p, View.getDefaultMonitor());
-		if (getItem() != null) {
-			View.setItemPersistenceID(p, getItem());
+		if (getOwnerItem() != null) {
+			View.setItemPersistenceID(p, getOwnerItem());
 		}
 		MelusineProjectManager.addMelusineProject(p, View.getDefaultMonitor());
 	}
@@ -272,6 +276,15 @@ public class ProjectContentManager extends EclipseContentManager implements IVie
 
 	public Object getParent(Object o) {
 		return null;
+	}
+	
+	
+	
+	@Override
+	public <T> T internalGetOwnerAttribute(IAttributeType<T> type) {
+		if (type == CadseGCST.PROJECT_CONTENT_MODEL_at_PROJECT_NAME_)
+			return (T) getProjectName(ContextVariable.DEFAULT);
+		return super.internalGetOwnerAttribute(type);
 	}
 
 	// @Override

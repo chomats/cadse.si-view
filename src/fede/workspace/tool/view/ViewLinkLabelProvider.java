@@ -102,7 +102,7 @@ public class ViewLinkLabelProvider extends LabelProvider implements IFontProvide
     private String toStringKind(Link lt) {
 		StringBuilder ret = new StringBuilder();
 		ret.append("[");
-		if (lt.isPart())
+		if (lt.getLinkType().isPart())
 			ret.append("p");
 		else
 			ret.append(" ");

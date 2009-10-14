@@ -3,7 +3,7 @@
 	<component immediate="true" classname="fr.imag.adele.fede.workspace.si.view.View" factory="fr.imag.adele.fede.workspace.si.view.View" architecture="true">
 		<callback transition="validate" method="start"/>
 		<callback transition="invalidate" method="stop"/>
-		<provides interface="fr.imag.adele.fede.workspace.as.eclipse.IEclipse"/>
+		<provides specification="fr.imag.adele.fede.workspace.as.eclipse.IEclipse"/>
 		<requires field="workspaceCU" optional="true" filter="(sam.domain.root=Workspace)"/>
 		<requires field="platformEclipse" optional="false"/>
 		<requires field="initModel" optional="false"/>

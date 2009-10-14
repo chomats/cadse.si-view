@@ -21,10 +21,12 @@ package fede.workspace.model.manager.properties.impl.mc;
 import java.util.HashMap;
 import java.util.Map;
 
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.attribute.EnumAttributeType;
+import fr.imag.adele.cadse.core.attribute.IAttributeType;
 import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
-import fr.imag.adele.cadse.core.CadseRootCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.ui.UIField;
 
 
@@ -37,6 +39,10 @@ public class StringToEnumModelController<T extends Enum<T>> extends MC_Attribute
 	public StringToEnumModelController(Class<T> enumclass, T defaulfvalue) {
 		this.enumclass = enumclass;
 		this.defaultValue = defaulfvalue;
+	}
+	
+	public StringToEnumModelController(CompactUUID id) {
+		super(id);
 	}
 	
 	Map<String, T> enumConstantDirectory() {
@@ -93,6 +99,8 @@ public class StringToEnumModelController<T extends Enum<T>> extends MC_Attribute
 	
 	@Override
 	public ItemType getType() {
-		return CadseRootCST.STRING_TO_ENUM_MODEL_CONTROLLER;
+		return CadseGCST.STRING_TO_ENUM_MODEL_CONTROLLER;
 	}
+	
+	
 }

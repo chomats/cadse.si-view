@@ -279,7 +279,9 @@ public class FieldsPropertySheetPage extends Page implements IPropertySheetPage,
 		}
 		PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
 			public void run() {
-				fd.updateValue();
+				if (fd.isRunning()) {
+					fd.updateValue();
+				}
 			}
 		});
 	}

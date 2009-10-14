@@ -31,7 +31,7 @@ import org.eclipse.ui.dialogs.ListDialog;
 
 import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.attribute.IAttributeType;
-import fr.imag.adele.cadse.core.CadseRootCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.util.Convert;
 import fede.workspace.model.manager.properties.IInteractionControllerForBrowserOrCombo;
 
@@ -149,11 +149,11 @@ public abstract class IC_AbstractForBrowser_Combo extends IC_Abstract implements
 	@Override
 	public boolean commitSetAttribute(IAttributeType<?> type, String key,
 			Object value) {
-		if (CadseRootCST.IC_ABSTRACT_FOR_BROWSER_COMBO_at_MESSAGE_ == type) {
+		if (CadseGCST.IC_ABSTRACT_FOR_BROWSER_COMBO_at_MESSAGE_ == type) {
 			message = Convert.toString(value);
 			return true;
 		}
-		if (CadseRootCST.IC_ABSTRACT_FOR_BROWSER_COMBO_at_TITLE_ == type) {
+		if (CadseGCST.IC_ABSTRACT_FOR_BROWSER_COMBO_at_TITLE_ == type) {
 			title = Convert.toString(value);
 			return true;
 		}
@@ -162,10 +162,10 @@ public abstract class IC_AbstractForBrowser_Combo extends IC_Abstract implements
 	
 	@Override
 	public <T> T internalGetOwnerAttribute(IAttributeType<T> type) {
-		if (CadseRootCST.IC_ABSTRACT_FOR_BROWSER_COMBO_at_MESSAGE_ == type) {
+		if (CadseGCST.IC_ABSTRACT_FOR_BROWSER_COMBO_at_MESSAGE_ == type) {
 			return (T) message;
 		}
-		if (CadseRootCST.IC_ABSTRACT_FOR_BROWSER_COMBO_at_TITLE_ == type) {
+		if (CadseGCST.IC_ABSTRACT_FOR_BROWSER_COMBO_at_TITLE_ == type) {
 			return (T) title;
 		}
 		return (T) super.internalGetOwnerAttribute(type);

@@ -27,7 +27,7 @@ import org.eclipse.swt.widgets.Label;
 
 import fede.workspace.model.manager.properties.impl.ic.IC_ContextMenu;
 import fr.imag.adele.cadse.core.CadseException;
-import fr.imag.adele.cadse.core.CadseRootCST;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -60,30 +60,36 @@ public abstract class DAbstractField extends UIFieldImpl {
 		super(CompactUUID.randomUUID(), key, label, poslabel, mc, ic);
 	}
 
+	public DAbstractField(CompactUUID id) {
+		super(id);
+	}
+
 	@Override
 	protected void collectOutgoingLinks(LinkType linkType, CollectedReflectLink ret) {
-		if (linkType == CadseRootCST.DISPLAY_lt_IC) {
-			ret.addOutgoing(CadseRootCST.DISPLAY_lt_IC, _ic);
+		if (linkType == CadseGCST.DISPLAY_lt_IC) {
+			ret.addOutgoing(CadseGCST.DISPLAY_lt_IC, _ic);
 		}
-		if (linkType == CadseRootCST.DISPLAY_lt_MC && _mc != null && !_mc.isAnonymous()) {
-			ret.addOutgoing(CadseRootCST.DISPLAY_lt_MC, _mc);
+		if (linkType == CadseGCST.DISPLAY_lt_MC && _mc != null && !_mc.isAnonymous()) {
+			ret.addOutgoing(CadseGCST.DISPLAY_lt_MC, _mc);
 		}
 		super.collectOutgoingLinks(linkType, ret);
 	}
 
 	@Override
 	public Link commitLoadCreateLink(LinkType lt, Item destination) throws CadseException {
-		if (lt == CadseRootCST.DISPLAY_lt_IC) {
-			_ic = (IInteractionController) destination;
+		if (lt == CadseGCST.DISPLAY_lt_IC) {
+			_ic = castItem(destination, IInteractionController.class);
 			return new ReflectLink(lt, this, destination, 0);
 		}
-		if (lt == CadseRootCST.DISPLAY_lt_MC) {
-			_mc = (IModelController) destination;
+		if (lt == CadseGCST.DISPLAY_lt_MC) {
+			_mc = castItem(destination, (IModelController.class));
 			return new ReflectLink(lt, this, destination, 0);
 		}
 
 		return super.commitLoadCreateLink(lt, destination);
 	}
+
+	
 
 	protected void createContextMenu(Control parent) {
 		if (this._ic instanceof IC_ContextMenu) {
@@ -146,11 +152,11 @@ public abstract class DAbstractField extends UIFieldImpl {
 	public void removeOutgoingLink(Link link, boolean notifie) {
 		Item destination = link.getDestination();
 		LinkType lt = link.getLinkType();
-		if (lt == CadseRootCST.DISPLAY_lt_IC && destination.isResolved()) {
+		if (lt == CadseGCST.DISPLAY_lt_IC && destination.isResolved()) {
 			_ic = null;
 			return;
 		}
-		if (lt == CadseRootCST.DISPLAY_lt_MC && destination.isResolved()) {
+		if (lt == CadseGCST.DISPLAY_lt_MC && destination.isResolved()) {
 			_mc = null;
 			return;
 		}

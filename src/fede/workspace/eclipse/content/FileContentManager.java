@@ -31,8 +31,12 @@ import org.eclipse.core.runtime.Path;
 import fede.workspace.tool.eclipse.MappingManager;
 import fede.workspace.tool.view.WSPlugin;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.Item;
+import fr.imag.adele.cadse.core.ItemType;
+import fr.imag.adele.cadse.core.attribute.IAttributeType;
 import fr.imag.adele.cadse.core.impl.ContentItemImpl;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 import fr.imag.adele.cadse.core.var.Variable;
@@ -63,8 +67,8 @@ public class FileContentManager extends ContentItemImpl {
 	 * @param path
 	 *            the path
 	 */
-	public FileContentManager(ContentItem parent, Item item, Variable name, Variable path) {
-		super(parent, item);
+	public FileContentManager(CompactUUID id, Variable name, Variable path) {
+		super(id);
 		variableName = name;
 		variablePath = path;
 	}
@@ -76,10 +80,9 @@ public class FileContentManager extends ContentItemImpl {
 	 */
 	@Override
 	public void init() throws CadseException {
-		super.init();
 		IFile f = getFile(ContextVariable.DEFAULT);
 		if (f != null) {
-			View.setItemPersistenceID(f, getItem());
+			View.setItemPersistenceID(f, getOwnerItem());
 		}
 	}
 
@@ -92,7 +95,7 @@ public class FileContentManager extends ContentItemImpl {
 	 * @return the file name
 	 */
 	public String getFileName(ContextVariable context) {
-		return variableName.compute(context, getItem());
+		return variableName.compute(context, getOwnerItem());
 	}
 
 	/**
@@ -104,7 +107,7 @@ public class FileContentManager extends ContentItemImpl {
 	 * @return the folder path
 	 */
 	public String getFolderPath(ContextVariable context) {
-		return variablePath.compute(context, getItem());
+		return variablePath.compute(context, getOwnerItem());
 	}
 
 	/**
@@ -136,9 +139,9 @@ public class FileContentManager extends ContentItemImpl {
 			if (!f.exists()) {
 				f.create(getDefaultImputStream(), true, View.getDefaultMonitor());
 			}
-			View.setItemPersistenceID(f, getItem());
+			View.setItemPersistenceID(f, getOwnerItem());
 		} catch (CoreException e) {
-			throw new CadseException("Cannot create folder from {0} : {1}", e, getItem().getQualifiedDisplayName(), e
+			throw new CadseException("Cannot create folder from {0} : {1}", e, getOwnerItem().getQualifiedDisplayName(), e
 					.getMessage());
 		}
 	}
@@ -193,16 +196,16 @@ public class FileContentManager extends ContentItemImpl {
 	 *             the melusine exception
 	 */
 	public IFile getFile(ContextVariable cxt) {
-		ContentItem parentCm = getParentContentManager();
+		ContentItem parentCm = getPartParent();
 		if (parentCm == null) {
-			WSPlugin.logErrorMessage("The content manager of {0} has not parent !!!", getItem().getQualifiedName());
+			WSPlugin.logErrorMessage("The content manager of {0} has not parent !!!", getOwnerItem().getQualifiedName());
 			return null;
 		}
 
 		IContainer mainResource = parentCm.getMainMappingContent(IContainer.class);
 		if (mainResource == null) {
 			WSPlugin.logErrorMessage(
-					"The parent content manager of {0}, which type is {1}, has not folder or project !!! ", getItem()
+					"The parent content manager of {0}, which type is {1}, has not folder or project !!! ", getOwnerItem()
 							.getQualifiedName(), parentCm.getClass());
 			return null;
 		}
@@ -283,6 +286,18 @@ public class FileContentManager extends ContentItemImpl {
 		return null;
 	}
 
+	
+	
+	 
+	 @Override
+	public <T> T internalGetOwnerAttribute(IAttributeType<T> type) {
+		if (type == CadseGCST.FILE_CONTENT_MODEL_at_FILE_NAME_)
+			return (T) getFileName(ContextVariable.DEFAULT);
+		if (type == CadseGCST.FILE_CONTENT_MODEL_at_FILE_PATH_)
+			return (T) getFolderPath(ContextVariable.DEFAULT);
+		
+		return super.internalGetOwnerAttribute(type);
+	}
 	// /*
 	// * (non-Javadoc)
 	// *
