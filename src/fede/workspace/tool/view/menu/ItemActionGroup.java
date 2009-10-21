@@ -266,7 +266,8 @@ public class ItemActionGroup extends ActionGroup {
 		if (types.size() == 0) {
 			// seul les contributor des sur le type "ItemType" de cadseRoot
 			// sont appelé.
-			runContributor(viewUIController, visited, principalMenu, selection, CadseCore.theItem);
+			if (CadseCore.theItem != null)
+				runContributor(viewUIController, visited, principalMenu, selection, CadseCore.theItem);
 		}
 
 		principalMenu.insert(IMenuAction.CONTEXT_2_MENU, new AddCadseModelAction(), true);
