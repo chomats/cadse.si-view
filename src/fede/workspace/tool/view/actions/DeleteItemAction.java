@@ -27,6 +27,7 @@ import org.eclipse.ui.ISharedImages;
 import fede.workspace.tool.view.ItemInViewer;
 import fede.workspace.tool.view.WSPlugin;
 import fede.workspace.tool.view.actions.delete.ShowDetailWLWCDialogPage;
+import fede.workspace.tool.view.node.RootNode;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.IItemNode;
@@ -76,7 +77,7 @@ public class DeleteItemAction extends AbstractEclipseMenuAction {
 			}
 			aItem = iiv.getItem();
 			IItemManager im = WSPlugin.getManager(aItem);
-			String error = im.canDeleteItem(aItem);
+			String error = iiv.getParent() instanceof RootNode ? null : im.canDeleteItem(aItem);
 			if (error != null) {
 				errors.put(aItem, error);
 				continue;

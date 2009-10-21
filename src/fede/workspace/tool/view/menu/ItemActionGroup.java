@@ -58,6 +58,7 @@ import fede.workspace.tool.view.actions.test.StartTestAction;
 import fede.workspace.tool.view.actions.test.StopTestAction;
 import fede.workspace.tool.view.addlink.LinkRootNode;
 import fede.workspace.tool.view.node.AbstractCadseViewNode;
+import fede.workspace.tool.view.node.RootNode;
 import fr.imag.adele.cadse.core.Group;
 import fr.imag.adele.cadse.core.IGenerateContent;
 import fr.imag.adele.cadse.core.IItemManager;
@@ -429,7 +430,7 @@ public class ItemActionGroup extends ActionGroup {
 				continue;
 			}
 
-			if (item.getType().getItemManager().canDeleteItem(item) != null) {
+			if (!(iiv.getParent() instanceof RootNode) && item.getType().getItemManager().canDeleteItem(item) != null) {
 				continue;
 			}
 			Link itemLink = iiv.getLink();
@@ -660,8 +661,8 @@ public class ItemActionGroup extends ActionGroup {
 	 * 
 	 * @param list
 	 *            the list to add items to
-	 * @return <code>true</code> if any items were added, <code>false</code>
-	 *         if none were added
+	 * @return <code>true</code> if any items were added, <code>false</code> if
+	 *         none were added
 	 */
 	protected static boolean addShortcuts(List<IMenuAction> list) {
 		boolean added = false;
