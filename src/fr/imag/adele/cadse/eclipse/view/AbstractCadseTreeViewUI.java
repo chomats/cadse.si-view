@@ -105,6 +105,7 @@ import fr.imag.adele.cadse.core.key.ISpaceKey;
 import fr.imag.adele.cadse.core.oper.WSCheckAttribute;
 import fr.imag.adele.cadse.core.oper.WSCheckItem;
 import fr.imag.adele.cadse.core.transaction.LogicalWorkspaceTransaction;
+import fr.imag.adele.cadse.core.ui.view.FilterContext;
 import fr.imag.adele.cadse.core.ui.view.ViewDescription;
 import fr.imag.adele.cadse.core.ui.view.ViewFilter;
 import fr.imag.adele.cadse.core.util.ArraysUtil;
@@ -1611,6 +1612,22 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 		_filters = ArraysUtil.remove(ViewFilter.class, _filters, f);
 	}
 
+	@Override
+	public boolean filterNew(FilterContext context) {
+		if (_filters != null) {
+			for (ViewFilter f : _filters) {
+				if (f.isPositifFilter() && f.acceptNew(context)) {
+					return false;
+				}
+				
+				if (f.isNegatifFilter() && f.filterNew(context)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
 	public ItemType[] getFirstItem() {
 		return getFirstItemType(getCadseModel());
 	}

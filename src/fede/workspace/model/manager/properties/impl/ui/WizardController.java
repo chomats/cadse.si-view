@@ -41,6 +41,7 @@ import fr.imag.adele.cadse.core.ui.IPage;
 import fr.imag.adele.cadse.core.ui.IPageController;
 import fr.imag.adele.cadse.core.ui.Pages;
 import fr.imag.adele.cadse.core.ui.UIField;
+import fr.imag.adele.cadse.core.ui.view.NewContext;
 
 /**
  * This is a sample new wizard. Its role is to create a new file resource in the
@@ -63,6 +64,15 @@ public class WizardController extends Wizard implements IWorkbenchWizard, IPageC
 		this.pages.initLocal(this);
 		this.pages.putLocal(IFieldDescription.PARENT_CONTEXT, parentItem);
 		this.pages.putLocal(IFieldDescription.INCOMING_LINK_TYPE, theLinkType);
+	}
+	
+	public WizardController(Pages pages, NewContext c) throws CadseException {
+		super();
+		setNeedsProgressMonitor(true);
+		this.pages = pages;
+		this.pages.initLocal(this);
+		this.pages.putLocal(IFieldDescription.PARENT_CONTEXT, c.getPartParent());
+		this.pages.putLocal(IFieldDescription.INCOMING_LINK_TYPE, c.getPartLinkType());
 	}
 
 	public WizardController(Pages pages) throws CadseException {

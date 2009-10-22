@@ -58,7 +58,7 @@ import fede.workspace.tool.view.actions.test.StartTestAction;
 import fede.workspace.tool.view.actions.test.StopTestAction;
 import fede.workspace.tool.view.addlink.LinkRootNode;
 import fede.workspace.tool.view.node.AbstractCadseViewNode;
-import fr.imag.adele.cadse.core.Group;
+import fr.imag.adele.cadse.core.MenuGroup;
 import fr.imag.adele.cadse.core.IGenerateContent;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.IItemNode;
@@ -156,12 +156,12 @@ public class ItemActionGroup extends ActionGroup {
 		Menu principalMenu = new Menu();
 
 		// create les different context.
-		principalMenu.insert(null, new Group(IMenuAction.CONTEXT_1_MENU), true);
-		principalMenu.insert(null, new Group(IMenuAction.CONTEXT_2_MENU), true);
-		principalMenu.insert(null, new Group(IMenuAction.CONTEXT_3_MENU), true);
-		principalMenu.insert(null, new Group(IMenuAction.CONTEXT_4_MENU), true);
-		principalMenu.insert(null, new Group(IMenuAction.CONTEXT_5_MENU), true);
-		principalMenu.insert(null, new Group(IMenuAction.CONTEXT_6_MENU), true);
+		principalMenu.insert(null, new MenuGroup(IMenuAction.CONTEXT_1_MENU), true);
+		principalMenu.insert(null, new MenuGroup(IMenuAction.CONTEXT_2_MENU), true);
+		principalMenu.insert(null, new MenuGroup(IMenuAction.CONTEXT_3_MENU), true);
+		principalMenu.insert(null, new MenuGroup(IMenuAction.CONTEXT_4_MENU), true);
+		principalMenu.insert(null, new MenuGroup(IMenuAction.CONTEXT_5_MENU), true);
+		principalMenu.insert(null, new MenuGroup(IMenuAction.CONTEXT_6_MENU), true);
 
 		List<Object> objects = Arrays.asList(ssel.toArray());
 		IItemNode[] selection = objects.toArray(new IItemNode[objects.size()]);
@@ -390,6 +390,9 @@ public class ItemActionGroup extends ActionGroup {
 			if (it.isAbstract()) {
 				return false;
 			}
+			if (it.isPartType() && !lt.isPart())
+				return false;
+			
 			if (im.isAbstract(itemParent, lt)) {
 				return false;
 			}
