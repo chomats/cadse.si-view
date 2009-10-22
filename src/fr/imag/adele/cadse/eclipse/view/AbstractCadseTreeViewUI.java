@@ -887,7 +887,9 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayImage(fede.workspace.tool.view.node.LinkNode)
+	 * @see
+	 * fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayImage
+	 * (fede.workspace.tool.view.node.LinkNode)
 	 */
 	public Image getDisplayImage(LinkNode node) {
 		Item destination = node.getItem();
@@ -904,7 +906,9 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayImage(fr.imag.adele.cadse.core.IItemNode)
+	 * @see
+	 * fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayImage
+	 * (fr.imag.adele.cadse.core.IItemNode)
 	 */
 	public Image getDisplayImage(IItemNode node) {
 		Item destination = node.getItem();
@@ -921,7 +925,9 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayText(fr.imag.adele.cadse.core.IItemNode)
+	 * @see
+	 * fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayText
+	 * (fr.imag.adele.cadse.core.IItemNode)
 	 */
 	public String getDisplayText(IItemNode node) {
 		StringBuilder begin = new StringBuilder();
@@ -960,7 +966,9 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayText(fede.workspace.tool.view.node.LinkNode)
+	 * @see
+	 * fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayText
+	 * (fede.workspace.tool.view.node.LinkNode)
 	 */
 	public String getDisplayText(LinkNode node) {
 
@@ -1002,8 +1010,9 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayText(fr.imag.adele.cadse.core.Link,
-	 *      fr.imag.adele.cadse.core.Item)
+	 * @see
+	 * fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayText
+	 * (fr.imag.adele.cadse.core.Link, fr.imag.adele.cadse.core.Item)
 	 */
 	public String getDisplayText(Link link, Item destination) {
 		return destination.getDisplayName();
@@ -1012,7 +1021,9 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayToolTip(fr.imag.adele.cadse.core.Item)
+	 * @see
+	 * fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayToolTip
+	 * (fr.imag.adele.cadse.core.Item)
 	 */
 	public String getDisplayToolTip(Item theItem) {
 		StringBuilder sb = new StringBuilder();
@@ -1090,7 +1101,9 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayToolTip(fr.imag.adele.cadse.core.Link)
+	 * @see
+	 * fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayToolTip
+	 * (fr.imag.adele.cadse.core.Link)
 	 */
 	public String getDisplayToolTip(Link link) {
 		StringBuilder sb = new StringBuilder();
@@ -1287,7 +1300,9 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayToolTip(fr.imag.adele.cadse.core.LinkType)
+	 * @see
+	 * fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayToolTip
+	 * (fr.imag.adele.cadse.core.LinkType)
 	 */
 	public String getDisplayToolTip(LinkType linkType) {
 		return "LinkType: " + linkType.getName();
@@ -1296,7 +1311,9 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayImage(fede.workspace.tool.view.node.LinkTypeNode)
+	 * @see
+	 * fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayImage
+	 * (fede.workspace.tool.view.node.LinkTypeNode)
 	 */
 	public Image getDisplayImage(LinkTypeNode node) {
 
@@ -1312,7 +1329,9 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayText(fede.workspace.tool.view.node.LinkTypeNode)
+	 * @see
+	 * fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayText
+	 * (fede.workspace.tool.view.node.LinkTypeNode)
 	 */
 	public String getDisplayText(LinkTypeNode node) {
 		return node.toString();
@@ -1321,7 +1340,9 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayFont(fede.workspace.tool.view.node.LinkTypeNode)
+	 * @see
+	 * fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayFont
+	 * (fede.workspace.tool.view.node.LinkTypeNode)
 	 */
 	public Font getDisplayFont(LinkTypeNode node) {
 		return null;
@@ -1330,7 +1351,9 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayToolTip(fr.imag.adele.cadse.core.ItemType)
+	 * @see
+	 * fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayToolTip
+	 * (fr.imag.adele.cadse.core.ItemType)
 	 */
 	public String getDisplayToolTip(ItemType itemType) {
 		return "ItemType:" + itemType.getId();
@@ -1339,7 +1362,9 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayImage(fede.workspace.tool.view.node.ItemTypeNode)
+	 * @see
+	 * fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayImage
+	 * (fede.workspace.tool.view.node.ItemTypeNode)
 	 */
 	public Image getDisplayImage(ItemTypeNode node) {
 		Image ret = WSPlugin.getDefault().getImageFrom(node.getItemType(), null);
@@ -1354,7 +1379,9 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayText(fede.workspace.tool.view.node.ItemTypeNode)
+	 * @see
+	 * fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayText
+	 * (fede.workspace.tool.view.node.ItemTypeNode)
 	 */
 	public String getDisplayText(ItemTypeNode node) {
 		return node.toString();
@@ -1363,7 +1390,9 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayFont(fede.workspace.tool.view.node.ItemTypeNode)
+	 * @see
+	 * fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayFont
+	 * (fede.workspace.tool.view.node.ItemTypeNode)
 	 */
 	public Font getDisplayFont(ItemTypeNode node) {
 		return null;
@@ -1380,7 +1409,9 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayToolTip(fede.workspace.tool.view.node.AbstractCadseViewNode)
+	 * @see
+	 * fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayToolTip
+	 * (fede.workspace.tool.view.node.AbstractCadseViewNode)
 	 */
 	public String getDisplayToolTip(AbstractCadseViewNode node) {
 		if (node instanceof LinkNode) {
@@ -1540,14 +1571,15 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 		if (element instanceof Link) {
 			Link l = (Link) element;
 			ArrayList<Object> ret = new ArrayList<Object>();
-			if (isFirstItem(l.getSource(), cadseModel)) {
+			if (l.getSource() != null && isFirstItem(l.getSource(), cadseModel)) {
 				ret.add(l.getSource());
 			}
-			for (Link il : l.getSource().getIncomingLinks()) {
-				if (isLink(il)) {
-					ret.add(il);
+			if (l.getSource() != null)
+				for (Link il : l.getSource().getIncomingLinks()) {
+					if (isLink(il)) {
+						ret.add(il);
+					}
 				}
-			}
 			return ret;
 		}
 		if (element instanceof Item) {
