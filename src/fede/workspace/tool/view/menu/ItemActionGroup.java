@@ -530,7 +530,7 @@ public class ItemActionGroup extends ActionGroup {
 					list.add(new MenuNewAction(workbenchWindow, null, null, it, viewUIController.getDislplayCreate(
 							null, it)));
 				}
-				return new Menu("new", "New", null, new ArrayList(list));
+				return new Menu(IMenuAction.NEW_MENU_ID, "New", null, new ArrayList(list));
 			}
 			return null;
 		}
@@ -613,7 +613,7 @@ public class ItemActionGroup extends ActionGroup {
 			}
 		}
 
-		Menu menu = new Menu("new", "New", null, retlist);
+		Menu menu = new Menu(IMenuAction.NEW_MENU_ID, "New", null, retlist);
 		parent.getType().getItemManager().contributeMenuNewAction(menu, parent);
 
 		// IMenuAction[] dy =
