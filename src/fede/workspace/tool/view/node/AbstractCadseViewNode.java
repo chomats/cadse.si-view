@@ -170,6 +170,7 @@ public abstract class AbstractCadseViewNode extends ItemInViewer implements IIte
 
 	@Override
 	public void close() {
+		super.close();
 		children = null;
 	}
 

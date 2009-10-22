@@ -41,8 +41,6 @@ import fede.workspace.tool.view.content.IViewContentModel;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CompactUUID;
-import fr.imag.adele.cadse.core.Item;
-import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.attribute.IAttributeType;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 import fr.imag.adele.cadse.core.var.Variable;
@@ -200,7 +198,7 @@ public class ProjectContentManager extends EclipseContentManager implements IVie
 			return (T) project;
 		}
 		if (clazz.isAssignableFrom(File.class)) {
-			if (project == null) {
+			if (project == null || project.getLocation() == null) {
 				return null;
 			}
 			return (T) project.getLocation().toFile();
@@ -277,9 +275,7 @@ public class ProjectContentManager extends EclipseContentManager implements IVie
 	public Object getParent(Object o) {
 		return null;
 	}
-	
-	
-	
+
 	@Override
 	public <T> T internalGetOwnerAttribute(IAttributeType<T> type) {
 		if (type == CadseGCST.PROJECT_CONTENT_MODEL_at_PROJECT_NAME_)
