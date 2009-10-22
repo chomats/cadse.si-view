@@ -234,7 +234,7 @@ public class FieldsPropertySheetPage extends Page implements IPropertySheetPage,
 		lastItemPages.putLocal(IFieldDescription.PARENT_CONTEXT, lastItem.getPartParent());
 		lastItemPages.putLocal(IFieldDescription.INCOMING_LINK_TYPE, getContainmentLinkTypeParent(lastItem));
 
-		lastItemPages.setFilterContext(new FilterContext(lastItem, null, view, null, null, itemNode, lastItemPages));
+		lastItemPages.setFilterContext(new FilterContext(lastItem, null, null, view, null, null, itemNode, lastItemPages));
 		if (!pageBook.hasPage(lastItem)) {
 			Composite page = pageBook.createPage(lastItem);
 			page.setLayout(new GridLayout());
