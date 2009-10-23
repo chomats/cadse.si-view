@@ -21,7 +21,6 @@ package fede.workspace.tool.view.actions;
 import java.util.HashMap;
 import java.util.Set;
 
-import org.eclipse.jface.window.IShellProvider;
 import org.eclipse.ui.ISharedImages;
 
 import fede.workspace.tool.view.ItemInViewer;
@@ -35,7 +34,6 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.delta.ItemDelta;
 import fr.imag.adele.cadse.core.impl.CadseCore;
 import fr.imag.adele.cadse.core.transaction.LogicalWorkspaceTransaction;
-import fr.imag.adele.cadse.eclipse.view.AbstractCadseView;
 
 /**
  * Pour chaque item s�lectionn�, cette action demande au manager si on peut
@@ -49,11 +47,9 @@ import fr.imag.adele.cadse.eclipse.view.AbstractCadseView;
  */
 public class DeleteItemAction extends AbstractEclipseMenuAction {
 
-	private Set<IItemNode>		items;
-	private IShellProvider		fPart;
-	private AbstractCadseView	view;
+	private Set<IItemNode>	items;
 
-	public DeleteItemAction(Set<IItemNode> items, IShellProvider part, AbstractCadseView view) {
+	public DeleteItemAction(Set<IItemNode> items) {
 		setDescription("Deletes the selected elements");
 
 		ISharedImages workbenchImages = WSPlugin.getDefault().getWorkbench().getSharedImages();
@@ -61,9 +57,7 @@ public class DeleteItemAction extends AbstractEclipseMenuAction {
 		setImageDescriptor(workbenchImages.getImageDescriptor(ISharedImages.IMG_TOOL_DELETE));
 		setHoverImageDescriptor(workbenchImages.getImageDescriptor(ISharedImages.IMG_TOOL_DELETE));
 
-		this.fPart = part;
 		this.items = items;
-		this.view = view;
 	}
 
 	@Override
@@ -95,14 +89,6 @@ public class DeleteItemAction extends AbstractEclipseMenuAction {
 		}
 
 		ShowDetailWLWCDialogPage.openDialog(copy, "Deleted items", "Items to delete", true);
-
-		// if (oper.getEx() != null) {
-		// String id = aItem == null ? "??" : aItem.getShortName();
-		// WSPlugin.log(new Status(Status.ERROR, "Tool.Workspace.View", 0,
-		// MessageFormat.format(
-		// "Cannot delete the item {0} : {1}.", id, oper.getEx().getMessage()),
-		// oper.getEx()));
-		// }
 	}
 
 	@Override

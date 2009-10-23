@@ -42,11 +42,6 @@ public class CreateLinkAction extends AbstractEclipseMenuAction {
 		this.viewLinkManager = viewLinkManager;
 	}
 
-	private static String TEXT(Item items2) {
-		return "Create link from " + items2.getDisplayName();
-
-	}
-
 	@Override
 	public String getLabel() {
 		return "Create link from " + parent.getDisplayName();

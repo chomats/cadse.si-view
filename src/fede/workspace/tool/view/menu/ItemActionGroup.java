@@ -59,7 +59,6 @@ import fede.workspace.tool.view.actions.test.StopTestAction;
 import fede.workspace.tool.view.addlink.LinkRootNode;
 import fede.workspace.tool.view.node.AbstractCadseViewNode;
 import fede.workspace.tool.view.node.RootNode;
-import fr.imag.adele.cadse.core.MenuGroup;
 import fr.imag.adele.cadse.core.IGenerateContent;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.IItemNode;
@@ -70,6 +69,7 @@ import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.Menu;
+import fr.imag.adele.cadse.core.MenuGroup;
 import fr.imag.adele.cadse.core.impl.CadseCore;
 import fr.imag.adele.cadse.core.impl.internal.Accessor;
 import fr.imag.adele.cadse.core.ui.IActionContributor;
@@ -218,8 +218,7 @@ public class ItemActionGroup extends ActionGroup {
 
 		Set<IItemNode> itemsToDelete = getItemsToDelete(ssel);
 		if (itemsToDelete.size() != 0) {
-			principalMenu.insert(IMenuAction.CONTEXT_1_MENU, new DeleteItemAction(itemsToDelete, getShellProvider(),
-					viewUIController.getViewPart()), true);
+			principalMenu.insert(IMenuAction.CONTEXT_1_MENU, new DeleteItemAction(itemsToDelete), true);
 		}
 
 		if (Platform.inDevelopmentMode()) {
@@ -393,7 +392,7 @@ public class ItemActionGroup extends ActionGroup {
 			}
 			if (it.isPartType() && !lt.isPart())
 				return false;
-			
+
 			if (im.isAbstract(itemParent, lt)) {
 				return false;
 			}

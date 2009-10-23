@@ -1651,7 +1651,7 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 				if (f.isPositifFilter() && f.acceptNew(context)) {
 					return false;
 				}
-				
+
 				if (f.isNegatifFilter() && f.filterNew(context)) {
 					return true;
 				}
@@ -1659,8 +1659,8 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 		}
 		return false;
 	}
-	
-	public ItemType[] getFirstItem() {
+
+	public ItemType[] getFirstItemType() {
 		return getFirstItemType(getCadseModel());
 	}
 
