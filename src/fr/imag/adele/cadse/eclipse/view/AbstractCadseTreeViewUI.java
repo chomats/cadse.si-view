@@ -86,6 +86,7 @@ import fede.workspace.tool.view.node.LinkTypeNode;
 import fede.workspace.tool.view.node.RootNode;
 import fede.workspace.tool.view.oper.WSCheckItemInViewer;
 import fr.imag.adele.cadse.core.CadseException;
+import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.ChangeID;
 import fr.imag.adele.cadse.core.DerivedLink;
 import fr.imag.adele.cadse.core.IItemManager;
@@ -1646,7 +1647,17 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 	}
 
 	@Override
-	public boolean filterNew(FilterContext context) {
+	public boolean filterNew(NewContext context) {
+		
+		if (context.getOutgoingDestination(CadseGCST.ITEM_lt_PARENT) != null) {
+			if (!canCreateFrom(context.getPartParent(), context.getPartLinkType(), context.getDestinationType()))
+				return true;
+		}
+		else {
+			if (!canCreateItem(context.getDestinationType()))
+				return true;
+		}
+		
 		if (_filters != null) {
 			for (ViewFilter f : _filters) {
 				if (f.isPositifFilter() && f.acceptNew(context)) {
@@ -1661,6 +1672,16 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 		return false;
 	}
 
+	@Override
+	public boolean canCreateDestination(LinkType lt) {
+		return isCreateLink(lt);
+	}
+	
+	@Override
+	public ItemType[] getCreatableItemType() {
+		return getFirstItemType(getCadseModel());
+	}
+	
 	public ItemType[] getFirstItemType() {
 		return getFirstItemType(getCadseModel());
 	}
