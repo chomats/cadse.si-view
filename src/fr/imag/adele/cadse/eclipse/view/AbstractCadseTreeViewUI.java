@@ -106,6 +106,7 @@ import fr.imag.adele.cadse.core.oper.WSCheckAttribute;
 import fr.imag.adele.cadse.core.oper.WSCheckItem;
 import fr.imag.adele.cadse.core.transaction.LogicalWorkspaceTransaction;
 import fr.imag.adele.cadse.core.ui.view.FilterContext;
+import fr.imag.adele.cadse.core.ui.view.NewContext;
 import fr.imag.adele.cadse.core.ui.view.ViewDescription;
 import fr.imag.adele.cadse.core.ui.view.ViewFilter;
 import fr.imag.adele.cadse.core.util.ArraysUtil;
@@ -1666,6 +1667,11 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 
 	public Object getWindowProvider() {
 		return getShellProvider();
+	}
+
+	@Override
+	public String getNewLabel(NewContext context) {
+		return context.getLabel();
 	}
 
 }
