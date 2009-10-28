@@ -151,12 +151,12 @@ public class LinkModelController extends AbstractModelController implements IMod
 	}
 
 	@Override
-	public boolean commitSetAttribute(IAttributeType<?> type, String key, Object value) {
+	public boolean commitSetAttribute(IAttributeType<?> type, Object value) {
 		if (CadseGCST.LINK_MODEL_CONTROLLER_at_ERROR_MESSAGE_ == type) {
 			msg = Convert.toString(value);
 			return true;
 		}
-		return super.commitSetAttribute(type, key, value);
+		return super.commitSetAttribute(type, value);
 	}
 
 }

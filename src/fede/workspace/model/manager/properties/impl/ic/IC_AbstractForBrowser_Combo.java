@@ -147,8 +147,7 @@ public abstract class IC_AbstractForBrowser_Combo extends IC_Abstract implements
 	}
 
 	@Override
-	public boolean commitSetAttribute(IAttributeType<?> type, String key,
-			Object value) {
+	public boolean commitSetAttribute(IAttributeType<?> type, Object value) {
 		if (CadseGCST.IC_ABSTRACT_FOR_BROWSER_COMBO_at_MESSAGE_ == type) {
 			message = Convert.toString(value);
 			return true;
@@ -157,7 +156,7 @@ public abstract class IC_AbstractForBrowser_Combo extends IC_Abstract implements
 			title = Convert.toString(value);
 			return true;
 		}
-		return super.commitSetAttribute(type, key, value);
+		return super.commitSetAttribute(type, value);
 	}
 	
 	@Override
