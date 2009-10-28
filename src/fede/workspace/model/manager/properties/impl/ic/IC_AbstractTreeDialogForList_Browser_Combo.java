@@ -153,7 +153,7 @@ public abstract class IC_AbstractTreeDialogForList_Browser_Combo extends IC_Abst
 	}
 
 	@Override
-	public boolean commitSetAttribute(IAttributeType<?> type, String key, Object value) {
+	public boolean commitSetAttribute(IAttributeType<?> type, Object value) {
 		if (CadseGCST.IC_ABSTRACT_TREE_DIALOG_FOR_LIST_BROWSER_COMBO_at_MESSAGE_ == type) {
 			message = Convert.toString(value);
 			return true;
@@ -162,7 +162,7 @@ public abstract class IC_AbstractTreeDialogForList_Browser_Combo extends IC_Abst
 			title = Convert.toString(value);
 			return true;
 		}
-		return super.commitSetAttribute(type, key, value);
+		return super.commitSetAttribute(type, value);
 	}
 
 	public boolean moveDown(Object[] object) {

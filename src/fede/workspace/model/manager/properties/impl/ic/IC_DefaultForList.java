@@ -77,11 +77,11 @@ public class IC_DefaultForList extends IC_AbstractForList implements IInteractio
 	}
 
 	@Override
-	public boolean commitSetAttribute(IAttributeType<?> type, String key, Object value) {
+	public boolean commitSetAttribute(IAttributeType<?> type, Object value) {
 		if (type == CadseGCST.IC_STRING_LIST_FOR_LIST_at_ALLOW_DUPLICATE_) {
 			_allowDuplicate = Convert.toBoolean(value, CadseGCST.IC_STRING_LIST_FOR_LIST_at_ALLOW_DUPLICATE_, false);
 		}
-		return super.commitSetAttribute(type, key, value);
+		return super.commitSetAttribute(type, value);
 	}
 
 	public Image getImage(Object element) {

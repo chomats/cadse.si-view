@@ -85,14 +85,14 @@ public class MC_Date extends MC_AttributesItem {
 	}
 
 	@Override
-	public boolean commitSetAttribute(IAttributeType<?> type, String key, Object value) {
+	public boolean commitSetAttribute(IAttributeType<?> type, Object value) {
 		if (type == CadseGCST.MC_DATE_at_PATTERN_) {
 			if (value == null || value.equals("")) {
 				value = DD_MM_YY;
 			}
 			_pattern = Convert.toString(value, CadseGCST.MC_DATE_at_PATTERN_, DD_MM_YY);
 		}
-		return super.commitSetAttribute(type, key, value);
+		return super.commitSetAttribute(type, value);
 	}
 
 	@Override

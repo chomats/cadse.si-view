@@ -710,7 +710,7 @@ public class DListUI extends DAbstractField {
 	}
 
 	@Override
-	public boolean commitSetAttribute(IAttributeType<?> type, String key, Object value) {
+	public boolean commitSetAttribute(IAttributeType<?> type, Object value) {
 		if (type == (CadseGCST.DLIST_at_EDITABLE_BUTTON_)) {
 			add_remove = Convert.toBoolean(value, CadseGCST.DLIST_at_EDITABLE_BUTTON_, true);
 			return true;
@@ -727,7 +727,7 @@ public class DListUI extends DAbstractField {
 			showfilter = Convert.toBoolean(value, CadseGCST.DLIST_at_SHOW_FILTER_, true);
 			return true;
 		}
-		return super.commitSetAttribute(type, key, value);
+		return super.commitSetAttribute(type, value);
 	}
 
 }

@@ -100,8 +100,8 @@ public class DTextUI extends DAbstractField implements IContentProposalListener 
 	}
 
 	@Override
-	public boolean commitSetAttribute(IAttributeType<?> type, String key, Object value) {
-		if (key.equals(CadseGCST.DTEXT_at_MULTI_LINE)) {
+	public boolean commitSetAttribute(IAttributeType<?> type, Object value) {
+		if (type == CadseGCST.DTEXT_at_MULTI_LINE_) {
 			boolean ret = Convert.toBoolean(value, CadseGCST.DTEXT_at_MULTI_LINE_, false);
 			if (ret != getFlag(Item.UI_TEXT_MULTI_LINE)) {
 				setFlagMultiLine(ret);
@@ -109,7 +109,7 @@ public class DTextUI extends DAbstractField implements IContentProposalListener 
 			}
 			return false;
 		}
-		if (key.equals(CadseGCST.DTEXT_at_NO_BORDER)) {
+		if (type == CadseGCST.DTEXT_at_NO_BORDER_) {
 			boolean ret = Convert.toBoolean(value, CadseGCST.DTEXT_at_NO_BORDER_, false);
 			if (ret != getFlag(Item.UI_NO_BORDER)) {
 				setFlagNoBorder(ret);
@@ -117,7 +117,7 @@ public class DTextUI extends DAbstractField implements IContentProposalListener 
 			}
 			return false;
 		}
-		if (key.equals(CadseGCST.DTEXT_at_WRAP_LINE)) {
+		if (type == CadseGCST.DTEXT_at_WRAP_LINE_) {
 			boolean ret = Convert.toBoolean(value, CadseGCST.DTEXT_at_WRAP_LINE_, false);
 			if (ret != getFlag(Item.UI_TEXT_WRAP_LINE)) {
 				setFlagWrapLine(ret);
@@ -125,7 +125,7 @@ public class DTextUI extends DAbstractField implements IContentProposalListener 
 			}
 			return false;
 		}
-		if (key.equals(CadseGCST.DTEXT_at_TOOL_TIP)) {
+		if (type == CadseGCST.DTEXT_at_TOOL_TIP_) {
 			String ret = Convert.toString(value, CadseGCST.DTEXT_at_TOOL_TIP_, "");
 			if (!Convert.equals(ret, _toolTips)) {
 				_toolTips = ret;
@@ -133,7 +133,7 @@ public class DTextUI extends DAbstractField implements IContentProposalListener 
 			}
 			return false;
 		}
-		if (key.equals(CadseGCST.DTEXT_at_VERTICAL_SPAN)) {
+		if (type == CadseGCST.DTEXT_at_VERTICAL_SPAN_) {
 			int ret = Convert.toInt(value, CadseGCST.DTEXT_at_VERTICAL_SPAN_, 1);
 			if (ret != this._vspan) {
 				this._vspan = ret;
@@ -141,7 +141,7 @@ public class DTextUI extends DAbstractField implements IContentProposalListener 
 			}
 			return false;
 		}
-		return super.commitSetAttribute(type, key, value);
+		return super.commitSetAttribute(type, value);
 	}
 
 	@Override
