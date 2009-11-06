@@ -54,14 +54,12 @@ public abstract class LinkDependencyUserAndModelController extends MC_Attributes
 		currentItemDest = dest;
 		
         if (dest == null) {
-        	getUIField().setVisible(false);
-        	getUIField().setLabel("");
+        	_uiPlatform.setVisible(getUIField(), false);
+        	_uiPlatform.setTextLabel(getUIField(),"");
         } else {
-        	getUIField().setVisible(true);
+        	_uiPlatform.setVisible(getUIField(), true);
         	String message = (String) getUIField().getLabel();
-        	((Button) getUIField().getUIObject(0)).setText(MessageFormat.format(message,dest.getDisplayName()));
-        	((Button) getUIField().getUIObject(0)).update();
-        	getUIField().forceChange();
+        	_uiPlatform.setTextLabel(getUIField(), MessageFormat.format(message,dest.getDisplayName()));
         }
     }
     
