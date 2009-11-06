@@ -29,7 +29,7 @@ import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.IMenuAction;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ui.Pages;
-import fr.imag.adele.cadse.ui.field.core.FieldsCore;
+import fr.imag.adele.cadse.si.workspace.uiplatform.swt.FieldsCore;
 
 /**
  * The Class ExportCadseAction.

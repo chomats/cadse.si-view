@@ -20,11 +20,11 @@ package fede.workspace.model.manager.properties.impl.mc;
 
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.impl.ui.AbstractModelController;
-import fr.imag.adele.cadse.core.ui.IModelController;
+import fr.imag.adele.cadse.core.ui.RunningModelController;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.fede.workspace.si.view.View;
 
-public class MC_AllItemType  extends AbstractModelController implements IModelController {
+public class MC_AllItemType  extends AbstractModelController implements RunningModelController {
 	
 	public Object getValue() {
 		return View.getInstance().getWorkspaceDomain().getLogicalWorkspace().getItemTypes().toArray();

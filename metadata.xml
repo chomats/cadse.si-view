@@ -9,6 +9,7 @@
 		<requires field="initModel" optional="false"/>
 		<requires field="persitence" optional="false"/>
 		<requires field="testService" optional="true"/>
+		<requires field="_swtService" optional="false"/>
 	</component>
 	<instance component="fr.imag.adele.fede.workspace.si.view.View" name="fr.imag.adele.cadse.si.workspace.view.instance"/>
 </ipojo>

@@ -24,7 +24,6 @@ import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
-import fede.workspace.model.manager.properties.impl.ic.IC_NodeIsSelected;
 
 /**
  * ROOT_ENTRY -> MULTI_ENTRY, LT_XXX
@@ -44,7 +43,7 @@ public class FilteredItemNode extends AbstractCadseViewNode implements CadseView
 
 	private TreeViewer		_treeviewer;
 	FilteredItemNodeModel	_model;
-	IC_NodeIsSelected		_icNodeIsSelected	= null;
+	ItemNodeIsSelected		_icNodeIsSelected	= null;
 
 	/** treeviever can be null */
 	public FilteredItemNode(TreeViewer treeviewer) {
@@ -145,7 +144,7 @@ public class FilteredItemNode extends AbstractCadseViewNode implements CadseView
 		return _icNodeIsSelected == null ? IItemNode.DESELECTED : _icNodeIsSelected.isSelected(node);
 	}
 
-	public void setIcNodeIsSelected(IC_NodeIsSelected nodeIsSelected) {
+	public void setIcNodeIsSelected(ItemNodeIsSelected nodeIsSelected) {
 		_icNodeIsSelected = nodeIsSelected;
 	}
 }

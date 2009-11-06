@@ -23,10 +23,10 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemState;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.impl.ui.AbstractModelController;
-import fr.imag.adele.cadse.core.ui.IModelController;
+import fr.imag.adele.cadse.core.ui.RunningModelController;
 import fr.imag.adele.cadse.core.ui.UIField;
 
-public class ParentPartGetAndSet extends AbstractModelController implements IModelController {
+public class ParentPartGetAndSet extends AbstractModelController implements RunningModelController {
 
 	public Object getValue() {
 		Item item = getItem();

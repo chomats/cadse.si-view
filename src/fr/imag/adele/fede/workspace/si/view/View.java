@@ -27,6 +27,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.tools.ant.taskdefs.Get;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -51,7 +52,6 @@ import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 
-import fede.workspace.eclipse.core.CadseDialogPage;
 import fede.workspace.tool.eclipse.MappingManager;
 import fede.workspace.tool.eclipse.Messages;
 import fede.workspace.tool.view.ItemInViewer;
@@ -72,6 +72,7 @@ import fr.imag.adele.cadse.core.delta.ImmutableItemDelta;
 import fr.imag.adele.cadse.core.delta.ImmutableWorkspaceDelta;
 import fr.imag.adele.cadse.eclipse.view.ViewAfterInit;
 import fr.imag.adele.fede.workspace.as.eclipse.IEclipse;
+import fr.imag.adele.fede.workspace.as.eclipse.SWTService;
 import fr.imag.adele.fede.workspace.as.initmodel.IInitModel;
 import fr.imag.adele.fede.workspace.as.persistence.IPersistence;
 import fr.imag.adele.fede.workspace.as.platformeclipse.IPlatformEclipse;
@@ -103,6 +104,9 @@ public class View implements IEclipse {
 	 * @generated
 	 */
 	IPlatformEclipse					platformEclipse;
+	
+	SWTService							_swtService;
+	
 
 	/** The Constant PLUGIN_ID. */
 	public static final String			PLUGIN_ID			= "fede.tool.workspace.view";				//$NON-NLS-1$
@@ -1028,9 +1032,7 @@ public class View implements IEclipse {
 		return platformEclipse.getLocation(true);
 	}
 
-	public CadseRuntime[] openDialog(boolean askToErase) {
-		return CadseDialogPage.openDialog(askToErase);
-	}
+	
 
 	static ArrayList<ViewAfterInit>	_viewAfterInitArray	= new ArrayList<ViewAfterInit>();
 
@@ -1038,5 +1040,9 @@ public class View implements IEclipse {
 		synchronized (_viewAfterInitArray) {
 			_viewAfterInitArray.add(viewAfterInit);
 		}
+	}
+	
+	public SWTService getSwtService() {
+		return _swtService;
 	}
 }

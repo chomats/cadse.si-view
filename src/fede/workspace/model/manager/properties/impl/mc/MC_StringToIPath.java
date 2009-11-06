@@ -21,7 +21,7 @@ package fede.workspace.model.manager.properties.impl.mc;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 
-import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
 import fr.imag.adele.cadse.core.ui.UIField;
 
 public class MC_StringToIPath extends MC_AttributesItem {

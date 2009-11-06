@@ -20,10 +20,10 @@ package fede.workspace.tool.view.dialog.create;
 
 import org.eclipse.swt.graphics.Image;
 
-import fr.imag.adele.cadse.core.ui.IInteractionController;
+import fr.imag.adele.cadse.core.ui.RuningInteractionController;
 
 
-public interface InteractifTreeController extends IInteractionController {
+public interface InteractifTreeController extends RuningInteractionController {
 	
 	public String getText(Object obj);
 	
