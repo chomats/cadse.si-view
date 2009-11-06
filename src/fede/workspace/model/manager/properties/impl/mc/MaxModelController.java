@@ -32,13 +32,13 @@ import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.attribute.IAttributeType;
 import fr.imag.adele.cadse.core.attribute.IntegerAttributeType;
-import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
-import fr.imag.adele.cadse.core.ui.IInteractionController;
-import fr.imag.adele.cadse.core.ui.IModelController;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
+import fr.imag.adele.cadse.core.ui.RuningInteractionController;
+import fr.imag.adele.cadse.core.ui.RunningModelController;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.core.util.Convert;
 
-final public class MaxModelController extends MC_AttributesItem implements IInteractionController,
+final public class MaxModelController extends MC_AttributesItem implements RuningInteractionController,
 		IFieldContenProposalProvider, IContentProposalProvider {
 
 	public static final String		MIN					= "min";
@@ -250,11 +250,11 @@ final public class MaxModelController extends MC_AttributesItem implements IInte
 		return new IContentProposal[] { proposal_value_1, proposal_value_unbounded };
 	}
 
-	public IModelController getModelController() {
+	public RunningModelController getModelController() {
 		return this;
 	}
 
-	public void setModelController(IModelController mc) {
+	public void setModelController(RunningModelController mc) {
 
 	}
 }

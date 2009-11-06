@@ -41,13 +41,10 @@ import org.eclipse.ui.actions.ActionContext;
 import org.eclipse.ui.actions.ActionGroup;
 
 import fede.workspace.tool.view.WSPlugin;
-import fede.workspace.tool.view.actions.AddCadseModelAction;
 import fede.workspace.tool.view.actions.CreateLinkAction;
-import fede.workspace.tool.view.actions.DeleteItemAction;
 import fede.workspace.tool.view.actions.DeleteLinkAction;
 import fede.workspace.tool.view.actions.GenerateAction;
 import fede.workspace.tool.view.actions.RefreshAction;
-import fede.workspace.tool.view.actions.RenameAction;
 import fede.workspace.tool.view.actions.test.CancelTestAction;
 import fede.workspace.tool.view.actions.test.CheckAttributeInModel;
 import fede.workspace.tool.view.actions.test.CheckContentInModel;
@@ -216,18 +213,18 @@ public class ItemActionGroup extends ActionGroup {
 			}
 		}
 
-		Set<IItemNode> itemsToDelete = getItemsToDelete(ssel);
-		if (itemsToDelete.size() != 0) {
-			principalMenu.insert(IMenuAction.CONTEXT_1_MENU, new DeleteItemAction(itemsToDelete), true);
-		}
-
-		if (Platform.inDevelopmentMode()) {
-			Set<IItemNode> itemsToRename = getItemsToRename(ssel);
-			if (itemsToRename.size() != 0) {
-				principalMenu.insert(IMenuAction.CONTEXT_1_MENU, new RenameAction(itemsToRename, getShellProvider()),
-						true);
-			}
-		}
+//		Set<IItemNode> itemsToDelete = getItemsToDelete(ssel);
+//		if (itemsToDelete.size() != 0) {
+//			principalMenu.insert(IMenuAction.CONTEXT_1_MENU, new DeleteItemAction(itemsToDelete), true);
+//		}
+//
+//		if (Platform.inDevelopmentMode()) {
+//			Set<IItemNode> itemsToRename = getItemsToRename(ssel);
+//			if (itemsToRename.size() != 0) {
+//				principalMenu.insert(IMenuAction.CONTEXT_1_MENU, new RenameAction(itemsToRename, getShellProvider()),
+//						true);
+//			}
+//		}
 
 		Set<IItemNode> linksToDelete = getLinksToDelete(ssel);
 		if (linksToDelete.size() != 0) {
@@ -270,7 +267,7 @@ public class ItemActionGroup extends ActionGroup {
 				runContributor(viewUIController, visited, principalMenu, selection, CadseCore.theItem);
 		}
 
-		principalMenu.insert(IMenuAction.CONTEXT_2_MENU, new AddCadseModelAction(), true);
+//		principalMenu.insert(IMenuAction.CONTEXT_2_MENU, new AddCadseModelAction(), true);
 
 		if (viewComponent.getTestService() != null && viewComponent.getTestService().isEnableTests()) {
 			Menu testMenu = new Menu("test", "Test", null);

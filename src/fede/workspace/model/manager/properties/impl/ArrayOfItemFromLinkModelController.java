@@ -20,7 +20,6 @@ package fede.workspace.model.manager.properties.impl;
 
 import java.util.Collection;
 
-import fede.workspace.model.manager.properties.impl.mc.ItemLinkTypeWorkspaceListener;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.ChangeID;
 import fr.imag.adele.cadse.core.Item;
@@ -30,11 +29,12 @@ import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.delta.ImmutableWorkspaceDelta;
 import fr.imag.adele.cadse.core.impl.CadseIllegalArgumentException;
 import fr.imag.adele.cadse.core.impl.ui.AbstractModelController;
-import fr.imag.adele.cadse.core.ui.IModelController;
+import fr.imag.adele.cadse.core.impl.ui.mc.ItemLinkTypeWorkspaceListener;
+import fr.imag.adele.cadse.core.ui.RunningModelController;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.fede.workspace.si.view.View;
 
-public class ArrayOfItemFromLinkModelController extends AbstractModelController implements IModelController {
+public class ArrayOfItemFromLinkModelController extends AbstractModelController implements RunningModelController {
 
 	private Item							item;
 	private LinkType						lt;

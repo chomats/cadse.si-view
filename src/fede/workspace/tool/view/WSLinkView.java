@@ -55,7 +55,6 @@ import org.eclipse.ui.part.ViewPart;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 
 import fede.plugin.workspace.filters.CustomFiltersActionGroup;
-import fede.workspace.model.manager.properties.impl.ui.FieldsPropertySheetPage;
 import fede.workspace.tool.view.node.OldItemInViewer;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.Link;

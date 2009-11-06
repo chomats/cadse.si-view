@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
 import fr.imag.adele.cadse.core.ui.UIField;
 
 

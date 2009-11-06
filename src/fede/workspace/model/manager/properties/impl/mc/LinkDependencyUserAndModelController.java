@@ -27,12 +27,12 @@ import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
 import fr.imag.adele.cadse.core.ui.IEventListener;
-import fr.imag.adele.cadse.core.ui.IInteractionController;
+import fr.imag.adele.cadse.core.ui.RuningInteractionController;
 import fr.imag.adele.cadse.core.ui.UIField;
 
-public abstract class LinkDependencyUserAndModelController extends MC_AttributesItem implements IInteractionController, IEventListener {
+public abstract class LinkDependencyUserAndModelController extends MC_AttributesItem implements RuningInteractionController, IEventListener {
 	Item currentItemDest = null;
 	
     public LinkDependencyUserAndModelController() {

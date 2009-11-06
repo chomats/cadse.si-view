@@ -23,7 +23,7 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Path;
 
-import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
 import fr.imag.adele.cadse.core.ui.UIField;
 
 public class StringToResourceSimpleModelController extends MC_AttributesItem {

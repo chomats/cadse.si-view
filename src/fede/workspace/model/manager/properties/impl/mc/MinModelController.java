@@ -31,12 +31,13 @@ import fede.workspace.model.manager.properties.Proposal;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.attribute.IAttributeType;
 import fr.imag.adele.cadse.core.attribute.IntegerAttributeType;
-import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
-import fr.imag.adele.cadse.core.ui.IInteractionController;
-import fr.imag.adele.cadse.core.ui.IModelController;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
+import fr.imag.adele.cadse.core.ui.RuningInteractionController;
+import fr.imag.adele.cadse.core.ui.RunningModelController;
+import fr.imag.adele.cadse.core.ui.IPageController;
 import fr.imag.adele.cadse.core.ui.UIField;
 
-final public class MinModelController extends MC_AttributesItem implements IInteractionController,
+final public class MinModelController extends MC_AttributesItem implements RuningInteractionController,
 		IFieldContenProposalProvider, IContentProposalProvider {
 	IAttributeType<?>	maxAttribute		= null;
 
@@ -58,8 +59,8 @@ final public class MinModelController extends MC_AttributesItem implements IInte
 	}
 
 	@Override
-	public boolean validValueChanged(UIField field, Object value) {
-		boolean error = super.validValueChanged(field, value);
+	public boolean validValueChanged(IPageController uiPlatform, UIField field, Object value) {
+		boolean error = super.validValueChanged(uiPlatform, field, value);
 		if (error) {
 			return error;
 		}
@@ -70,7 +71,7 @@ final public class MinModelController extends MC_AttributesItem implements IInte
 				Integer i = (Integer) attRef.convertTo(value);
 				if (i == null) {
 					if (_cannotBeUndefined) {
-						setMessageError("The field '" + getAttributeName() + "' must be defined");
+						uiPlatform.setMessageError("The field '" + getUIField().getLabel() + "' must be defined");
 						return true;
 					}
 					return false;
@@ -84,27 +85,27 @@ final public class MinModelController extends MC_AttributesItem implements IInte
 				min = Integer.parseInt((String) value);
 			}
 			if (min <= -1) {
-				setMessageError("The field '" + getAttributeName() + "' must be > -1");
+				uiPlatform.setMessageError("The field '" + getUIField().getLabel() + "' must be > -1");
 				return true;
 			}
-			int max = getMax();
+			int max = getMax(uiPlatform);
 			if (max != -1 && max < min) {
-				setMessageError("The field '" + getAttributeName() + "' must be less or equal at max value (" + max
+				uiPlatform.setMessageError("The field '" + getUIField().getLabel() + "' must be less or equal at max value (" + max
 						+ ")");
 				return true;
 			}
 		} catch (NumberFormatException e) {
-			setMessageError(e.getMessage());
+			uiPlatform.setMessageError(e.getMessage());
 			return true;
 		}
 
 		return false;
 	}
 
-	protected int getMax() {
-		Item item = getItem();
+	protected int getMax(IPageController uiPlatform) {
+		Item item = uiPlatform.getItem(getUIField());
 		if (this.maxAttribute != null) {
-			Object value = item.getAttribute(this.maxAttribute.getName());
+			Object value = item.getAttribute(this.maxAttribute);
 			Object realvalue = this.maxAttribute.convertTo(value);
 			if (realvalue == null) {
 				return -1;
@@ -165,7 +166,7 @@ final public class MinModelController extends MC_AttributesItem implements IInte
 		return new IContentProposal[] { proposal_value_0, proposal_value_1 };
 	}
 
-	public IModelController getModelController() {
+	public RunningModelController getModelController() {
 		return this;
 	}
 }

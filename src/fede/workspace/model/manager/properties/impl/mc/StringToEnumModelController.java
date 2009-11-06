@@ -25,15 +25,15 @@ import fr.imag.adele.cadse.core.CompactUUID;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.attribute.EnumAttributeType;
 import fr.imag.adele.cadse.core.attribute.IAttributeType;
-import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
 import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.ui.IPageController;
 import fr.imag.adele.cadse.core.ui.UIField;
 
 
 public class StringToEnumModelController<T extends Enum<T>> extends MC_AttributesItem {
 
 	private Class<T> enumclass;
-	private volatile transient Map<String, T> enumConstantDirectory = null;
 	private T defaultValue;
 	
 	public StringToEnumModelController(Class<T> enumclass, T defaulfvalue) {
@@ -45,27 +45,15 @@ public class StringToEnumModelController<T extends Enum<T>> extends MC_Attribute
 		super(id);
 	}
 	
-	Map<String, T> enumConstantDirectory() {
-		if (enumConstantDirectory == null) {
-            T[] universe = enumclass.getEnumConstants();  // Does unnecessary clone
-            if (universe == null)
-                throw new IllegalArgumentException(
-                		enumclass.getName() + " is not an enum type");
-            Map<String, T> m = new HashMap<String, T>(2 * universe.length);
-            for (T constant : universe)
-                m.put(((Enum)constant).name(), constant);
-            enumConstantDirectory = m;
-        }
-        return enumConstantDirectory;
-	}
+	
 	 
 	@Override
-	public Object getValue() {
-		Object value = super.getValue();
+	public Object getValue(IPageController uiPlatform) {
+			Object value = super.getValue(uiPlatform);
 		if (value == null ) {
 			if (defaultValue == null)
 				return null;
-			super.notifieValueChanged(getUIField(), defaultValue.toString());
+			super.notifieValueChanged(uiPlatform, getUIField(), defaultValue.toString());
 			return defaultValue;
 		}
 		if (value instanceof String)

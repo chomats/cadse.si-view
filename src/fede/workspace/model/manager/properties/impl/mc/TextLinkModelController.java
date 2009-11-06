@@ -20,6 +20,7 @@ package fede.workspace.model.manager.properties.impl.mc;
 
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.impl.ui.mc.LinkModelController;
 
 public class TextLinkModelController extends LinkModelController {
 

@@ -188,7 +188,7 @@ public class ExportImportCadseFunction {
 		if (it != null) {
 			if (!requireItemType.contains(it)) {
 				requireItemType.add(it);
-				CadseRuntime cr = it.getCadseRuntime();
+				CadseRuntime cr = it.getCadse();
 				if (cr != null) {
 					requireCadse.add(cr);
 				}

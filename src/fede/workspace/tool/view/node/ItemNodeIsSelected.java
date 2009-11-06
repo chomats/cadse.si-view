@@ -1,8 +1,8 @@
-package fede.workspace.model.manager.properties.impl.ic;
+package fede.workspace.tool.view.node;
 
 import fr.imag.adele.cadse.core.IItemNode;
 
-public interface IC_NodeIsSelected {
+public interface ItemNodeIsSelected {
 
 	/**
 	 * return if the node is selected, grayed, deselected

@@ -28,7 +28,6 @@ import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.util.ArraysUtil;
-import fede.workspace.model.manager.properties.impl.ic.IC_AbstractTreeDialogForList_Browser_Combo;
 import fede.workspace.tool.view.node.FilteredItemNode.Category;
 
 /**

@@ -30,7 +30,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 
 import fr.imag.adele.cadse.core.Item;
-import fr.imag.adele.cadse.core.impl.ui.MC_AttributesItem;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fede.workspace.eclipse.MelusineProjectManager;
 
