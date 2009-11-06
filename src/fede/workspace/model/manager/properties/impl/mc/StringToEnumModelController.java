@@ -41,26 +41,27 @@ public class StringToEnumModelController<T extends Enum<T>> extends MC_Attribute
 		this.defaultValue = defaulfvalue;
 	}
 	
-	public StringToEnumModelController(CompactUUID id) {
-		super(id);
-	}
-	
-	
 	 
 	@Override
-	public Object getValue(IPageController uiPlatform) {
-			Object value = super.getValue(uiPlatform);
+	public Object getValue() {
+			Object value = super.getValue();
 		if (value == null ) {
 			if (defaultValue == null)
 				return null;
-			super.notifieValueChanged(uiPlatform, getUIField(), defaultValue.toString());
+			super.notifieValueChanged( getUIField(), defaultValue.toString());
 			return defaultValue;
 		}
 		if (value instanceof String)
-			return enumConstantDirectory().get(value);
+			return convertFromString(value);
 		return value;
 	}
 	
+	private Object convertFromString(Object value) {
+		EnumAttributeType<T> type = (EnumAttributeType<T>) getAttributeDefinition();
+		return type.convertTo(value);
+	}
+
+
 	@Override
 	public void notifieValueChanged(UIField field, Object value) {
 		//TODO
@@ -68,10 +69,10 @@ public class StringToEnumModelController<T extends Enum<T>> extends MC_Attribute
 	}
 
 	@Override
-	public void init(UIField field) {
-		super.init(field);
+	public void init(IPageController uiPlatform) {
+		super.init(uiPlatform);
 		if (enumclass == null) {
-			EnumAttributeType<T> type = (EnumAttributeType<T>) field.getAttributeDefinition();
+			EnumAttributeType<T> type = (EnumAttributeType<T>) getAttributeDefinition();
 			if (type != null) {
 				enumclass = (Class<T>) type.getAttributeType();
 				defaultValue = type.getDefaultValue();
@@ -82,13 +83,5 @@ public class StringToEnumModelController<T extends Enum<T>> extends MC_Attribute
 	@Override
 	public Object defaultValue() {
 		return defaultValue;
-	}
-	
-	
-	@Override
-	public ItemType getType() {
-		return CadseGCST.STRING_TO_ENUM_MODEL_CONTROLLER;
-	}
-	
-	
+	}	
 }

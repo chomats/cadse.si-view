@@ -88,7 +88,7 @@ final public class MaxModelController extends MC_AttributesItem implements Runin
 				Integer i = (Integer) attRef.convertTo(value);
 				if (i == null) {
 					if (_cannotBeUndefined) {
-						setMessageError("The field '" + getAttributeName() + "' must be defined");
+						_uiPlatform.setMessageError("The field '" + attRef.getName() + "' must be defined");
 						return true;
 					}
 					return false;
@@ -102,17 +102,17 @@ final public class MaxModelController extends MC_AttributesItem implements Runin
 				max = Integer.parseInt((String) value);
 			}
 			if (max <= 0) {
-				setMessageError("The field '" + getUIField().getName() + "' must be > 0");
+				_uiPlatform.setMessageError("The field '" + getUIField().getName() + "' must be > 0");
 				return true;
 			}
 			int min = getMin(getItem());
 			if (max != -1 && max < min) {
-				setMessageError("The field '" + getUIField().getName() + "' must be upper or equal at min value ("
+				_uiPlatform.setMessageError("The field '" + getUIField().getName() + "' must be upper or equal at min value ("
 						+ min + ")");
 				return true;
 			}
 		} catch (NumberFormatException e) {
-			setMessageError(e.getMessage());
+			_uiPlatform.setMessageError(e.getMessage());
 			return true;
 		}
 
@@ -256,5 +256,10 @@ final public class MaxModelController extends MC_AttributesItem implements Runin
 
 	public void setModelController(RunningModelController mc) {
 
+	}
+
+	@Override
+	public void init() throws CadseException {
+		
 	}
 }

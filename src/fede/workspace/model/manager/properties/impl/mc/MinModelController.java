@@ -28,6 +28,7 @@ import org.eclipse.ui.texteditor.ITextEditorActionDefinitionIds;
 
 import fede.workspace.model.manager.properties.IFieldContenProposalProvider;
 import fede.workspace.model.manager.properties.Proposal;
+import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.attribute.IAttributeType;
 import fr.imag.adele.cadse.core.attribute.IntegerAttributeType;
@@ -59,8 +60,8 @@ final public class MinModelController extends MC_AttributesItem implements Runin
 	}
 
 	@Override
-	public boolean validValueChanged(IPageController uiPlatform, UIField field, Object value) {
-		boolean error = super.validValueChanged(uiPlatform, field, value);
+	public boolean validValueChanged(UIField field, Object value) {
+		boolean error = super.validValueChanged( field, value);
 		if (error) {
 			return error;
 		}
@@ -71,7 +72,7 @@ final public class MinModelController extends MC_AttributesItem implements Runin
 				Integer i = (Integer) attRef.convertTo(value);
 				if (i == null) {
 					if (_cannotBeUndefined) {
-						uiPlatform.setMessageError("The field '" + getUIField().getLabel() + "' must be defined");
+						_uiPlatform.setMessageError("The field '" + getUIField().getLabel() + "' must be defined");
 						return true;
 					}
 					return false;
@@ -85,25 +86,25 @@ final public class MinModelController extends MC_AttributesItem implements Runin
 				min = Integer.parseInt((String) value);
 			}
 			if (min <= -1) {
-				uiPlatform.setMessageError("The field '" + getUIField().getLabel() + "' must be > -1");
+				_uiPlatform.setMessageError("The field '" + getUIField().getLabel() + "' must be > -1");
 				return true;
 			}
-			int max = getMax(uiPlatform);
+			int max = getMax();
 			if (max != -1 && max < min) {
-				uiPlatform.setMessageError("The field '" + getUIField().getLabel() + "' must be less or equal at max value (" + max
+				_uiPlatform.setMessageError("The field '" + getUIField().getLabel() + "' must be less or equal at max value (" + max
 						+ ")");
 				return true;
 			}
 		} catch (NumberFormatException e) {
-			uiPlatform.setMessageError(e.getMessage());
+			_uiPlatform.setMessageError(e.getMessage());
 			return true;
 		}
 
 		return false;
 	}
 
-	protected int getMax(IPageController uiPlatform) {
-		Item item = uiPlatform.getItem(getUIField());
+	protected int getMax() {
+		Item item = getItem();
 		if (this.maxAttribute != null) {
 			Object value = item.getAttribute(this.maxAttribute);
 			Object realvalue = this.maxAttribute.convertTo(value);
@@ -168,5 +169,11 @@ final public class MinModelController extends MC_AttributesItem implements Runin
 
 	public RunningModelController getModelController() {
 		return this;
+	}
+
+	@Override
+	public void init() throws CadseException {
+		// TODO Auto-generated method stub
+		
 	}
 }

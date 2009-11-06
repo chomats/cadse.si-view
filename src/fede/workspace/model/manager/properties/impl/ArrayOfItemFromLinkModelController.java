@@ -30,6 +30,7 @@ import fr.imag.adele.cadse.core.delta.ImmutableWorkspaceDelta;
 import fr.imag.adele.cadse.core.impl.CadseIllegalArgumentException;
 import fr.imag.adele.cadse.core.impl.ui.AbstractModelController;
 import fr.imag.adele.cadse.core.impl.ui.mc.ItemLinkTypeWorkspaceListener;
+import fr.imag.adele.cadse.core.ui.IPageController;
 import fr.imag.adele.cadse.core.ui.RunningModelController;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.fede.workspace.si.view.View;
@@ -45,7 +46,8 @@ public class ArrayOfItemFromLinkModelController extends AbstractModelController 
 	}
 
 	@Override
-	public void init() {
+	public void init(IPageController uiPlatform) {
+		super.init(uiPlatform);
 		item = getItem();
 		if (item == null) {
 			throw new CadseIllegalArgumentException("No item in the context.");
@@ -53,10 +55,10 @@ public class ArrayOfItemFromLinkModelController extends AbstractModelController 
 
 		if (lt.getSource() == item.getType()) {
 			throw new CadseIllegalArgumentException("The link type {0} in the item type {1} is bad.",
-					getAttributeName(), item.getType().getId());
+					lt.getName(), item.getType().getId());
 		}
 
-		this.l = new ItemLinkTypeWorkspaceListener(item, getUIField(), lt);
+		this.l = new ItemLinkTypeWorkspaceListener(_uiPlatform, item, getUIField(), lt);
 		item.addListener(l, ChangeID.toFilter(ChangeID.CREATE_OUTGOING_LINK, ChangeID.DELETE_OUTGOING_LINK,
 				ChangeID.UNRESOLVE_INCOMING_LINK));
 	}

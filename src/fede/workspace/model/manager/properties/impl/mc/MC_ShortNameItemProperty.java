@@ -43,10 +43,6 @@ public class MC_ShortNameItemProperty extends MC_AttributesItem {
 	public MC_ShortNameItemProperty() {
 	}
 
-	public MC_ShortNameItemProperty(CompactUUID id) {
-		super(id);
-	}
-
 	@Override
 	public void initAfterUI() {
 		super.initAfterUI();
@@ -96,14 +92,14 @@ public class MC_ShortNameItemProperty extends MC_AttributesItem {
 		final String shortId = getItem().getName();
 
 		if (shortId.length() == 0 && item.getType().getSpaceKeyType() != null) {
-			setMessageError(Messages.mc_name_must_be_specified);
+			_uiPlatform.setMessageError(Messages.mc_name_must_be_specified);
 			return true;
 		}
 
 		IItemManager im = item.getType().getItemManager();
 		String message = im.validateShortName(item, shortId);
 		if (message != null) {
-			setMessageError(message);
+			_uiPlatform.setMessageError(message);
 			return true;
 		}
 
@@ -127,14 +123,14 @@ public class MC_ShortNameItemProperty extends MC_AttributesItem {
 		}
 
 		if (shortId.length() == 0) { // && item.getType().getSpaceKeyType()
-			setMessageError(Messages.mc_name_must_be_specified);
+			_uiPlatform.setMessageError(Messages.mc_name_must_be_specified);
 			return true;
 		}
 
 		IItemManager im = item.getType().getItemManager();
 		String message = im.validateShortName(item, shortId);
 		if (message != null) {
-			setMessageError(message);
+			_uiPlatform.setMessageError(message);
 			return true;
 		}
 		
@@ -142,7 +138,7 @@ public class MC_ShortNameItemProperty extends MC_AttributesItem {
 			String un = im.computeQualifiedName(item, shortId, item.getPartParent(), item.getPartParentLinkType());
 			Item foundItem = item.getLogicalWorkspace().getItem(un);
 			if (foundItem != null && foundItem != item) {
-				setMessageError(Messages.mc_name_already_exists);
+				_uiPlatform.setMessageError(Messages.mc_name_already_exists);
 				return true;
 			}
 		}
@@ -154,12 +150,12 @@ public class MC_ShortNameItemProperty extends MC_AttributesItem {
 				key.setName(shortId);
 			} catch (CadseException e) {
 				WSPlugin.logException(e);
-				setMessageError(e.getMessage());
+				_uiPlatform.setMessageError(e.getMessage());
 				return true;
 			}
 			Item foundItem = item.getLogicalWorkspace().getItem(key);
 			if (foundItem != null && foundItem != item) {
-				setMessageError(Messages.mc_name_already_exists);
+				_uiPlatform.setMessageError(Messages.mc_name_already_exists);
 				return true;
 			}
 			
@@ -180,11 +176,6 @@ public class MC_ShortNameItemProperty extends MC_AttributesItem {
 	@Override
 	public Object defaultValue() {
 		return EMPTY_STRING;
-	}
-
-	@Override
-	public ItemType getType() {
-		return CadseGCST.MC_NAME_ATTRIBUTE;
 	}
 
 }

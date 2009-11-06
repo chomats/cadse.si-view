@@ -41,9 +41,4 @@ public class ItemIdModelController extends AbstractModelController implements Ru
 		}
 	}
 
-	public ItemType getType() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

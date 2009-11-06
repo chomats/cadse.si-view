@@ -24,8 +24,8 @@ import fr.imag.adele.cadse.core.impl.ui.mc.LinkModelController;
 
 public class TextLinkModelController extends LinkModelController {
 
-	public TextLinkModelController(boolean mandatory, String msg, LinkType lt) {
-		super(mandatory, msg, lt);
+	public TextLinkModelController(boolean mandatory, String msg) {
+		super(mandatory, msg);
 	}
 
 	@Override
