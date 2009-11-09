@@ -29,11 +29,11 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 
-import fede.workspace.model.manager.properties.impl.ui.FieldsPropertySheetPage;
 import fede.workspace.tool.view.node.AbstractCadseViewNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.impl.CadseCore;
+import fr.imag.adele.fede.workspace.si.view.View;
 
 /**
  * Cette vue represente les item du workspace courant. Nous avons trois mode
@@ -173,7 +173,7 @@ public abstract class AbstractCadseView extends ViewPart {
 	@Override
 	public Object getAdapter(Class adapter) {
 		if (adapter == IPropertySheetPage.class) {
-			return new FieldsPropertySheetPage();
+			return View.getInstance().getSwtService().createPropertySheetPage();
 		}
 		return super.getAdapter(adapter);
 	}

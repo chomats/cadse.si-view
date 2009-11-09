@@ -50,8 +50,6 @@ import fede.workspace.tool.view.actions.test.CheckAttributeInModel;
 import fede.workspace.tool.view.actions.test.CheckContentInModel;
 import fede.workspace.tool.view.actions.test.CheckItemInModel;
 import fede.workspace.tool.view.actions.test.CheckItemInviewer;
-import fede.workspace.tool.view.actions.test.RunTestAction;
-import fede.workspace.tool.view.actions.test.StartTestAction;
 import fede.workspace.tool.view.actions.test.StopTestAction;
 import fede.workspace.tool.view.addlink.LinkRootNode;
 import fede.workspace.tool.view.node.AbstractCadseViewNode;
@@ -298,9 +296,9 @@ public class ItemActionGroup extends ActionGroup {
 					testMenu.insert(null, testCheckMenu, true);
 				}
 			} else {
-				testMenu.insert(null, new StartTestAction(getShellProvider()), true);
+				//testMenu.insert(null, new StartTestAction(getShellProvider()), true);
 			}
-			testMenu.insert(null, new RunTestAction(getShellProvider()), true);
+			//testMenu.insert(null, new RunTestAction(getShellProvider()), true);
 			principalMenu.insert(IMenuAction.CONTEXT_2_MENU, testMenu, true);
 		}
 

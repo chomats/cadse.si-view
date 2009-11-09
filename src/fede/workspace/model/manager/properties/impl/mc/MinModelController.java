@@ -35,7 +35,7 @@ import fr.imag.adele.cadse.core.attribute.IntegerAttributeType;
 import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
 import fr.imag.adele.cadse.core.ui.RuningInteractionController;
 import fr.imag.adele.cadse.core.ui.RunningModelController;
-import fr.imag.adele.cadse.core.ui.IPageController;
+import fr.imag.adele.cadse.core.ui.UIPlatform;
 import fr.imag.adele.cadse.core.ui.UIField;
 
 final public class MinModelController extends MC_AttributesItem implements RuningInteractionController,

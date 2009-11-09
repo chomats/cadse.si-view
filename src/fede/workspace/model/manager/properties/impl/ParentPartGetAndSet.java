@@ -23,7 +23,7 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemState;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.impl.ui.AbstractModelController;
-import fr.imag.adele.cadse.core.ui.IPageController;
+import fr.imag.adele.cadse.core.ui.UIPlatform;
 import fr.imag.adele.cadse.core.ui.RunningModelController;
 import fr.imag.adele.cadse.core.ui.UIField;
 
@@ -36,7 +36,7 @@ public class ParentPartGetAndSet extends AbstractModelController implements Runn
 	}
 
 	@Override
-	public void init(IPageController uiPlatform) {
+	public void init(UIPlatform uiPlatform) {
 		super.init(uiPlatform);
 		Item curentItem = getItem();
 		if (curentItem.getState() == ItemState.NOT_IN_WORKSPACE) {

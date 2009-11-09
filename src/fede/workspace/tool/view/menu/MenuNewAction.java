@@ -27,8 +27,6 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWizard;
 
-import fede.workspace.model.manager.properties.impl.ui.UIWizardDialog;
-import fede.workspace.model.manager.properties.impl.ui.WizardController;
 import fede.workspace.tool.view.WSPlugin;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.DefaultItemManager;
@@ -39,6 +37,7 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.ui.Pages;
+import fr.imag.adele.fede.workspace.si.view.View;
 
 /**
  * A <code>BaseNewWizardMenu</code> is used to populate a menu manager with
@@ -112,49 +111,11 @@ public class MenuNewAction extends IMenuAction {
 		return false;
 	}
 
-	public IWorkbenchWizard createWizard(IItemManager ip, Item theItemParent, LinkType theLinkType, ItemType desType)
-			throws CadseException {
-		if (ip.isAbstract(theItemParent, theLinkType)) {
-			return null;
-		}
-		Pages f = null;
-		if (ip instanceof DefaultItemManager) {
-			f = ((DefaultItemManager) ip).createCreationPages(theItemParent, theLinkType, desType);
-		}
-		if (f == null) {
-			f = desType.getGoodCreationPage(theItemParent, desType, theLinkType);
-		}
-		if (f != null) {
-			return new WizardController(f, theItemParent, theLinkType);
-		}
-		return null;
-	}
-
 	@Override
 	public void run(IItemNode[] selection) throws CadseException {
 		try {
-			final IItemManager ip = destItemType.getItemManager();
-			if (ip == null) {
-				return;
-			}
-			IWorkbenchWizard wizard = createWizard(ip, this.parent, lt, destItemType);
-			if (wizard == null) {
-				String message;
-				if (parent != null) {
-					message = MessageFormat.format(
-							"Cannot create an item of type {0} from {1} of type {2} the link {3} : no pages found",
-							destItemType.getName(), parent.getName(), parent.getType().getName(), lt.getName());
-				} else {
-					message = MessageFormat.format("Cannot create an item of type {0} : no pages found", destItemType
-							.getName());
-				}
-
-				MessageDialog.openError(workbenchWindow.getShell(), "Cannot create wizard  : no pages found", message);
-				WSPlugin.log(new Status(Status.ERROR, WSPlugin.PLUGIN_ID, 0, message, null));
-				return;
-			}
-			UIWizardDialog wd = new UIWizardDialog(workbenchWindow.getShell(), (WizardController) wizard);
-			wd.open();
+			View.getInstance().getSwtService().showCreateWizardWithError(workbenchWindow.getShell(), parent, lt, destItemType);
+			
 		} catch (Throwable e1) {
 			e1.printStackTrace();
 			String message;
