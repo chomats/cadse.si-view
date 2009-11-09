@@ -30,7 +30,7 @@ import fr.imag.adele.cadse.core.delta.ImmutableWorkspaceDelta;
 import fr.imag.adele.cadse.core.impl.CadseIllegalArgumentException;
 import fr.imag.adele.cadse.core.impl.ui.AbstractModelController;
 import fr.imag.adele.cadse.core.impl.ui.mc.ItemLinkTypeWorkspaceListener;
-import fr.imag.adele.cadse.core.ui.IPageController;
+import fr.imag.adele.cadse.core.ui.UIPlatform;
 import fr.imag.adele.cadse.core.ui.RunningModelController;
 import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.fede.workspace.si.view.View;
@@ -46,7 +46,7 @@ public class ArrayOfItemFromLinkModelController extends AbstractModelController 
 	}
 
 	@Override
-	public void init(IPageController uiPlatform) {
+	public void init(UIPlatform uiPlatform) {
 		super.init(uiPlatform);
 		item = getItem();
 		if (item == null) {

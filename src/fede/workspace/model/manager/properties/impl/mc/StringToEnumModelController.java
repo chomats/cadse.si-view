@@ -27,7 +27,7 @@ import fr.imag.adele.cadse.core.attribute.EnumAttributeType;
 import fr.imag.adele.cadse.core.attribute.IAttributeType;
 import fr.imag.adele.cadse.core.impl.ui.mc.MC_AttributesItem;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.ui.IPageController;
+import fr.imag.adele.cadse.core.ui.UIPlatform;
 import fr.imag.adele.cadse.core.ui.UIField;
 
 
@@ -69,7 +69,7 @@ public class StringToEnumModelController<T extends Enum<T>> extends MC_Attribute
 	}
 
 	@Override
-	public void init(IPageController uiPlatform) {
+	public void init(UIPlatform uiPlatform) {
 		super.init(uiPlatform);
 		if (enumclass == null) {
 			EnumAttributeType<T> type = (EnumAttributeType<T>) getAttributeDefinition();
