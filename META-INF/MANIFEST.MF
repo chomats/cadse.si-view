@@ -89,10 +89,6 @@ Export-Package: fede.workspace.ant;version="2.2.1";
    org.eclipse.jface.resource,
    org.eclipse.ui,
    fr.imag.adele.cadse.core",
- fede.workspace.model.manager.properties.impl;version="2.2.1";
-  uses:="fr.imag.adele.cadse.core,
-   fr.imag.adele.cadse.core.ui,
-   fr.imag.adele.cadse.core.impl.ui",
  fede.workspace.model.manager.properties.impl.mc;version="2.2.1";
   uses:="org.eclipse.core.runtime,
    fr.imag.adele.cadse.core.delta,
