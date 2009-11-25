@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package fede.workspace.model.manager.properties.impl;
+package fede.workspace.model.manager.properties.impl.mc;
 
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.Item;
