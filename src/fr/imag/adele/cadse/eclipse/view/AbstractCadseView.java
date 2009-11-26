@@ -33,6 +33,7 @@ import fede.workspace.tool.view.node.AbstractCadseViewNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.impl.CadseCore;
+import fr.imag.adele.fede.workspace.as.eclipse.SWTService;
 import fr.imag.adele.fede.workspace.si.view.View;
 
 /**
@@ -173,7 +174,9 @@ public abstract class AbstractCadseView extends ViewPart {
 	@Override
 	public Object getAdapter(Class adapter) {
 		if (adapter == IPropertySheetPage.class) {
-			return View.getInstance().getSwtService().createPropertySheetPage();
+			View view = View.getInstance();
+			SWTService swtService = view == null ? null : view.getSwtService();
+			return swtService == null ? null : swtService.createPropertySheetPage();
 		}
 		return super.getAdapter(adapter);
 	}
