@@ -633,7 +633,7 @@ public class WSLinkView extends ViewPart implements ISelectionListener {
 	@Override
 	public Object getAdapter(Class adapter) {
 		if (adapter == IPropertySheetPage.class) {
-			return View.getInstance().getSwtService().createPropertySheetPage();
+			return new FieldsPropertySheetPage();
 		}
 		return super.getAdapter(adapter);
 	}

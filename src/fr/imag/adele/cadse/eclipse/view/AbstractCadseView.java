@@ -29,6 +29,7 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 
+import fede.workspace.tool.view.FieldsPropertySheetPage;
 import fede.workspace.tool.view.node.AbstractCadseViewNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
@@ -174,9 +175,7 @@ public abstract class AbstractCadseView extends ViewPart {
 	@Override
 	public Object getAdapter(Class adapter) {
 		if (adapter == IPropertySheetPage.class) {
-			View view = View.getInstance();
-			SWTService swtService = view == null ? null : view.getSwtService();
-			return swtService == null ? null : swtService.createPropertySheetPage();
+			return new FieldsPropertySheetPage();
 		}
 		return super.getAdapter(adapter);
 	}

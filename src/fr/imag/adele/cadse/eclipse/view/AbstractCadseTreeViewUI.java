@@ -68,6 +68,7 @@ import org.eclipse.ui.part.DrillDownAdapter;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 
 import fede.plugin.workspace.filters.CustomFiltersActionGroup;
+import fede.workspace.tool.view.FieldsPropertySheetPage;
 import fede.workspace.tool.view.ItemInViewer;
 import fede.workspace.tool.view.ItemInViewerToolTip;
 import fede.workspace.tool.view.TreeToolTipListener;
@@ -819,7 +820,7 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 
 	public Object getAdapter(Class adapter) {
 		if (adapter == IPropertySheetPage.class) {
-			return View.getInstance().getSwtService().createPropertySheetPage();
+			return new FieldsPropertySheetPage();
 		}
 		return null;
 	}
