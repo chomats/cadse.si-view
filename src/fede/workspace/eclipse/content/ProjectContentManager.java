@@ -40,7 +40,7 @@ import fede.workspace.eclipse.MelusineProjectManager;
 import fede.workspace.tool.view.content.IViewContentModel;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 import fr.imag.adele.cadse.core.attribute.IAttributeType;
 import fr.imag.adele.cadse.core.var.ContextVariable;
 import fr.imag.adele.cadse.core.var.Variable;
@@ -101,7 +101,7 @@ public class ProjectContentManager extends EclipseContentManager implements IVie
 	 * @param projectName
 	 * 
 	 */
-	public ProjectContentManager(CompactUUID id, Variable projectname) {
+	public ProjectContentManager(UUID id, Variable projectname) {
 		super(id);
 		this.projectname = projectname;
 	}

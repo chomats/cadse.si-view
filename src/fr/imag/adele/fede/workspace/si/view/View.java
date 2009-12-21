@@ -61,7 +61,7 @@ import fede.workspace.tool.view.adapter.WSAdapterItemInViewFactory;
 import fr.imag.adele.cadse.core.CadseDomain;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseRuntime;
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemState;
@@ -539,7 +539,7 @@ public class View implements IEclipse {
 	 *             the core exception
 	 */
 	public Item getItemFromResource(IResource resource) throws CoreException {
-		CompactUUID id = getUUIDFromResource(resource);
+		UUID id = getUUIDFromResource(resource);
 		if (id == null) {
 			return null;
 		}
@@ -573,7 +573,7 @@ public class View implements IEclipse {
 	 * @throws CoreException
 	 *             the core exception
 	 */
-	public CompactUUID getUUIDFromResource(IResource resource) throws CoreException {
+	public UUID getUUIDFromResource(IResource resource) throws CoreException {
 		if (resource == null) {
 			return null;
 		}
@@ -589,9 +589,9 @@ public class View implements IEclipse {
 			return getUUIDFromResource(resource.getParent());
 		}
 
-		CompactUUID id;
+		UUID id;
 		try {
-			id = CompactUUID.fromString(idStr);
+			id = UUID.fromString(idStr);
 			return id;
 		} catch (Throwable e) {
 			e.printStackTrace();

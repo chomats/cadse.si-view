@@ -33,7 +33,7 @@ import fede.workspace.tool.eclipse.MappingManager;
 import fede.workspace.tool.view.content.IViewContentModel;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -48,7 +48,7 @@ public class FolderContentManager extends ContentItemImpl implements IViewConten
 	Variable			path;
 	protected boolean	forceDelete	= true;
 
-	public FolderContentManager(CompactUUID id, Variable path) {
+	public FolderContentManager(UUID id, Variable path) {
 		super(id);
 		this.path = path;
 	}

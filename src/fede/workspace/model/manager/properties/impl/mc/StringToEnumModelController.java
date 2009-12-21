@@ -21,7 +21,7 @@ package fede.workspace.model.manager.properties.impl.mc;
 import java.util.HashMap;
 import java.util.Map;
 
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.attribute.EnumAttributeType;
 import fr.imag.adele.cadse.core.attribute.IAttributeType;

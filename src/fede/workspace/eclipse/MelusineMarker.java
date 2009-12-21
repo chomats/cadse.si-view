@@ -24,7 +24,7 @@ import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -53,11 +53,11 @@ public class MelusineMarker {
 		
 	}
 	
-	public static void setItemTypeId(IMarker marker, CompactUUID itemTypeId) throws CoreException {
+	public static void setItemTypeId(IMarker marker, UUID itemTypeId) throws CoreException {
 		marker.setAttribute(MARKER_ITEM_TYPE,itemTypeId.toString());
 	}
 
-	public static void setItemId(IMarker marker, CompactUUID itemId) throws CoreException {
+	public static void setItemId(IMarker marker, UUID itemId) throws CoreException {
 		marker.setAttribute(MARKER_ITEM,itemId.toString());
 	}
 	
@@ -80,16 +80,16 @@ public class MelusineMarker {
 		marker.setAttribute(IMarker.MESSAGE,MessageFormat.format(description,parameters));
 	}
 
-	public static CompactUUID getItemTypeId(IMarker marker) {
+	public static UUID getItemTypeId(IMarker marker) {
 		String uuid = marker.getAttribute(MARKER_ITEM_TYPE,null);
 		if (uuid == null) return null;
-		return CompactUUID.fromString(uuid);
+		return UUID.fromString(uuid);
 	}
 
-	public static CompactUUID getItemId(IMarker marker) {
+	public static UUID getItemId(IMarker marker) {
 		String uuid = marker.getAttribute(MARKER_ITEM,null);
 		if (uuid == null) return null;
-		return CompactUUID.fromString(uuid);
+		return UUID.fromString(uuid);
 	}
 
 	public static ItemType getItemType(IMarker marker, LogicalWorkspace workspace) {

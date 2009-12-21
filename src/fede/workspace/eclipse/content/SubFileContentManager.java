@@ -22,14 +22,14 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
 import fr.imag.adele.cadse.core.CadseException;
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.impl.ContentItemImpl;
 
 public abstract class SubFileContentManager extends ContentItemImpl {
 
-	public SubFileContentManager(CompactUUID id) {
+	public SubFileContentManager(UUID id) {
 		super(id);
 	}
 

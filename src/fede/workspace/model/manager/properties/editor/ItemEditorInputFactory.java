@@ -22,7 +22,7 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.ui.IElementFactory;
 import org.eclipse.ui.IMemento;
 
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 import fr.imag.adele.cadse.core.Item;
 import fede.workspace.tool.view.WSPlugin;
 import fr.imag.adele.fede.workspace.si.view.View;
@@ -57,7 +57,7 @@ public class ItemEditorInputFactory implements IElementFactory {
 
         // Get a handle to the IFile...which can be a handle
         // to a resource that does not exist in workspace
-        Item item = View.getInstance().getWorkspaceDomain().getLogicalWorkspace().getItem(CompactUUID.fromString(id));
+        Item item = View.getInstance().getWorkspaceDomain().getLogicalWorkspace().getItem(UUID.fromString(id));
                 
         if (item != null) {
 			return new ItemEditorInput(item);

@@ -41,7 +41,7 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
 
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -226,7 +226,7 @@ public class WSPlugin extends AbstractUIPlugin {
 	 *             the core exception
 	 */
 	public static Item sGetItemFromResource(IResource resource) throws CoreException {
-		CompactUUID id = sGetUUIDFromResource(resource);
+		UUID id = sGetUUIDFromResource(resource);
 		LogicalWorkspace wl = CadseCore.getLogicalWorkspace();
 		if (wl == null) {
 			return null;
@@ -245,7 +245,7 @@ public class WSPlugin extends AbstractUIPlugin {
 	 * @throws CoreException
 	 *             the core exception
 	 */
-	public static CompactUUID sGetUUIDFromResource(IResource resource) throws CoreException {
+	public static UUID sGetUUIDFromResource(IResource resource) throws CoreException {
 		if (resource == null) {
 			throw new CoreException(new Status(Status.ERROR, WSPlugin.PLUGIN_ID, "the resouces is null"));
 		}
@@ -264,7 +264,7 @@ public class WSPlugin extends AbstractUIPlugin {
 		}
 
 		try {
-			return CompactUUID.fromString(idStr);
+			return UUID.fromString(idStr);
 		} catch (Throwable e) {
 			throw new CoreException(new Status(Status.ERROR, WSPlugin.PLUGIN_ID, "the id property is not valid "
 					+ idStr + " for " + resource.getFullPath().toPortableString(), e));
@@ -272,7 +272,7 @@ public class WSPlugin extends AbstractUIPlugin {
 		}
 	}
 
-	public static CompactUUID getUUIDFromResource(IResource object) {
+	public static UUID getUUIDFromResource(IResource object) {
 		try {
 			try {
 				return View.getInstance().getUUIDFromResource(object);

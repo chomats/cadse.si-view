@@ -32,7 +32,7 @@ import fede.workspace.tool.eclipse.MappingManager;
 import fede.workspace.tool.view.WSPlugin;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
@@ -67,7 +67,7 @@ public class FileContentManager extends ContentItemImpl {
 	 * @param path
 	 *            the path
 	 */
-	public FileContentManager(CompactUUID id, Variable name, Variable path) {
+	public FileContentManager(UUID id, Variable name, Variable path) {
 		super(id);
 		variableName = name;
 		variablePath = path;

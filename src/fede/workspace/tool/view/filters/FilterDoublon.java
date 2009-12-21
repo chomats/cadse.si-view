@@ -25,7 +25,7 @@ package fede.workspace.tool.view.filters;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Link;
 import fede.workspace.tool.view.ItemInViewer;
@@ -46,7 +46,7 @@ public class FilterDoublon extends ViewerFilter {
             Link orignalLink = itemInViewer.getLink();
             if (orignalLink == null)
                 return true;
-            CompactUUID id = orignalLink.getDestinationId();
+            UUID id = orignalLink.getDestinationId();
             
             int indexthis = -1;
             int indexfirst_notderived= -1;

@@ -32,7 +32,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 
 import fr.imag.adele.cadse.core.CadseException;
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.build.IBuildingContext;
@@ -142,7 +142,7 @@ public final class EclipseExportedContent implements IExportedContent {
 	}
 	
 	private static Item findItemFromResource(IResource eclipseResource) {
-		CompactUUID id = CompactUUID.fromString(eclipseResource.getName());
+		UUID id = UUID.fromString(eclipseResource.getName());
 		if (id == null) return null;
 		return View.getInstance().getWorkspaceDomain().getLogicalWorkspace().getItem(id);
 	}
@@ -616,7 +616,7 @@ public final class EclipseExportedContent implements IExportedContent {
 	 * 
 	 * @return
 	 */
-	public CompactUUID getItemIdentification() {
+	public UUID getItemIdentification() {
 		return item.getId();
 	}
 

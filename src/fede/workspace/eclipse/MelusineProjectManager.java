@@ -31,7 +31,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 
 import fede.workspace.tool.view.WSPlugin;
 import fr.imag.adele.cadse.core.CadseException;
-import fr.imag.adele.cadse.core.CompactUUID;
+import java.util.UUID;
 import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.fede.workspace.si.view.View;
@@ -243,7 +243,7 @@ public class MelusineProjectManager {
 	 * @return
 	 * @throws CoreException
 	 */
-	public static CompactUUID getUUIDItem(IResource resource) throws CoreException {
+	public static UUID getUUIDItem(IResource resource) throws CoreException {
 		return WSPlugin.sGetUUIDFromResource(resource);
 	}
 
