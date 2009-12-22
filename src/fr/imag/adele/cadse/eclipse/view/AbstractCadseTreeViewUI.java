@@ -98,11 +98,11 @@ import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.WSModelState;
 import fr.imag.adele.cadse.core.WorkspaceListener;
-import fr.imag.adele.cadse.core.delta.ImmutableItemDelta;
-import fr.imag.adele.cadse.core.delta.ImmutableWorkspaceDelta;
-import fr.imag.adele.cadse.core.delta.ItemDelta;
+import fr.imag.adele.cadse.core.transaction.delta.ImmutableItemDelta;
+import fr.imag.adele.cadse.core.transaction.delta.ImmutableWorkspaceDelta;
+import fr.imag.adele.cadse.core.transaction.delta.ItemDelta;
 import fr.imag.adele.cadse.core.impl.CadseIllegalArgumentException;
-import fr.imag.adele.cadse.core.key.ISpaceKey;
+import fr.imag.adele.cadse.core.key.Key;
 import fr.imag.adele.cadse.core.oper.WSCheckAttribute;
 import fr.imag.adele.cadse.core.oper.WSCheckItem;
 import fr.imag.adele.cadse.core.transaction.LogicalWorkspaceTransaction;
@@ -110,7 +110,7 @@ import fr.imag.adele.cadse.core.ui.view.FilterContext;
 import fr.imag.adele.cadse.core.ui.view.NewContext;
 import fr.imag.adele.cadse.core.ui.view.ViewDescription;
 import fr.imag.adele.cadse.core.ui.view.ViewFilter;
-import fr.imag.adele.cadse.core.util.ArraysUtil;
+import fr.imag.adele.cadse.util.ArraysUtil;
 import fr.imag.adele.fede.workspace.si.view.View;
 
 /**
@@ -1035,7 +1035,7 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 		sb.append("       ").append(itemType.getName()).append("\n");
 		sb.append("\n#id         : ").append(theItem.getId());
 		if (itemType.getSpaceKeyType() != null) {
-			ISpaceKey key = theItem.getKey();
+			Key key = theItem.getKey();
 			if (key == null) {
 				sb.append("\n#key        : null key");
 			} else {
@@ -1091,7 +1091,7 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 		Item parent = theItem.getPartParent();
 		if (parent != null) {
 			sb.append("\n#parent id : ").append(parent.getId());
-			ISpaceKey pkey = parent.getKey();
+			Key pkey = parent.getKey();
 			if (pkey != null) {
 				sb.append("\n#parent key : ");
 				pkey.getQualifiedString(sb);
@@ -1132,7 +1132,7 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 		sb.append("\n#id         : ").append(theItem.getId());
 		if (itemType != null && theItem.isResolved()) {
 			if (itemType.getSpaceKeyType() != null) {
-				ISpaceKey key = theItem.getKey();
+				Key key = theItem.getKey();
 				if (key == null) {
 					sb.append("\n#key        : null key");
 				} else {

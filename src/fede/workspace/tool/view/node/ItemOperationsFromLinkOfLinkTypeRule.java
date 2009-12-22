@@ -25,7 +25,7 @@ import java.util.TreeSet;
 
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.delta.ItemDelta;
+import fr.imag.adele.cadse.core.transaction.delta.ItemDelta;
 
 public class ItemOperationsFromLinkOfLinkTypeRule extends Rule {
 	Comparator<Item>	sortFct	= null;
