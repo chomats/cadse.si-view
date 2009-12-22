@@ -5,7 +5,7 @@ import org.eclipse.jface.viewers.IDecoration;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ILightweightLabelDecorator;
 
-import fr.imag.adele.cadse.core.delta.ItemDelta;
+import fr.imag.adele.cadse.core.transaction.delta.ItemDelta;
 import fede.workspace.tool.view.WSPlugin;
 
 public class WorkspaceCopyLabelDecorator implements ILightweightLabelDecorator {
