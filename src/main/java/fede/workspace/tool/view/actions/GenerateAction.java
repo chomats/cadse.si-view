@@ -30,6 +30,7 @@ import fr.imag.adele.cadse.core.IGenerateContent;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.var.ContextVariable;
+import fr.imag.adele.cadse.core.var.ContextVariableImpl;
 import fede.workspace.tool.view.WSPlugin;
 
 public class GenerateAction extends AbstractEclipseMenuAction {

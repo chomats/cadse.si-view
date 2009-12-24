@@ -8,25 +8,70 @@
     <artifactId>si.view</artifactId>
     <name>fr.imag.adele.cadse.si.view</name>
     <version>2.3.0-SNAPSHOT</version>
+     <organization>
+        <name>Adele/LIG/ Grenoble University, France</name>
+        <url>http://www-adele.imag.fr/</url>
+    </organization>
     <build>
-        <finalName>${project.name}_${project.version}</finalName>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
+                    <source>1.6</source>
+                    <target>1.6</target>
                 </configuration>
             </plugin>
-
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <extensions>true</extensions>
                 <configuration>
-                    <useDefaultManifestFile>true</useDefaultManifestFile>
+                    <instructions>
+                        <Bundle-Name>${pom.name}</Bundle-Name>
+                        <Bundle-Description>${pom.description}</Bundle-Description>
+                        <Export-Package>fede.workspace.eclipse*,
+                        fede.workspace.model.manager*,
+                        fede.workspace.tool*,
+                        fr.imag.adele.cadse.eclipse.view,
+                        fr.imag.adele.fede.workspace.si.view</Export-Package>
+                        <Private-Package></Private-Package>
+                        <Import-Package>*</Import-Package>
+                    </instructions>
                 </configuration>
             </plugin>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <tasks>
+                                <mkdir dir="${basedir}/META-INF/" />
+                                <copy todir="${basedir}/META-INF/" preservelastmodified="true">
+                                    <fileset dir="${basedir}/target/classes/META-INF"/>
+                                </copy>
+                            </tasks>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- iPOJO Maven Plugin Configuration : nothing to do -->
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-ipojo-plugin</artifactId>
+				<version>1.4.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>ipojo-bundle</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
         </plugins>
     </build>
     <repositories>
@@ -132,6 +177,31 @@
         	<groupId>org.eclipse</groupId>
         	<artifactId>org.eclipse.ui.ide</artifactId>
         	<version>3.5.1.M20090826-0800</version>
+        </dependency>
+        <dependency>
+        	<groupId>org.eclipse</groupId>
+        	<artifactId>org.eclipse.debug.ui</artifactId>
+        	<version>3.5.1.v20090811_r351</version>
+        </dependency>
+        <dependency>
+        	<groupId>org.eclipse</groupId>
+        	<artifactId>org.eclipse.jdt.ui</artifactId>
+        	<version>3.5.1.r351_v20090821-0800</version>
+        </dependency>
+        <dependency>
+        	<groupId>org.eclipse</groupId>
+        	<artifactId>org.eclipse.search</artifactId>
+        	<version>3.5.1.r351_v20090708-0800</version>
+        </dependency>
+        <dependency>
+        	<groupId>org.eclipse</groupId>
+        	<artifactId>org.eclipse.ui.console</artifactId>
+        	<version>3.4.0.v20090513</version>
+        </dependency>
+        <dependency>
+        	<groupId>org.eclipse</groupId>
+        	<artifactId>org.eclipse.ui.forms</artifactId>
+        	<version>3.4.1.v20090714_35x</version>
         </dependency>
     </dependencies>
 </project>

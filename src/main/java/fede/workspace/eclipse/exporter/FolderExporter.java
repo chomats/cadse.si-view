@@ -34,16 +34,16 @@ import fede.workspace.eclipse.composer.EclipseExportedContent;
 import fr.imag.adele.cadse.core.content.ContentItem;
 
 public class FolderExporter extends EclipseExporter {
-	private static final String	FOLDER_EXPORTER_TYPE	= "folder-exporter";
+	private static final Class<?>	FOLDER_EXPORTER_TYPE	= IFolder.class;
 	private final IPath			_contentPath;
 
-	public FolderExporter(ContentItem contentManager, String contentPath) {
+	public FolderExporter(ContentItem contentManager, Class<?> contentPath) {
 		super(contentManager, FOLDER_EXPORTER_TYPE);
-		this._contentPath = new Path(contentPath);
+		this._contentPath = new Path(contentPath.getSimpleName());
 		assert this._contentPath != null && !this._contentPath.isEmpty() && !this._contentPath.isAbsolute();
 	}
 
-	public FolderExporter(ContentItem contentManager, String type, String contentPath) {
+	public FolderExporter(ContentItem contentManager, Class<?> type, String contentPath) {
 		super(contentManager, type);
 		this._contentPath = new Path(contentPath);
 		assert this._contentPath != null && !this._contentPath.isEmpty() && !this._contentPath.isAbsolute();
