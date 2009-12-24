@@ -120,7 +120,7 @@ public final class EclipseExportedContent implements IExportedContent {
 	/**
 	 * Gets a handle to all the existing packaged items in a specified repository
 	 */
-	public static List<EclipseExportedContent> getPackagedItems(IContainer repository, IProgressMonitor monitor) throws CoreException {
+	static public List<EclipseExportedContent> getPackagedItems(IContainer repository, IProgressMonitor monitor, Class<?> exporterType) throws CoreException {
 		List<EclipseExportedContent> eclipseExportedContents = new ArrayList<EclipseExportedContent>();
 		
 		IFolder packagingArea = repository.getFolder(getComponentsPath());
@@ -133,7 +133,7 @@ public final class EclipseExportedContent implements IExportedContent {
 			for (IResource typeEclipseResource : ((IContainer) eclipseResource).members()) {
 				if (typeEclipseResource.getType() != IResource.FOLDER) continue;
 				Item findItem = findItemFromResource(eclipseResource);
-				eclipseExportedContents.add(getPackagedItem(repository,findItem,typeEclipseResource.getName(),monitor));
+				eclipseExportedContents.add(getPackagedItem(repository,findItem, exporterType,monitor));
 			}
 			
 		}

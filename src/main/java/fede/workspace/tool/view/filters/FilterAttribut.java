@@ -26,13 +26,14 @@ import org.eclipse.jface.viewers.ViewerFilter;
 
 import fr.imag.adele.cadse.core.Item;
 import fede.workspace.tool.view.ItemInViewer;
+import fr.imag.adele.cadse.core.attribute.IAttributeType;
 
 public class FilterAttribut extends ViewerFilter {
-	final String attributKey;
+	final IAttributeType<?> attributKey;
 	final Object value;
 	
 	
-	public FilterAttribut(String key, Object value) {
+	public FilterAttribut(IAttributeType<?> key, Object value) {
 		super();
 		this.attributKey = key;
 		this.value = value;

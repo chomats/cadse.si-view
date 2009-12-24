@@ -63,7 +63,7 @@ class TT extends AbstractCadseTreeViewUI {
 	}
 
 	@Override
-	protected boolean isLink(Link link) {
+	public boolean isLink(Link link) {
 		return false;
 	}
 

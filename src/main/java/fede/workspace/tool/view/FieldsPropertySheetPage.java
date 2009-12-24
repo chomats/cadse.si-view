@@ -55,6 +55,7 @@ import fr.imag.adele.cadse.eclipse.view.AbstractCadseView;
 import fr.imag.adele.fede.workspace.as.eclipse.SWTService;
 import fr.imag.adele.fede.workspace.as.eclipse.SWTService.MyPropertySheetPage;
 import fr.imag.adele.fede.workspace.si.view.View;
+import org.eclipse.ui.forms.widgets.FormToolkit;
 
 /**
  * @see IPropertySource

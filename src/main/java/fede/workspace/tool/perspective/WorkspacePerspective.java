@@ -38,6 +38,10 @@ import org.eclipse.ui.console.IConsoleConstants;
 import org.eclipse.ui.progress.IProgressConstants;
 
 import fede.workspace.tool.view.WSPlugin;
+import org.eclipse.debug.ui.IDebugUIConstants;
+import org.eclipse.jdt.ui.JavaUI;
+import org.eclipse.search.ui.NewSearchUI;
+import org.eclipse.ui.console.IConsoleConstants;
 
 /**
  */
