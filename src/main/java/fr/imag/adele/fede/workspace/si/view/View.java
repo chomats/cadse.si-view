@@ -26,8 +26,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
-import org.apache.tools.ant.taskdefs.Get;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -58,16 +58,15 @@ import fede.workspace.tool.view.ItemInViewer;
 import fede.workspace.tool.view.WSResourceChangeListener;
 import fede.workspace.tool.view.adapter.WSAdapterFactory;
 import fede.workspace.tool.view.adapter.WSAdapterItemInViewFactory;
+import fr.imag.adele.cadse.as.platformide.IPlatformIDE;
 import fr.imag.adele.cadse.core.CadseDomain;
 import fr.imag.adele.cadse.core.CadseException;
-import fr.imag.adele.cadse.core.CadseRuntime;
-import java.util.UUID;
-import fr.imag.adele.cadse.core.ContentItem;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemState;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.WSModelState;
 import fr.imag.adele.cadse.core.WorkspaceListener;
+import fr.imag.adele.cadse.core.content.ContentItem;
 import fr.imag.adele.cadse.core.transaction.delta.ImmutableItemDelta;
 import fr.imag.adele.cadse.core.transaction.delta.ImmutableWorkspaceDelta;
 import fr.imag.adele.cadse.eclipse.view.ViewAfterInit;
@@ -75,7 +74,6 @@ import fr.imag.adele.fede.workspace.as.eclipse.IEclipse;
 import fr.imag.adele.fede.workspace.as.eclipse.SWTService;
 import fr.imag.adele.fede.workspace.as.initmodel.IInitModel;
 import fr.imag.adele.fede.workspace.as.persistence.IPersistence;
-import fr.imag.adele.fede.workspace.as.platformeclipse.IPlatformEclipse;
 import fr.imag.adele.fede.workspace.as.test.ITest;
 
 /**
@@ -103,7 +101,7 @@ public class View implements IEclipse {
 	/**
 	 * @generated
 	 */
-	IPlatformEclipse					platformEclipse;
+	IPlatformIDE					platformEclipse;
 	
 	SWTService							_swtService;
 	
@@ -235,7 +233,7 @@ public class View implements IEclipse {
 		return workspaceCU.getLogicalWorkspace();
 	}
 
-	public IPlatformEclipse getPlatformEclipse() {
+	public IPlatformIDE getPlatformEclipse() {
 		return platformEclipse;
 	}
 
