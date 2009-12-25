@@ -36,6 +36,8 @@
                         fr.imag.adele.fede.workspace.si.view</Export-Package>
                         <Private-Package></Private-Package>
                         <Import-Package>*</Import-Package>
+                        <Eclipse-LazyStart>true</Eclipse-LazyStart>
+                        <Bundle-Activator>fede.workspace.tool.view.WSPlugin</Bundle-Activator>
                     </instructions>
                 </configuration>
             </plugin>
@@ -83,6 +85,36 @@
         </repository>
     </repositories>
     <dependencies>
+   		<dependency>
+        	<groupId>${project.groupId}</groupId>
+        	<artifactId>as.persistence</artifactId>
+        	<version>${project.version}</version>
+        </dependency>
+        <dependency>
+        	<groupId>${project.groupId}</groupId>
+        	<artifactId>custom.filter</artifactId>
+        	<version>${project.version}</version>
+        </dependency>
+        <dependency>
+        	<groupId>${project.groupId}</groupId>
+        	<artifactId>as.platformeIDE</artifactId>
+        	<version>${project.version}</version>
+        </dependency>
+        <dependency>
+        	<groupId>${project.groupId}</groupId>
+        	<artifactId>as.initmodel</artifactId>
+        	<version>${project.version}</version>
+        </dependency>
+        <dependency>
+        	<groupId>${project.groupId}</groupId>
+        	<artifactId>as.test</artifactId>
+        	<version>${project.version}</version>
+        </dependency>
+        <dependency>
+        	<groupId>${project.groupId}</groupId>
+        	<artifactId>as.eclipse</artifactId>
+        	<version>${project.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.apache.felix</groupId>
             <artifactId>org.apache.felix.ipojo.metadata</artifactId>
@@ -103,16 +135,7 @@
         	<artifactId>org.eclipse.core.jobs</artifactId>
         	<version>3.4.100.v20090429-1800</version>
         </dependency>
-        <dependency>
-        	<groupId>fr.imag.adele.cadse</groupId>
-        	<artifactId>as.persistence</artifactId>
-        	<version>2.3.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-        	<groupId>fr.imag.adele.cadse</groupId>
-        	<artifactId>as.platformeIDE</artifactId>
-        	<version>2.3.0-SNAPSHOT</version>
-        </dependency>
+        
         <dependency>
         	<groupId>org.eclipse</groupId>
         	<artifactId>org.eclipse.ui.workbench</artifactId>
@@ -124,19 +147,9 @@
         	<version>3.5.1.v3555a</version>
         </dependency>
         <dependency>
-        	<groupId>fr.imag.adele.cadse</groupId>
-        	<artifactId>as.initmodel</artifactId>
-        	<version>2.3.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
         	<groupId>org.eclipse</groupId>
         	<artifactId>org.eclipse.jface</artifactId>
         	<version>3.5.1.M20090826-0800</version>
-        </dependency>
-        <dependency>
-        	<groupId>fr.imag.adele.cadse</groupId>
-        	<artifactId>as.test</artifactId>
-        	<version>2.3.0-SNAPSHOT</version>
         </dependency>
         <dependency>
         	<groupId>org.eclipse</groupId>
@@ -152,11 +165,6 @@
         	<groupId>org.eclipse</groupId>
         	<artifactId>org.eclipse.equinox.registry</artifactId>
         	<version>3.4.100.v20090520-1800</version>
-        </dependency>
-        <dependency>
-        	<groupId>fr.imag.adele.cadse</groupId>
-        	<artifactId>as.eclipse</artifactId>
-        	<version>2.3.0-SNAPSHOT</version>
         </dependency>
         <dependency>
         	<groupId>org.eclipse</groupId>
