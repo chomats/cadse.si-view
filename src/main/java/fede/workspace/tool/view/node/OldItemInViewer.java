@@ -638,38 +638,6 @@ public class OldItemInViewer extends ItemInViewer implements IAdaptable, IAction
 					if (theItem.isReadOnly()) {
 						sb.append("\nitem readonly");
 					}
-					List<Item> parentComposite = theItem.getCompositeParent();
-					if (parentComposite != null && parentComposite.size() > 0) {
-						sb.append("\ncomposite parent:\n");
-						for (Item pitem : parentComposite) {
-							sb.append("   - ");
-							sb.append(pitem.getName());
-
-						}
-					}
-
-					Set<Item> comp = theItem.getComponents();
-					if (comp.size() > 0) {
-						sb.append("\ncomponants:");
-						Item[] linkArray = comp.toArray(new Item[0]);
-						Arrays.sort(linkArray, new Comparator<Item>() {
-
-							public int compare(Item o1, Item o2) {
-								return o1.getName().compareTo(o2.getName());
-							}
-						});
-						for (Item link2 : linkArray) {
-							sb.append("\n   - ").append(link2.getName());
-						}
-					}
-					Set<DerivedLink> derivedLink = theItem.getDerivedLinks();
-					if (derivedLink.size() > 0) {
-						sb.append("\nderived links:");
-						for (DerivedLink link2 : derivedLink) {
-							sb.append("\n   - ").append(link2.getDestination().getName()).append(" (").append(
-									link2.getLinkType().getName()).append(")");
-						}
-					}
 				}
 				break;
 			// case NOT_ATTACHED_OR_ONLY_IN_WORKSPACE:
