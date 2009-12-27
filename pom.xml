@@ -39,6 +39,7 @@
                         <Import-Package>*</Import-Package>
                         <Eclipse-LazyStart>true</Eclipse-LazyStart>
                         <Bundle-Activator>fede.workspace.tool.view.WSPlugin</Bundle-Activator>
+                        <ipojo-auto-start>true</ipojo-auto-start>
                         <Include-Resource>
               plugin.xml=plugin.xml,
               plugin.properties=plugin.properties,
