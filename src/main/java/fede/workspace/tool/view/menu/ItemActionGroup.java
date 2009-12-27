@@ -28,6 +28,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.jdt.internal.ui.preferences.OverlayPreferenceStore.TypeDescriptor;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IContributionManager;
 import org.eclipse.jface.action.IMenuManager;
@@ -54,6 +55,7 @@ import fede.workspace.tool.view.actions.test.StopTestAction;
 import fede.workspace.tool.view.addlink.LinkRootNode;
 import fede.workspace.tool.view.node.AbstractCadseViewNode;
 import fede.workspace.tool.view.node.RootNode;
+import fr.imag.adele.cadse.core.ExtendedType;
 import fr.imag.adele.cadse.core.IGenerateContent;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.IItemNode;
@@ -65,6 +67,7 @@ import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.Menu;
 import fr.imag.adele.cadse.core.MenuGroup;
+import fr.imag.adele.cadse.core.TypeDefinition;
 import fr.imag.adele.cadse.core.impl.CadseCore;
 import fr.imag.adele.cadse.core.impl.internal.Accessor;
 import fr.imag.adele.cadse.core.ui.IActionContributor;
@@ -272,29 +275,29 @@ public class ItemActionGroup extends ActionGroup {
 			if (viewComponent.getTestService().isRecordedTests()) {
 				testMenu.insert(null, new StopTestAction(), true);
 				testMenu.insert(null, new CancelTestAction(getShellProvider()), true);
-				if (selection.length == 1) {
-					IItemNode node = selection[0];
-					Menu testCheckMenu = new Menu("check", "check", null);
-					testCheckMenu.insert(null, new CheckItemInviewer(node, this.viewUIController.getViewPart()), true);
-					Item item = node.getItem();
-					if (item != null) {
-						testCheckMenu.insert(null, new CheckItemInModel(item, viewComponent), true);
-						testCheckMenu.insert(null, new CheckContentInModel(item, viewComponent), true);
-
-						String[] keys = item.getType().getAttributeTypeIds();
-						ArrayList<String> allKeys = new ArrayList<String>(Arrays.asList(item.getAttributeKeys()));
-						allKeys.addAll(Arrays.asList(keys));
-						keys = allKeys.toArray(new String[allKeys.size()]);
-						if (keys.length != 0) {
-							Arrays.sort(keys);
-							testCheckMenu.insert(null, IMenuAction.SEPARATOR, true);
-							for (String k : keys) {
-								testCheckMenu.insert(null, new CheckAttributeInModel(item, k, viewComponent), true);
-							}
-						}
-					}
-					testMenu.insert(null, testCheckMenu, true);
-				}
+//				if (selection.length == 1) {
+//					IItemNode node = selection[0];
+//					Menu testCheckMenu = new Menu("check", "check", null);
+//					testCheckMenu.insert(null, new CheckItemInviewer(node, this.viewUIController.getViewPart()), true);
+//					Item item = node.getItem();
+//					if (item != null) {
+//						testCheckMenu.insert(null, new CheckItemInModel(item, viewComponent), true);
+//						testCheckMenu.insert(null, new CheckContentInModel(item, viewComponent), true);
+//
+//						String[] keys = item.getType().getAttributeTypeIds();
+//						ArrayList<String> allKeys = new ArrayList<String>(Arrays.asList(item.getAttributeKeys()));
+//						allKeys.addAll(Arrays.asList(keys));
+//						keys = allKeys.toArray(new String[allKeys.size()]);
+//						if (keys.length != 0) {
+//							Arrays.sort(keys);
+//							testCheckMenu.insert(null, IMenuAction.SEPARATOR, true);
+//							for (String k : keys) {
+//								testCheckMenu.insert(null, new CheckAttributeInModel(item, k, viewComponent), true);
+//							}
+//						}
+//					}
+//					testMenu.insert(null, testCheckMenu, true);
+//				}
 			} else {
 				//testMenu.insert(null, new StartTestAction(getShellProvider()), true);
 			}
@@ -568,20 +571,20 @@ public class ItemActionGroup extends ActionGroup {
 			}
 			SortedSet<IMenuAction> list = new TreeSet<IMenuAction>(comparator);
 
-			ItemType it = lt.getDestination();
+			TypeDefinition typeDef = lt.getDestination();
 
-			ItemType[] subType = it.getSubTypes();
-
-			boolean canCreate = canCreate(parent, lt, it);
-
-			if (canCreate) {
-				list
-						.add(new MenuNewAction(workbenchWindow, parent, lt, it, viewUIController.getDislplayCreate(lt,
-								it)));
+			if (typeDef instanceof ItemType) {
+				addSubType((ItemType) typeDef, lt, parent, list);
+			} else {
+				ExtendedType eType = (ExtendedType) typeDef;
+				ItemType[] itemTypes = eType.getExendsItemType();
+				for (ItemType it : itemTypes) {
+					addSubType(it, lt, parent, list);
+				}
 			}
-			if (subType.length != 0) {
-				addItems(workbenchWindow, list, parent, lt, subType);
-			}
+			
+			
+			
 			if (addsep > 1 || list.size() > 1) {
 				retlist.add(IMenuAction.SEPARATOR);
 			}
@@ -623,6 +626,20 @@ public class ItemActionGroup extends ActionGroup {
 		// retlist.add(IMenuAction.SEPARATOR);
 		// }
 		return menu;
+	}
+	
+	private void addSubType(ItemType it, LinkType lt, Item parent, SortedSet<IMenuAction> list){
+		ItemType[] subType = it.getSubTypes();
+
+		boolean canCreate = canCreate(parent, lt, it);
+
+		if (canCreate) {
+			list.add(new MenuNewAction(workbenchWindow, parent, lt, it, viewUIController.getDislplayCreate(lt,
+							it)));
+		}
+		if (subType.length != 0) {
+			addItems(workbenchWindow, list, parent, lt, subType);
+		}
 	}
 
 	/**

@@ -35,7 +35,7 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.transaction.delta.LinkDelta;
+import fr.imag.adele.cadse.core.impl.internal.LogicalWorkspaceImpl;
 import fr.imag.adele.cadse.core.transaction.LogicalWorkspaceTransaction;
 
 /**
@@ -90,7 +90,7 @@ public class WSViewDropAdapter extends ViewerDropAdapter {
 			ArrayList<LinkType> selectingLinkType = new ArrayList<LinkType>();
 			List<LinkType> outgoingLinkType = itSource.getOutgoingLinkTypes();
 			for (LinkType lt : outgoingLinkType) {
-				if (lt.getDestination() == itTarget || lt.getDestination().isSuperTypeOf(itTarget)) {
+				if (LogicalWorkspaceImpl.isLinkCompatible(lt, itTarget)) {
 					selectingLinkType.add(lt);
 				}
 			}
@@ -129,7 +129,7 @@ public class WSViewDropAdapter extends ViewerDropAdapter {
 						try {
 							LogicalWorkspaceTransaction t = lsource.getSource().getLogicalWorkspace()
 									.createTransaction();
-							final LinkDelta linkDelta = t.getLink(lsource);
+							final fr.imag.adele.cadse.core.transaction.delta.LinkDelta linkDelta = t.getLink(lsource);
 							if (getCurrentLocation() == LOCATION_BEFORE) {
 								linkDelta.moveBefore(ltarget);
 							} else {

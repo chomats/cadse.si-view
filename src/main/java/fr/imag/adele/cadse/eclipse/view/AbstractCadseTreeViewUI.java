@@ -96,11 +96,13 @@ import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
+import fr.imag.adele.cadse.core.TypeDefinition;
 import fr.imag.adele.cadse.core.WSModelState;
 import fr.imag.adele.cadse.core.WorkspaceListener;
 import fr.imag.adele.cadse.core.transaction.delta.ImmutableItemDelta;
 import fr.imag.adele.cadse.core.transaction.delta.ImmutableWorkspaceDelta;
 import fr.imag.adele.cadse.core.transaction.delta.ItemDelta;
+import fr.imag.adele.cadse.core.attribute.IAttributeType;
 import fr.imag.adele.cadse.core.impl.CadseIllegalArgumentException;
 import fr.imag.adele.cadse.core.key.Key;
 import fr.imag.adele.cadse.core.oper.WSCheckAttribute;
@@ -152,7 +154,7 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 							if (node.getItem() != null) {
 								View.getInstance().getTestService().registerIfNeed(new WSCheckItem(node.getItem()));
 								Item item = node.getItem();
-								String[] attributesNames = item.getType().getAttributeTypeIds();
+								IAttributeType<?>[] attributesNames = item.getType().getAllAttributeTypes();
 								for (int i = 0; i < attributesNames.length; i++) {
 									View.getInstance().getTestService().registerIfNeed(
 											new WSCheckAttribute(item, attributesNames[i]));
@@ -847,9 +849,9 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 		return View.getInstance().getWorkspaceLogique();
 	}
 
-	public abstract boolean isItemType(ItemType it, LogicalWorkspace cadseModel);
+	public abstract boolean isItemType(TypeDefinition it, LogicalWorkspace cadseModel);
 
-	public abstract boolean isRefItemType(ItemType it, LogicalWorkspace cadseModel);
+	public abstract boolean isRefItemType(TypeDefinition it, LogicalWorkspace cadseModel);
 
 	public abstract boolean isFirstItemType(ItemType it, LogicalWorkspace cadseModel);
 
@@ -1034,7 +1036,7 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 		sb.append("\n#type: ").append(itemType.getId()).append("\n");
 		sb.append("       ").append(itemType.getName()).append("\n");
 		sb.append("\n#id         : ").append(theItem.getId());
-		if (itemType.getSpaceKeyType() != null) {
+		if (itemType.getKeyDefinition() != null) {
 			Key key = theItem.getKey();
 			if (key == null) {
 				sb.append("\n#key        : null key");
@@ -1052,37 +1054,37 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 		if (theItem.isReadOnly()) {
 			sb.append("\nitem readonly");
 		}
-		List<Item> parentComposite = theItem.getCompositeParent();
-		if (parentComposite != null && parentComposite.size() > 0) {
-			sb.append("\ncomposite parent:\n");
-			for (Item pitem : parentComposite) {
-				sb.append("   - ");
-				sb.append(pitem.getQualifiedName());
-
-			}
-		}
-		Set<Item> comp = theItem.getComponents();
-		if (comp.size() > 0) {
-			sb.append("\ncomponants:");
-			Item[] linkArray = comp.toArray(new Item[0]);
-			Arrays.sort(linkArray, new Comparator<Item>() {
-
-				public int compare(Item o1, Item o2) {
-					return o1.getQualifiedName().compareTo(o2.getQualifiedName());
-				}
-			});
-			for (Item link2 : linkArray) {
-				sb.append("\n   - ").append(link2.getQualifiedName());
-			}
-		}
-		Set<DerivedLink> derivedLink = theItem.getDerivedLinks();
-		if (derivedLink.size() > 0) {
-			sb.append("\nderived links:");
-			for (DerivedLink link2 : derivedLink) {
-				sb.append("\n   - ").append(link2.getDestinationQualifiedName()).append(" (").append(
-						link2.getLinkType().getName()).append(")");
-			}
-		}
+//		List<Item> parentComposite = theItem.getCompositeParent();
+//		if (parentComposite != null && parentComposite.size() > 0) {
+//			sb.append("\ncomposite parent:\n");
+//			for (Item pitem : parentComposite) {
+//				sb.append("   - ");
+//				sb.append(pitem.getQualifiedName());
+//
+//			}
+//		}
+//		Set<Item> comp = theItem.getComponents();
+//		if (comp.size() > 0) {
+//			sb.append("\ncomponants:");
+//			Item[] linkArray = comp.toArray(new Item[0]);
+//			Arrays.sort(linkArray, new Comparator<Item>() {
+//
+//				public int compare(Item o1, Item o2) {
+//					return o1.getQualifiedName().compareTo(o2.getQualifiedName());
+//				}
+//			});
+//			for (Item link2 : linkArray) {
+//				sb.append("\n   - ").append(link2.getQualifiedName());
+//			}
+//		}
+//		Set<DerivedLink> derivedLink = theItem.getDerivedLinks();
+//		if (derivedLink.size() > 0) {
+//			sb.append("\nderived links:");
+//			for (DerivedLink link2 : derivedLink) {
+//				sb.append("\n   - ").append(link2.getDestinationQualifiedName()).append(" (").append(
+//						link2.getLinkType().getName()).append(")");
+//			}
+//		}
 
 		return sb.toString();
 	}
@@ -1131,7 +1133,7 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 		}
 		sb.append("\n#id         : ").append(theItem.getId());
 		if (itemType != null && theItem.isResolved()) {
-			if (itemType.getSpaceKeyType() != null) {
+			if (itemType.getKeyDefinition() != null) {
 				Key key = theItem.getKey();
 				if (key == null) {
 					sb.append("\n#key        : null key");
@@ -1152,38 +1154,38 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 			if (/* heItem.isResolved() && */theItem.isReadOnly()) {
 				sb.append("\nitem readonly");
 			}
-			List<Item> parentComposite = theItem.getCompositeParent();
-			if (parentComposite != null && parentComposite.size() > 0) {
-				sb.append("\ncomposite parent:\n");
-				for (Item pitem : parentComposite) {
-					sb.append("   - ");
-					sb.append(pitem.getQualifiedName());
-
-				}
-			}
-
-			Set<Item> comp = theItem.getComponents();
-			if (comp != null && comp.size() > 0) {
-				sb.append("\ncomponants:");
-				Item[] linkArray = comp.toArray(new Item[0]);
-				Arrays.sort(linkArray, new Comparator<Item>() {
-
-					public int compare(Item o1, Item o2) {
-						return o1.getQualifiedName().compareTo(o2.getQualifiedName());
-					}
-				});
-				for (Item link2 : linkArray) {
-					sb.append("\n   - ").append(link2.getQualifiedName());
-				}
-			}
-			Set<DerivedLink> derivedLink = theItem.getDerivedLinks();
-			if (derivedLink != null && derivedLink.size() > 0) {
-				sb.append("\nderived links:");
-				for (DerivedLink link2 : derivedLink) {
-					sb.append("\n   - ").append(link2.getDestinationQualifiedName()).append(" (").append(
-							link2.getLinkType().getName()).append(")");
-				}
-			}
+//			List<Item> parentComposite = theItem.getCompositeParent();
+//			if (parentComposite != null && parentComposite.size() > 0) {
+//				sb.append("\ncomposite parent:\n");
+//				for (Item pitem : parentComposite) {
+//					sb.append("   - ");
+//					sb.append(pitem.getQualifiedName());
+//
+//				}
+//			}
+//
+//			Set<Item> comp = theItem.getComponents();
+//			if (comp != null && comp.size() > 0) {
+//				sb.append("\ncomponants:");
+//				Item[] linkArray = comp.toArray(new Item[0]);
+//				Arrays.sort(linkArray, new Comparator<Item>() {
+//
+//					public int compare(Item o1, Item o2) {
+//						return o1.getQualifiedName().compareTo(o2.getQualifiedName());
+//					}
+//				});
+//				for (Item link2 : linkArray) {
+//					sb.append("\n   - ").append(link2.getQualifiedName());
+//				}
+//			}
+//			Set<DerivedLink> derivedLink = theItem.getDerivedLinks();
+//			if (derivedLink != null && derivedLink.size() > 0) {
+//				sb.append("\nderived links:");
+//				for (DerivedLink link2 : derivedLink) {
+//					sb.append("\n   - ").append(link2.getDestinationQualifiedName()).append(" (").append(
+//							link2.getLinkType().getName()).append(")");
+//				}
+//			}
 		}
 
 		// case NOT_ATTACHED_OR_ONLY_IN_WORKSPACE:

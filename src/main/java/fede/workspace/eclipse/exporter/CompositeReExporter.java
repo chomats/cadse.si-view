@@ -150,8 +150,11 @@ public class CompositeReExporter extends EclipseExporter {
 		 * this is the case for example when a composite has parts that are themselves composites.
 		 */
 		IContainer repository = MelusineProjectManager.getProject(getItem());
-		List<EclipseExportedContent> components = EclipseExportedContent.getPackagedItems(repository,monitor);
-
+		List<EclipseExportedContent> components = new ArrayList<EclipseExportedContent>();
+		for (Class<?> c : this.getExporterTypes()) {
+			components.addAll(EclipseExportedContent.getPackagedItems(repository,monitor, c));
+		}
+	
 		/*
 		 * Update all components of the target repository
 		 * 
