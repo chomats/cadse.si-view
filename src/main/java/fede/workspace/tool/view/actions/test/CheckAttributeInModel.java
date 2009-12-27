@@ -24,6 +24,7 @@ import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.IMenuAction;
 import fr.imag.adele.cadse.core.Item;
+import fr.imag.adele.cadse.core.attribute.IAttributeType;
 import fr.imag.adele.cadse.core.oper.WSCheckAttribute;
 import fr.imag.adele.fede.workspace.si.view.View;
 
@@ -31,9 +32,9 @@ public class CheckAttributeInModel extends IMenuAction {
 
 	private Item	item;
 	private View	viewComponent;
-	private String	key;
+	private IAttributeType<?>	key;
 
-	public CheckAttributeInModel(Item item, String key, View viewComponent) {
+	public CheckAttributeInModel(Item item, IAttributeType<?> key, View viewComponent) {
 		this.item = item;
 		this.viewComponent = viewComponent;
 		this.key = key;

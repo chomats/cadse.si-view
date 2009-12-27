@@ -46,6 +46,7 @@ import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
+import fr.imag.adele.cadse.core.TypeDefinition;
 import fr.imag.adele.cadse.core.impl.CadseCore;
 import fr.imag.adele.fede.workspace.si.view.View;
 
@@ -352,7 +353,7 @@ public class WSPlugin extends AbstractUIPlugin {
 		return ImageDescriptor.createFromURL(fullPathString);
 	}
 
-	public Image getImageFrom(ItemType it, Item item) {
+	public Image getImageFrom(TypeDefinition it, Item item) {
 		ImageRegistry ir = getImageRegistry();
 		URL url = getImageURLFrom(it, item);
 		if (url == null) {
@@ -401,7 +402,9 @@ public class WSPlugin extends AbstractUIPlugin {
 		return b.getEntry(imagePath);
 	}
 
-	public URL getImageURLFrom(ItemType it, Item item) {
+	public URL getImageURLFrom(TypeDefinition it, Item item) {
+		if (it == null || it.isExtendedType())
+			return null;
 		IItemManager im = getManager(it);
 		if (im.hasImageByItem()) {
 			URL url = im.getImage(item);
@@ -409,7 +412,7 @@ public class WSPlugin extends AbstractUIPlugin {
 				return url;
 			}
 		}
-		return it.getImage();
+		return ((ItemType) it).getImage();
 	}
 
 	public static void logException(Throwable e) {
