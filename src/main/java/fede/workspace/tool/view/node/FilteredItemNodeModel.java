@@ -27,6 +27,7 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.TypeDefinition;
 import fr.imag.adele.cadse.util.ArraysUtil;
 import fede.workspace.tool.view.node.FilteredItemNode.Category;
 
@@ -60,7 +61,7 @@ public class FilteredItemNodeModel {
 		return model.get(key);
 	}
 
-	public void addItemFromItemTypeEntry(Object beforeNode, ItemType it, Comparator<Item> fctSort) {
+	public void addItemFromItemTypeEntry(Object beforeNode, TypeDefinition it, Comparator<Item> fctSort) {
 		if (beforeNode == null) {
 			beforeNode = FilteredItemNodeModel.ROOT_ENTRY;
 		} else {

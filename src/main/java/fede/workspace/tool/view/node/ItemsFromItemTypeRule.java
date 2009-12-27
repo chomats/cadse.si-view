@@ -26,13 +26,14 @@ import java.util.TreeSet;
 
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
+import fr.imag.adele.cadse.core.TypeDefinition;
 
 public class ItemsFromItemTypeRule extends Rule {
 	Comparator<Item>	sortFct	= null;
-	ItemType			it;
+	TypeDefinition			it;
 	private FilterItem	_filter;
 
-	public ItemsFromItemTypeRule(ItemType it, Comparator<Item> sortFct) {
+	public ItemsFromItemTypeRule(TypeDefinition it, Comparator<Item> sortFct) {
 		super();
 		this.it = it;
 		this.sortFct = sortFct;
