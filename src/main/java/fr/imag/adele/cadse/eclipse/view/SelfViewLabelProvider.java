@@ -33,6 +33,7 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.TypeDefinition;
 import fede.workspace.tool.view.WSPlugin;
 import fede.workspace.tool.view.node.ItemDescriptionRefNode;
 import fede.workspace.tool.view.node.ItemNode;
@@ -110,7 +111,7 @@ public class SelfViewLabelProvider extends LabelProvider implements IFontProvide
 	}
 
 	public Image getDisplayImage(LinkTypeNode node) {
-		ItemType it = node.getLinkType().getSource();
+		TypeDefinition it = node.getLinkType().getSource();
 		Image ret = WSPlugin.getDefault().getImageFrom(it, null);
 		if (ret != null) {
 			return ret;

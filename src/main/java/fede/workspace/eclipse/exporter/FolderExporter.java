@@ -67,7 +67,7 @@ public class FolderExporter extends EclipseExporter {
 	 */
 	@Override
 	protected void exportItem(EclipseExportedContent eclipseExportedContent, IResourceDelta componentUpdate,
-			IProgressMonitor monitor, String exporterType) throws CoreException {
+			IProgressMonitor monitor, Class<?> exporterType) throws CoreException {
 
 		/*
 		 * skip empty notifications

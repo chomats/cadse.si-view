@@ -60,10 +60,11 @@ public class CompositeReExporter extends EclipseExporter {
 	public CompositeReExporter(ContentItem contentManager, Class<?>... exporterTypes) {
 		super(contentManager, exporterTypes);
 	}
-
 	@Override
-	public IExportedContent exportItem(IBuildingContext context, IExporterTarget target, Class<?> exporterType) throws CadseException {
-		IContainer targetRepository = ((EclipseExporterTarget)target).getTargetContainer();
+	public IExportedContent exportItem(IBuildingContext context,
+			IExporterTarget target, Class<?> exporterType, boolean fullExport)
+			throws CadseException {
+			IContainer targetRepository = ((EclipseExporterTarget)target).getTargetContainer();
 		IProgressMonitor monitor = ((CompositeBuildingContext)context).getMonitor();
 		CompositeBuilder builder = ((CompositeBuildingContext)context).getBuilder();
 		

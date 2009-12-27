@@ -34,6 +34,7 @@ import org.eclipse.ui.PlatformUI;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
+import fr.imag.adele.cadse.core.TypeDefinition;
 
 public class ViewLinkLabelProvider extends LabelProvider implements IFontProvider {
 
@@ -82,7 +83,7 @@ public class ViewLinkLabelProvider extends LabelProvider implements IFontProvide
 		return PlatformUI.getWorkbench().getSharedImages().getImage(imageKey);
 	}
 	
-	private Image createImage(ItemType it, Item item) {
+	private Image createImage(TypeDefinition it, Item item) {
 		return WSPlugin.getDefault().getImageFrom(it, item);
 	}
 

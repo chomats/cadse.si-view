@@ -37,6 +37,7 @@ import org.eclipse.swt.widgets.Label;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.impl.internal.LogicalWorkspaceImpl;
 import fede.workspace.tool.view.WSPlugin;
 
 /**
@@ -111,12 +112,11 @@ public class AddLinkWizardPage extends WizardPage {
 	private static List<LinkType> selectLinkType(Item source, Item dest) {
 		List<LinkType> l = source.getType().getOutgoingLinkTypes();
 		List<LinkType> selectRT = new ArrayList<LinkType>();
-		for (LinkType rt : l) {
-	        if (rt.isDerived())
+		for (LinkType lt : l) {
+	        if (lt.isDerived())
                 continue;
-			if (rt.getDestination().equals(dest.getType()) ||
-					rt.getDestination().isSuperTypeOf(dest.getType()))
-				selectRT.add(rt);
+			if (LogicalWorkspaceImpl.isLinkCompatible(lt, dest.getType()))
+				selectRT.add(lt);
 		}
 		return selectRT;
 	}

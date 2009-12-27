@@ -25,6 +25,7 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
+import fr.imag.adele.cadse.core.TypeDefinition;
 
 public class ItemTypeNode extends AbstractCadseViewNode {
 	public final static class ItemTypeNodeComparator implements Comparator<ItemTypeNode> {
@@ -35,9 +36,9 @@ public class ItemTypeNode extends AbstractCadseViewNode {
 
 	}
 
-	final ItemType	itemType;
+	final TypeDefinition	itemType;
 
-	public ItemTypeNode(CadseViewModelController viewer, AbstractCadseViewNode parent, ItemType itemType) {
+	public ItemTypeNode(CadseViewModelController viewer, AbstractCadseViewNode parent, TypeDefinition itemType) {
 		super(ItemInViewer.ITEM_TYPE, parent);
 		this.itemType = itemType;
 		ctl = viewer;
@@ -62,7 +63,7 @@ public class ItemTypeNode extends AbstractCadseViewNode {
 
 	@Override
 	public ItemType getItemType() {
-		return itemType;
+		return (ItemType) (itemType instanceof ItemType ? itemType : null);
 	}
 
 	@Override

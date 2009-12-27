@@ -42,7 +42,9 @@ public class EclipseExporter extends Exporter {
 	}
 
 	@Override
-	public IExportedContent exportItem(IBuildingContext context, IExporterTarget target, Class<?> exporterType) throws CadseException {
+	public IExportedContent exportItem(IBuildingContext context,
+			IExporterTarget target, Class<?> exporterType, boolean fullExport)
+			throws CadseException {
 		IContainer repository = ((EclipseExporterTarget)target).getTargetContainer();
 		IProgressMonitor monitor = ((CompositeBuildingContext)context).getMonitor();
 		CompositeBuilder builder = ((CompositeBuildingContext)context).getBuilder();
@@ -85,7 +87,7 @@ public class EclipseExporter extends Exporter {
 		return eclipseExportedContent ;
 	}
 
-	protected void exportItem(EclipseExportedContent eclipseExportedContent, IResourceDelta componentUpdate, IProgressMonitor monitor, String exporterType) throws CoreException {
+	protected void exportItem(EclipseExportedContent eclipseExportedContent, IResourceDelta componentUpdate, IProgressMonitor monitor, Class<?> exporterType) throws CoreException {
 	}
 
 	
