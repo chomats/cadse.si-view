@@ -126,16 +126,14 @@ public final class EclipseExportedContent implements IExportedContent {
 		IFolder packagingArea = repository.getFolder(getComponentsPath());
 		if (!packagingArea.exists())
 			return eclipseExportedContents;
+		IFolder typeFolder = packagingArea.getFolder(exporterType.getSimpleName());
+		if (!typeFolder.exists())
+			return eclipseExportedContents;
 		
-		// Iterate over all folders in the packaged items area
-		for (IResource eclipseResource : packagingArea.members()) {
-			if (eclipseResource.getType() != IResource.FOLDER) continue;
-			for (IResource typeEclipseResource : ((IContainer) eclipseResource).members()) {
-				if (typeEclipseResource.getType() != IResource.FOLDER) continue;
-				Item findItem = findItemFromResource(eclipseResource);
-				eclipseExportedContents.add(getPackagedItem(repository,findItem, exporterType,monitor));
-			}
-			
+		for (IResource typeEclipseResource : ((IContainer) typeFolder).members()) {
+			if (typeEclipseResource.getType() != IResource.FOLDER) continue;
+			Item findItem = findItemFromResource(typeEclipseResource);
+			eclipseExportedContents.add(getPackagedItem(repository,findItem, exporterType,monitor));
 		}
 		
 		return eclipseExportedContents;

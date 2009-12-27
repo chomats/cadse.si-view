@@ -27,6 +27,7 @@
                 <extensions>true</extensions>
                 <configuration>
                     <instructions>
+                    	<Bundle-SymbolicName>${pom.name};singleton:=true</Bundle-SymbolicName>
                         <Bundle-Name>${pom.name}</Bundle-Name>
                         <Bundle-Description>${pom.description}</Bundle-Description>
                         <Export-Package>fede.workspace.eclipse*,
@@ -38,6 +39,11 @@
                         <Import-Package>*</Import-Package>
                         <Eclipse-LazyStart>true</Eclipse-LazyStart>
                         <Bundle-Activator>fede.workspace.tool.view.WSPlugin</Bundle-Activator>
+                        <Include-Resource>
+              plugin.xml=plugin.xml,
+              plugin.properties=plugin.properties,
+              schema=schema
+            </Include-Resource>
                     </instructions>
                 </configuration>
             </plugin>

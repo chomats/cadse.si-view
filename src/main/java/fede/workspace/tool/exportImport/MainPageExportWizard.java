@@ -46,6 +46,7 @@ import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
+import fr.imag.adele.cadse.core.TypeDefinition;
 import fr.imag.adele.cadse.eclipse.view.AbstractCadseTreeViewUI;
 import fr.imag.adele.cadse.eclipse.view.ViewContentProvider;
 import fr.imag.adele.cadse.eclipse.view.ViewLabelProvider;
@@ -58,7 +59,7 @@ class TT extends AbstractCadseTreeViewUI {
 	}
 
 	@Override
-	public boolean isRefItemType(ItemType it, LogicalWorkspace cadseModel) {
+	public boolean isRefItemType(TypeDefinition it, LogicalWorkspace cadseModel) {
 		return false;
 	}
 
@@ -68,7 +69,7 @@ class TT extends AbstractCadseTreeViewUI {
 	}
 
 	@Override
-	public boolean isItemType(ItemType it, LogicalWorkspace cadseModel) {
+	public boolean isItemType(TypeDefinition it, LogicalWorkspace cadseModel) {
 		return false;
 	}
 
