@@ -8,10 +8,13 @@
     <artifactId>si.view</artifactId>
     <name>fr.imag.adele.cadse.si.view</name>
     <version>2.3.0-SNAPSHOT</version>
-     <organization>
-        <name>Adele/LIG/ Grenoble University, France</name>
-        <url>http://www-adele.imag.fr/</url>
-    </organization>
+    <parent>
+		<artifactId>fr.imag.adele.cadse.parent.ipojo</artifactId>
+		<groupId>fr.imag.adele.cadse</groupId>
+		<version>2.3.0-SNAPSHOT</version>
+		<relativePath>../fr.imag.adele.cadse.parent.ipojo</relativePath>
+	</parent>
+	
     <build>
         <plugins>
             <plugin>
