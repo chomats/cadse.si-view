@@ -111,104 +111,85 @@
         <dependency>
             <groupId>org.apache.felix</groupId>
             <artifactId>org.apache.felix.ipojo.metadata</artifactId>
-            <version>1.4.0</version>
         </dependency>
         <dependency>
         	<groupId>org.eclipse</groupId>
         	<artifactId>org.eclipse.core.resources</artifactId>
-        	<version>3.5.1.R35x_v20090826-0451</version>
         </dependency>
         <dependency>
         	<groupId>org.eclipse</groupId>
         	<artifactId>org.eclipse.equinox.common</artifactId>
-        	<version>3.5.1.R35x_v20090807-1100</version>
         </dependency>
         <dependency>
         	<groupId>org.eclipse</groupId>
         	<artifactId>org.eclipse.core.jobs</artifactId>
-        	<version>3.4.100.v20090429-1800</version>
         </dependency>
         
         <dependency>
         	<groupId>org.eclipse</groupId>
         	<artifactId>org.eclipse.ui.workbench</artifactId>
-        	<version>3.5.1.M20090826-0800a</version>
         </dependency>
         <dependency>
         	<groupId>org.eclipse</groupId>
         	<artifactId>swt</artifactId>
-        	<version>3.5.1.v3555a</version>
+        	<version>3.5.1-v3555a</version>
         	<type>pom</type>
         </dependency>
         <dependency>
         	<groupId>org.eclipse</groupId>
         	<artifactId>org.eclipse.jface</artifactId>
-        	<version>3.5.1.M20090826-0800</version>
         </dependency>
         <dependency>
         	<groupId>org.eclipse</groupId>
         	<artifactId>org.eclipse.osgi</artifactId>
-        	<version>3.5.1.R35x_v20090827</version>
         </dependency>
         <dependency>
         	<groupId>org.eclipse</groupId>
         	<artifactId>org.eclipse.core.runtime</artifactId>
-        	<version>3.5.0.v20090525</version>
         </dependency>
         <dependency>
         	<groupId>org.eclipse</groupId>
         	<artifactId>org.eclipse.equinox.registry</artifactId>
-        	<version>3.4.100.v20090520-1800</version>
         </dependency>
         <dependency>
         	<groupId>org.eclipse</groupId>
         	<artifactId>org.eclipse.core.commands</artifactId>
-        	<version>3.5.0.I20090525-2000</version>
         </dependency>
         <dependency>
         	<groupId>fr.imag.adele.cadse</groupId>
         	<artifactId>cu.core</artifactId>
-        	<version>2.3.0-SNAPSHOT</version>
         </dependency>
         <dependency>
         	<groupId>org.eclipse</groupId>
         	<artifactId>org.eclipse.ltk.core.refactoring</artifactId>
-        	<version>3.5.0.v20090513-2000</version>
         </dependency>
         <dependency>
         	<groupId>org.eclipse</groupId>
         	<artifactId>org.eclipse.ui.ide</artifactId>
-        	<version>3.5.1.M20090826-0800</version>
         </dependency>
         <dependency>
         	<groupId>org.eclipse</groupId>
         	<artifactId>org.eclipse.debug.ui</artifactId>
-        	<version>3.5.1.v20090811_r351</version>
         </dependency>
         <dependency>
         	<groupId>org.eclipse</groupId>
         	<artifactId>org.eclipse.jdt.ui</artifactId>
-        	<version>3.5.1.r351_v20090821-0800</version>
         </dependency>
         <dependency>
         	<groupId>org.eclipse</groupId>
         	<artifactId>org.eclipse.search</artifactId>
-        	<version>3.5.1.r351_v20090708-0800</version>
         </dependency>
         <dependency>
         	<groupId>org.eclipse</groupId>
         	<artifactId>org.eclipse.ui.console</artifactId>
-        	<version>3.4.0.v20090513</version>
         </dependency>
         <dependency>
         	<groupId>org.eclipse</groupId>
         	<artifactId>org.eclipse.ui.forms</artifactId>
-        	<version>3.4.1.v20090714_35x</version>
         </dependency>
         <dependency>
         	<groupId>org.eclipse</groupId>
         	<artifactId>org.eclipse.ui.workbench.texteditor</artifactId>
-        	<version>3.5.0.v20090603</version>
         </dependency>
     </dependencies>
 </project>
