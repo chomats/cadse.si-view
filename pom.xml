@@ -18,27 +18,16 @@
     <build>
         <plugins>
             <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
                 <extensions>true</extensions>
                 <configuration>
-                    <manifestLocation>META-INF</manifestLocation>
                    	<instructions>
-                    	<Bundle-SymbolicName>${pom.name};singleton:=true</Bundle-SymbolicName>
-                        <Bundle-Name>${pom.name}</Bundle-Name>
-                        <Bundle-Description>${pom.description}</Bundle-Description>
-                        <Export-Package>fede.workspace.eclipse*,
-                        fede.workspace.model.manager*,
-                        fede.workspace.tool*,
-                        fr.imag.adele.cadse.eclipse.view,
-                        fr.imag.adele.fede.workspace.si.view</Export-Package>
+                    	 <Export-Package>fede.workspace.eclipse*;version="${version.cadse}",
+                        fede.workspace.model.manager*;version="${version.cadse}",
+                        fede.workspace.tool*;version="${version.cadse}",
+                        fr.imag.adele.cadse.eclipse.view;version="${version.cadse}",
+                        fr.imag.adele.fede.workspace.si.view;version="${version.cadse}"</Export-Package>
                         <Private-Package></Private-Package>
                         <Import-Package>*</Import-Package>
                         <Eclipse-LazyStart>true</Eclipse-LazyStart>
@@ -46,7 +35,9 @@
                         <Include-Resource>
 			              plugin.xml=plugin.xml,
 			              plugin.properties=plugin.properties,
-			              schema=schema
+			              schema=schema,
+			              icons=icons,
+			              workspace-ant.jar=workspace-ant.jar
 			            </Include-Resource>
                         <Ipojo-auto-start>true</Ipojo-auto-start>
                        	<_removeheaders>Bnd-LastModified</_removeheaders>
