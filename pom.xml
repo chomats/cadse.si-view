@@ -40,7 +40,7 @@
 			              workspace-ant.jar=workspace-ant.jar
 			            </Include-Resource>
                         <Ipojo-auto-start>true</Ipojo-auto-start>
-                       	<_removeheaders>Bnd-LastModified</_removeheaders>
+                       	<Import-Package>org.eclipse.core.runtime;registry=!,*</Import-Package>
                     </instructions>
                 </configuration>
             </plugin>
