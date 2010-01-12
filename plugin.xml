@@ -255,7 +255,7 @@
 
 
     <extension
-          point="fr.imag.workspace.custom.filter.elementFilters">
+          point="fr.imag.adele.cadse.custom.filter.elementFilters">
        <filter
              class="fede.workspace.tool.view.filters.FilterEmptyRelation"
              description="%filter.description.0"
