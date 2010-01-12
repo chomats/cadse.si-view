@@ -57,12 +57,12 @@ public class CompositeReExporter extends EclipseExporter {
 	 * 
 	 * @param item
 	 */
-	public CompositeReExporter(ContentItem contentManager, Class<?>... exporterTypes) {
+	public CompositeReExporter(ContentItem contentManager, String... exporterTypes) {
 		super(contentManager, exporterTypes);
 	}
 	@Override
 	public IExportedContent exportItem(IBuildingContext context,
-			IExporterTarget target, Class<?> exporterType, boolean fullExport)
+			IExporterTarget target, String exporterType, boolean fullExport)
 			throws CadseException {
 			IContainer targetRepository = ((EclipseExporterTarget)target).getTargetContainer();
 		IProgressMonitor monitor = ((CompositeBuildingContext)context).getMonitor();
@@ -151,7 +151,7 @@ public class CompositeReExporter extends EclipseExporter {
 		 */
 		IContainer repository = MelusineProjectManager.getProject(getItem());
 		List<EclipseExportedContent> components = new ArrayList<EclipseExportedContent>();
-		for (Class<?> c : this.getExporterTypes()) {
+		for (String c : this.getExporterTypes()) {
 			components.addAll(EclipseExportedContent.getPackagedItems(repository,monitor, c));
 		}
 	

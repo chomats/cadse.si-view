@@ -37,13 +37,13 @@ import fede.workspace.eclipse.composition.CompositeBuildingContext;
 
 public class EclipseExporter extends Exporter {
 
-	protected EclipseExporter(ContentItem contentManager, Class<?>... exporterTypes) {
+	protected EclipseExporter(ContentItem contentManager, String... exporterTypes) {
 		super(contentManager, exporterTypes);
 	}
 
 	@Override
 	public IExportedContent exportItem(IBuildingContext context,
-			IExporterTarget target, Class<?> exporterType, boolean fullExport)
+			IExporterTarget target, String exporterType, boolean fullExport)
 			throws CadseException {
 		IContainer repository = ((EclipseExporterTarget)target).getTargetContainer();
 		IProgressMonitor monitor = ((CompositeBuildingContext)context).getMonitor();
@@ -87,7 +87,7 @@ public class EclipseExporter extends Exporter {
 		return eclipseExportedContent ;
 	}
 
-	protected void exportItem(EclipseExportedContent eclipseExportedContent, IResourceDelta componentUpdate, IProgressMonitor monitor, Class<?> exporterType) throws CoreException {
+	protected void exportItem(EclipseExportedContent eclipseExportedContent, IResourceDelta componentUpdate, IProgressMonitor monitor, String exporterType) throws CoreException {
 	}
 
 	
