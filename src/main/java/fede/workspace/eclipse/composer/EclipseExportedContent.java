@@ -55,7 +55,7 @@ public final class EclipseExportedContent implements IExportedContent {
 
 	private final Item 			item;
 	private final IContainer	repository;
-	private Class<?> exporterType;
+	private String exporterType;
 	private Link link;
 	
 	/**
@@ -66,7 +66,7 @@ public final class EclipseExportedContent implements IExportedContent {
 	 * @param repository
 	 * @param item
 	 */
-	public EclipseExportedContent(IContainer repository, Item item, Class<?> type, IProgressMonitor monitor)throws CoreException {
+	public EclipseExportedContent(IContainer repository, Item item, String type, IProgressMonitor monitor)throws CoreException {
 		this(repository,item,type,true,monitor);
 	}
 
@@ -84,7 +84,7 @@ public final class EclipseExportedContent implements IExportedContent {
 	 * @param monitor
 	 * @throws CoreException
 	 */
-	private EclipseExportedContent(IContainer repository, Item item, Class<?> exporterType, boolean forceCreate, IProgressMonitor monitor)throws CoreException {
+	private EclipseExportedContent(IContainer repository, Item item, String exporterType, boolean forceCreate, IProgressMonitor monitor)throws CoreException {
 		this.repository 		= repository;
 		this.item		 		= item;
 		this.exporterType  	= exporterType;
@@ -97,7 +97,7 @@ public final class EclipseExportedContent implements IExportedContent {
 	/**
 	 * Gets a handle to all the existing packaged items in a specified repository
 	 */
-	public static List<IExportedContent> getPackagedItems(IContainer repository, Class<?> exporterType, IProgressMonitor monitor) throws CoreException {
+	public static List<IExportedContent> getPackagedItems(IContainer repository, String exporterType, IProgressMonitor monitor) throws CoreException {
 		List<IExportedContent> packagedItems = new ArrayList<IExportedContent>();
 		
 		IFolder packagingArea = repository.getFolder(getComponentsPath());
@@ -120,13 +120,13 @@ public final class EclipseExportedContent implements IExportedContent {
 	/**
 	 * Gets a handle to all the existing packaged items in a specified repository
 	 */
-	static public List<EclipseExportedContent> getPackagedItems(IContainer repository, IProgressMonitor monitor, Class<?> exporterType) throws CoreException {
+	static public List<EclipseExportedContent> getPackagedItems(IContainer repository, IProgressMonitor monitor, String exporterType) throws CoreException {
 		List<EclipseExportedContent> eclipseExportedContents = new ArrayList<EclipseExportedContent>();
 		
 		IFolder packagingArea = repository.getFolder(getComponentsPath());
 		if (!packagingArea.exists())
 			return eclipseExportedContents;
-		IFolder typeFolder = packagingArea.getFolder(exporterType.getSimpleName());
+		IFolder typeFolder = packagingArea.getFolder(exporterType);
 		if (!typeFolder.exists())
 			return eclipseExportedContents;
 		
@@ -153,7 +153,7 @@ public final class EclipseExportedContent implements IExportedContent {
 	/**
 	 * Gets a handle to an existing packaged item in a specified repository
 	 */
-	public static EclipseExportedContent getPackagedItem(IContainer repository, Item item, Class<?> type, IProgressMonitor monitor) throws CoreException {
+	public static EclipseExportedContent getPackagedItem(IContainer repository, Item item, String type, IProgressMonitor monitor) throws CoreException {
 		IFolder componentsFolder	= repository.getFolder(getComponentsPath());
 		if (!componentsFolder.exists())	return null;
 		
@@ -161,7 +161,7 @@ public final class EclipseExportedContent implements IExportedContent {
 		IFolder componentFolder = componentsFolder.getFolder(toStringForResource(item));
 		if (!componentFolder.exists())	return null;
 		
-		IFolder typeComponentFolder = componentFolder.getFolder(type.getSimpleName());
+		IFolder typeComponentFolder = componentFolder.getFolder(type);
 		if (!typeComponentFolder.exists())	return null;
 		
 		return new EclipseExportedContent(repository,item,type,false,monitor);
@@ -258,7 +258,7 @@ public final class EclipseExportedContent implements IExportedContent {
 	 * @return
 	 */
 	public IPath getPath() {
-		return getComponentsPath().append(toStringForResource(item)).append(getExporterType().getSimpleName());
+		return getComponentsPath().append(toStringForResource(item)).append(getExporterType());
 	}
 	
 	/**
@@ -585,7 +585,7 @@ public final class EclipseExportedContent implements IExportedContent {
 		}
 	}
 
-	public Class<?> getExporterType() {
+	public String getExporterType() {
 		return exporterType;
 	}
 

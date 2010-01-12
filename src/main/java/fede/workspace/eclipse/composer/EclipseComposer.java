@@ -28,7 +28,7 @@ import fede.workspace.eclipse.exporter.EclipseExporterTarget;
 
 public class EclipseComposer extends Composer {
 
-	public EclipseComposer(ContentItem contentManager, Class<?>... exporterTypes) {
+	public EclipseComposer(ContentItem contentManager, String... exporterTypes) {
 		super(contentManager, exporterTypes);
 	}
 

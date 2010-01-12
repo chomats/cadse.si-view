@@ -41,7 +41,7 @@ public class EclipseExporterTarget implements IExporterTarget {
 		return targetContainer;
 	}
 
-	public List<IExportedContent> getRepositoryComponents(Class<?> exporterType) throws CadseException {
+	public List<IExportedContent> getRepositoryComponents(String exporterType) throws CadseException {
 		try {
 			return EclipseExportedContent.getPackagedItems(targetContainer, exporterType, null);
 		} catch (CoreException e) {
