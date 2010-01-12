@@ -41,6 +41,7 @@
 			            </Include-Resource>
                         <Ipojo-auto-start>true</Ipojo-auto-start>
                        	<Import-Package>org.eclipse.core.runtime;registry=!,*</Import-Package>
+                       	<Bundle-Localization>plugin</Bundle-Localization>
                     </instructions>
                 </configuration>
             </plugin>
