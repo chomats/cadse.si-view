@@ -21,61 +21,83 @@
  */
 package fede.workspace.tool.view.filters;
 
-
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 
+import java.util.ArrayList;
 import java.util.UUID;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Link;
 import fede.workspace.tool.view.ItemInViewer;
 
 public class FilterDoublon extends ViewerFilter {
-	
-	
+
+	@Override
+	public Object[] filter(Viewer viewer, Object parentElement,
+			Object[] elements) {
+		int size = elements.length;
+		ArrayList out = new ArrayList(size);
+		for (int i = 0; i < size; ++i) {
+			Object element = elements[i];
+			if (element instanceof ItemInViewer) {
+				ItemInViewer itemInViewer = ((ItemInViewer) element);
+				ItemInViewer parent = itemInViewer.getParent();
+				if (parent == null) {
+					out.add(element);
+					continue;
+				}
+
+				int kind = itemInViewer.getKind();
+				if (kind != ItemInViewer.LINK_OUTGOING) {
+					out.add(element);
+					continue;
+				}
+				Link orignalLink = itemInViewer.getLink();
+				if (orignalLink == null) {
+					out.add(element);
+					continue;
+				}
+				UUID id = orignalLink.getDestinationId();
+
+				int indexthis = -1;
+				int indexfirst_notderived = -1;
+				int indexfirst_derived = -1;
+				for (int j = 0; j < elements.length; j++) {
+					IItemNode child = (IItemNode) elements[j];
+					if (child.getKind() != ItemInViewer.LINK_OUTGOING)
+						continue;
+					Link l = child.getLink();
+					if (l == null)
+						continue;
+					if (!l.getDestinationId().equals(id))
+						continue;
+					if (l.equals(orignalLink))
+						indexthis = j;
+					if (indexfirst_derived == -1 && l.isDerived())
+						indexfirst_derived = j;
+					if (indexfirst_notderived == -1 && !l.isDerived())
+						indexfirst_notderived = j;
+
+				}
+				if (indexfirst_notderived != -1) {
+					if (indexthis == indexfirst_notderived) {
+						out.add(element);
+					}
+				}
+				if (indexfirst_derived != -1) {
+					if (indexthis == indexfirst_derived) {
+						out.add(element);
+					}
+				}
+			} else {
+				out.add(element);
+			}
+		}
+		return out.toArray();
+	}
+
 	@Override
 	public boolean select(Viewer viewer, Object parentElement, Object element) {
-        if (element instanceof ItemInViewer) {
-            ItemInViewer itemInViewer = ((ItemInViewer)element);
-            ItemInViewer parent = itemInViewer.getParent();
-            if (parent == null) return true;
-            
-            int kind = itemInViewer.getKind();
-            if (kind != ItemInViewer.LINK_OUTGOING)
-                return true;
-            Link orignalLink = itemInViewer.getLink();
-            if (orignalLink == null)
-                return true;
-            UUID id = orignalLink.getDestinationId();
-            
-            int indexthis = -1;
-            int indexfirst_notderived= -1;
-            int indexfirst_derived = -1;
-            IItemNode[] children = parent.getChildren();
-            for (int i = 0; i < children.length; i++) {
-            	IItemNode child = children[i];
-                if (child.getKind() != ItemInViewer.LINK_OUTGOING) 
-                    continue;
-                Link l = child.getLink();
-                if (l == null) continue;
-                if (!l.getDestinationId().equals(id))
-                    continue;
-                if (l.equals(orignalLink)) 
-                    indexthis = i;
-                if (indexfirst_derived == -1 && l.isDerived())
-                    indexfirst_derived = i;
-                if (indexfirst_notderived == -1 && !l.isDerived())
-                    indexfirst_notderived = i;
-                
-            }
-            if (indexfirst_notderived != -1) {
-                return (indexthis == indexfirst_notderived);
-            }
-            if (indexfirst_derived != -1) {
-                return (indexthis == indexfirst_derived);
-            }
-            return false;
-        }
-        return true;
-    }
+		return true;
+	}
 }
