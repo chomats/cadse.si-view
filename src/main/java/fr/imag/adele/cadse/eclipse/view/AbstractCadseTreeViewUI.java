@@ -1482,55 +1482,9 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 
 	// private HashMap<Object, Object> elements;
 
-	public void add(AbstractCadseViewNode node) {
-		// Object element = node.getElementModel();
-		// if (element == null) {
-		// throw new NullPointerException();
-		// }
-		//
-		// if (elements == null) {
-		// elements = new HashMap<Object, Object>();
-		// }
-		// Object v = elements.get(element);
-		//
-		// if (v == null) {
-		// elements.put(element, node);
-		// } else {
-		// if (v instanceof List) {
-		// ((List) v).add(node);
-		// } else {
-		// ArrayList nv = new ArrayList();
-		// nv.add(v);
-		// nv.add(node);
-		// elements.put(element, nv);
-		// }
-		// }
-	}
+	public void add(AbstractCadseViewNode node) {}
 
 	public void remove(AbstractCadseViewNode node) {
-		// if (elements == null) {
-		// return;
-		// }
-		//
-		// Object element = node.getElementModel();
-		// if (element == null) {
-		// return;
-		// }
-		//
-		// Object v = elements.get(element);
-		//
-		// if (v == null) {
-		//
-		// } else {
-		// if (v instanceof List) {
-		// ((List) v).remove(node);
-		// if (((List) v).size() == 1) {
-		// elements.put(element, ((List) v).get(0));
-		// }
-		// } else {
-		// elements.remove(element);
-		// }
-		// }
 	}
 
 	public List<AbstractCadseViewNode> getNodeFromElement(Object element) {
