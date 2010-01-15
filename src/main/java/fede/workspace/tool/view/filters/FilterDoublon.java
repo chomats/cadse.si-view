@@ -35,65 +35,71 @@ public class FilterDoublon extends ViewerFilter {
 	@Override
 	public Object[] filter(Viewer viewer, Object parentElement,
 			Object[] elements) {
-		int size = elements.length;
-		ArrayList out = new ArrayList(size);
-		for (int i = 0; i < size; ++i) {
-			Object element = elements[i];
-			if (element instanceof ItemInViewer) {
-				ItemInViewer itemInViewer = ((ItemInViewer) element);
-				ItemInViewer parent = itemInViewer.getParent();
-				if (parent == null) {
-					out.add(element);
-					continue;
-				}
-
-				int kind = itemInViewer.getKind();
-				if (kind != ItemInViewer.LINK_OUTGOING) {
-					out.add(element);
-					continue;
-				}
-				Link orignalLink = itemInViewer.getLink();
-				if (orignalLink == null) {
-					out.add(element);
-					continue;
-				}
-				UUID id = orignalLink.getDestinationId();
-
-				int indexthis = -1;
-				int indexfirst_notderived = -1;
-				int indexfirst_derived = -1;
-				for (int j = 0; j < elements.length; j++) {
-					IItemNode child = (IItemNode) elements[j];
-					if (child.getKind() != ItemInViewer.LINK_OUTGOING)
-						continue;
-					Link l = child.getLink();
-					if (l == null)
-						continue;
-					if (!l.getDestinationId().equals(id))
-						continue;
-					if (l.equals(orignalLink))
-						indexthis = j;
-					if (indexfirst_derived == -1 && l.isDerived())
-						indexfirst_derived = j;
-					if (indexfirst_notderived == -1 && !l.isDerived())
-						indexfirst_notderived = j;
-
-				}
-				if (indexfirst_notderived != -1) {
-					if (indexthis == indexfirst_notderived) {
+		try {
+			int size = elements.length;
+			ArrayList out = new ArrayList(size);
+			for (int i = 0; i < size; ++i) {
+				Object element = elements[i];
+				if (element instanceof ItemInViewer) {
+					ItemInViewer itemInViewer = ((ItemInViewer) element);
+					ItemInViewer parent = itemInViewer.getParent();
+					if (parent == null) {
 						out.add(element);
+						continue;
 					}
-				}
-				if (indexfirst_derived != -1) {
-					if (indexthis == indexfirst_derived) {
+
+					int kind = itemInViewer.getKind();
+					if (kind != ItemInViewer.LINK_OUTGOING) {
 						out.add(element);
+						continue;
 					}
+					Link orignalLink = itemInViewer.getLink();
+					if (orignalLink == null) {
+						out.add(element);
+						continue;
+					}
+					UUID id = orignalLink.getDestinationId();
+
+					int indexthis = -1;
+					int indexfirst_notderived = -1;
+					int indexfirst_derived = -1;
+					for (int j = 0; j < elements.length; j++) {
+						IItemNode child = (IItemNode) elements[j];
+						if (child.getKind() != ItemInViewer.LINK_OUTGOING)
+							continue;
+						Link l = child.getLink();
+						if (l == null)
+							continue;
+						if (!l.getDestinationId().equals(id))
+							continue;
+						if (l.equals(orignalLink))
+							indexthis = j;
+						if (indexfirst_derived == -1 && l.isDerived())
+							indexfirst_derived = j;
+						if (indexfirst_notderived == -1 && !l.isDerived())
+							indexfirst_notderived = j;
+
+					}
+					if (indexfirst_notderived != -1) {
+						if (indexthis == indexfirst_notderived) {
+							out.add(element);
+						}
+					}
+					if (indexfirst_derived != -1) {
+						if (indexthis == indexfirst_derived) {
+							out.add(element);
+						}
+					}
+				} else {
+					out.add(element);
 				}
-			} else {
-				out.add(element);
 			}
+			return out.toArray();
+		} catch (Throwable e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return elements;
 		}
-		return out.toArray();
 	}
 
 	@Override
