@@ -28,7 +28,7 @@ import fr.imag.adele.fede.workspace.si.view.View;
 public class StopTestAction extends IMenuAction {
 
 	@Override
-	public URL getImage() {
+	public String getImage() {
 		return null;
 	}
 

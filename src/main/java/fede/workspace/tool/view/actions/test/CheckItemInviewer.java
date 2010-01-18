@@ -38,7 +38,7 @@ public class CheckItemInviewer extends IMenuAction {
 	}
 
 	@Override
-	public URL getImage() {
+	public String getImage() {
 		return null;
 	}
 

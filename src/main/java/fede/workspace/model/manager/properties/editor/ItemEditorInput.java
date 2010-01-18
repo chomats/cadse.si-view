@@ -30,6 +30,9 @@ import fede.workspace.tool.view.WSPlugin;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.URIConverter;
+
 public class ItemEditorInput implements IEditorInput, IPersistableElement {
 
 	private Item	item;
@@ -47,11 +50,11 @@ public class ItemEditorInput implements IEditorInput, IPersistableElement {
 		if (im == null) {
 			return null;
 		}
-		URL url = im.getImage(item);
+		String url = im.getImage(item);
 		if (url == null) {
 			return null;
 		}
-		return ImageDescriptor.createFromURL(url);
+		return WSPlugin.createFromURI(url);
 	}
 
 	public String getName() {
