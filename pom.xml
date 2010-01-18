@@ -183,6 +183,11 @@
         	<groupId>org.eclipse</groupId>
         	<artifactId>org.eclipse.ui.workbench.texteditor</artifactId>
         </dependency>
+        <dependency>
+        	<groupId>org.eclipse</groupId>
+        	<artifactId>org.eclipse.emf.ecore</artifactId>
+        	<version>2.5.0-v200906151043</version>
+        </dependency>
     </dependencies>
 </project>
 

@@ -19,6 +19,7 @@
 package fede.workspace.tool.view;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.MessageFormat;
@@ -32,9 +33,15 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
+import org.eclipse.swt.SWTException;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.ImageData;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.util.BundleUtility;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.Bundle;
@@ -355,7 +362,7 @@ public class WSPlugin extends AbstractUIPlugin {
 
 	public Image getImageFrom(TypeDefinition it, Item item) {
 		ImageRegistry ir = getImageRegistry();
-		URL url = getImageURLFrom(it, item);
+		String url = getImageURIFrom(it, item);
 		if (url == null) {
 			return null;
 		}
@@ -363,7 +370,7 @@ public class WSPlugin extends AbstractUIPlugin {
 			String key = url.toString();
 			Image image = ir.get(key);
 			if (image == null) {
-				ir.put(key, ImageDescriptor.createFromURL(url));
+				ir.put(key, createFromURI(url));
 				image = ir.get(key);
 			}
 			return image;
@@ -376,7 +383,7 @@ public class WSPlugin extends AbstractUIPlugin {
 
 	public ImageDescriptor getImageDescriptorFrom(ItemType it, Item item) {
 		ImageRegistry ir = getImageRegistry();
-		URL url = getImageURLFrom(it, item);
+		String url = getImageURIFrom(it, item);
 		if (url == null) {
 			return null;
 		}
@@ -384,7 +391,7 @@ public class WSPlugin extends AbstractUIPlugin {
 			String key = url.toString();
 			ImageDescriptor image = ir.getDescriptor(key);
 			if (image == null) {
-				ir.put(key, ImageDescriptor.createFromURL(url));
+				ir.put(key, createFromURI(url));
 				image = ir.getDescriptor(key);
 			}
 			return image;
@@ -402,12 +409,25 @@ public class WSPlugin extends AbstractUIPlugin {
 		return b.getEntry(imagePath);
 	}
 
-	public URL getImageURLFrom(TypeDefinition it, Item item) {
+//	public URL getImageURLFrom(TypeDefinition it, Item item) {
+//		if (it == null || it.isExtendedType())
+//			return null;
+//		IItemManager im = getManager(it);
+//		if (im.hasImageByItem()) {
+//			URL url = im.getImage(item);
+//			if (url != null) {
+//				return url;
+//			}
+//		}
+//		return ((ItemType) it).getImage();
+//	}
+	
+	public String getImageURIFrom(TypeDefinition it, Item item) {
 		if (it == null || it.isExtendedType())
 			return null;
 		IItemManager im = getManager(it);
 		if (im.hasImageByItem()) {
-			URL url = im.getImage(item);
+			String url = im.getImage(item);
 			if (url != null) {
 				return url;
 			}
@@ -429,5 +449,38 @@ public class WSPlugin extends AbstractUIPlugin {
 
 	public static void logErrorMessage(String message, Object... param) {
 		log(new Status(IStatus.ERROR, PLUGIN_ID, 0, MessageFormat.format(message, param), null));
+	}
+
+	static Image loadImage (String uri) {
+		ImageRegistry ir = getDefault().getImageRegistry();
+		Display display = PlatformUI.getWorkbench().getDisplay();
+		           InputStream stream;
+				try {
+					stream = URIConverter.INSTANCE.createInputStream(URI.createURI(uri));
+					if (stream == null) return null;
+			           Image image = null;
+			           try {
+			                image = new Image (display, stream);
+			           } catch (SWTException ex) {
+			           } finally {
+			                try {
+			                     stream.close ();
+			                } catch (IOException ex) {}
+			           }
+			           return image;
+			     } catch (IOException e) {
+					e.printStackTrace();
+					return null;
+					
+				}
+		           
+		      }
+	public static ImageDescriptor createFromURI(String url) {
+		// TODO Auto-generated method stub
+		//.createFromURL(url)())
+		ImageRegistry ir = getDefault().getImageRegistry();
+		Image im = loadImage(url);
+		if (im == null) return null;
+		return ImageDescriptor.createFromImage(im);
 	}
 }

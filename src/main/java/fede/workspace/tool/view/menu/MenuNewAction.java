@@ -92,8 +92,8 @@ public class MenuNewAction extends IMenuAction {
 	}
 
 	@Override
-	public URL getImage() {
-		return WSPlugin.getDefault().getImageURLFrom(this.destItemType, null);
+	public String getImage() {
+		return WSPlugin.getDefault().getImageURIFrom(this.destItemType, null);
 	}
 
 	@Override

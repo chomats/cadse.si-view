@@ -135,15 +135,15 @@ public class MenuActionContributionItem extends ContributionItem implements List
 			appendsepartor = true;
 
 			try {
-				URL url = aMenuAction.getImage();
+				String url = aMenuAction.getImage();
 				if (url != null) {
 					ImageRegistry ir = WSPlugin.getDefault().getImageRegistry();
-					Image image = ir.get(url.toString());
+					Image image = ir.get(url);
 					if (image == null) {
-						ImageDescriptor desc = ImageDescriptor.createFromURL(url);
+						ImageDescriptor desc = WSPlugin.createFromURI(url);
 						image = desc.createImage();
 						if (image != null) {
-							ir.put(url.toString(), image);
+							ir.put(url, image);
 						}
 					}
 					if (image != null) {
