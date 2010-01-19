@@ -261,7 +261,7 @@ public class WSLinkView extends ViewPart implements ISelectionListener {
 		new Thread(new Runnable() {
 			public void run() {
 				synchronized (this) {
-					while (View.getInstance() == null || View.getInstance().getWorkspaceDomain() == null) {
+					while (View.getInstance() == null || View.getInstance().getWorkspaceLogique() == null) {
 						try {
 							Thread.sleep(100);
 						} catch (InterruptedException e) {
