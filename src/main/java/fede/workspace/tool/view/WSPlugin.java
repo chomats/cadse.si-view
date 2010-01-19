@@ -33,13 +33,10 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.SWTException;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.util.BundleUtility;
@@ -442,30 +439,6 @@ public class WSPlugin extends AbstractUIPlugin {
 		log(new Status(IStatus.ERROR, PLUGIN_ID, 0, MessageFormat.format(message, param), null));
 	}
 
-	static Image loadImage (String uri) {
-		ImageRegistry ir = getDefault().getImageRegistry();
-		Display display = PlatformUI.getWorkbench().getDisplay();
-		           InputStream stream;
-				try {
-					stream = URIConverter.INSTANCE.createInputStream(URI.createURI(uri));
-					if (stream == null) return null;
-			           Image image = null;
-			           try {
-			                image = new Image (display, stream);
-			           } catch (SWTException ex) {
-			           } finally {
-			                try {
-			                     stream.close ();
-			                } catch (IOException ex) {}
-			           }
-			           return image;
-			     } catch (IOException e) {
-					e.printStackTrace();
-					return null;
-					
-				}
-		           
-		      }
 	public static ImageDescriptor createFromURI(String url) {
 		ImageRegistry ir = getDefault().getImageRegistry();
 		return getDefault().getImageDescriptorFromURL(ir, url);
