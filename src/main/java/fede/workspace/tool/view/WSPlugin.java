@@ -432,7 +432,7 @@ public class WSPlugin extends AbstractUIPlugin {
 	public String getImageURIFrom(TypeDefinition it, Item item) {
 		if (it == null || it.isExtendedType())
 			return null;
-		IItemManager im = getManager(it);
+		IItemManager im = getManager((ItemType)it);
 		if (im.hasImageByItem()) {
 			String url = im.getImage(item);
 			if (url != null) {
