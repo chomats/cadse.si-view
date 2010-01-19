@@ -384,16 +384,35 @@ public class WSPlugin extends AbstractUIPlugin {
 		if (url == null) {
 			return null;
 		}
-		return getImageDescriptorFromURL(ir, url);
+		return getImageDescriptorFromURL(url);
 	}
 
-	public ImageDescriptor getImageDescriptorFromURL(ImageRegistry ir,
+	public ImageDescriptor getImageDescriptorFromURL(
 			String url) {
 		try {
+			ImageRegistry ir = getImageRegistry();
+			
 			ImageDescriptor image = ir.getDescriptor(url);
 			if (image == null) {
 				ir.put(url, ImageDescriptor.createFromURL(new URL(url)));
 				image = ir.getDescriptor(url);
+			}
+			return image;
+		} catch (Throwable e) {
+			WSPlugin.log(new Status(Status.ERROR, WSPlugin.PLUGIN_ID, 0, "cannot create image from " + url + ": "
+					+ e.getMessage(), e));
+		}
+		return null;
+	}
+	
+	public Image getImageFromURL(String url) {
+		try {
+			ImageRegistry ir = getImageRegistry();
+			
+			Image image = ir.get(url);
+			if (image == null) {
+				ir.put(url, ImageDescriptor.createFromURL(new URL(url)));
+				image = ir.get(url);
 			}
 			return image;
 		} catch (Throwable e) {
@@ -422,6 +441,8 @@ public class WSPlugin extends AbstractUIPlugin {
 		}
 		return ((ItemType) it).getImage();
 	}
+	
+	
 
 	public static void logException(Throwable e) {
 		WSPlugin.log(new Status(Status.ERROR, WSPlugin.PLUGIN_ID, 0, e.getMessage(), e));
@@ -440,7 +461,9 @@ public class WSPlugin extends AbstractUIPlugin {
 	}
 
 	public static ImageDescriptor createFromURI(String url) {
-		ImageRegistry ir = getDefault().getImageRegistry();
-		return getDefault().getImageDescriptorFromURL(ir, url);
+		
+		return getDefault().getImageDescriptorFromURL(url);
 	}
+
+	
 }
