@@ -368,9 +368,9 @@ public class WSPlugin extends AbstractUIPlugin {
 		}
 		try {
 			String key = url.toString();
-			Image image = ir.get(key);
+			Image image = ir.get(url);
 			if (image == null) {
-				ir.put(key, createFromURI(url));
+				ir.put(key, ImageDescriptor.createFromURL(new URL(url)));
 				image = ir.get(key);
 			}
 			return image;
@@ -387,12 +387,16 @@ public class WSPlugin extends AbstractUIPlugin {
 		if (url == null) {
 			return null;
 		}
+		return getImageDescriptorFromURL(ir, url);
+	}
+
+	public ImageDescriptor getImageDescriptorFromURL(ImageRegistry ir,
+			String url) {
 		try {
-			String key = url.toString();
-			ImageDescriptor image = ir.getDescriptor(key);
+			ImageDescriptor image = ir.getDescriptor(url);
 			if (image == null) {
-				ir.put(key, createFromURI(url));
-				image = ir.getDescriptor(key);
+				ir.put(url, ImageDescriptor.createFromURL(new URL(url)));
+				image = ir.getDescriptor(url);
 			}
 			return image;
 		} catch (Throwable e) {
@@ -408,19 +412,6 @@ public class WSPlugin extends AbstractUIPlugin {
 		
 		return b.getEntry(imagePath);
 	}
-
-//	public URL getImageURLFrom(TypeDefinition it, Item item) {
-//		if (it == null || it.isExtendedType())
-//			return null;
-//		IItemManager im = getManager(it);
-//		if (im.hasImageByItem()) {
-//			URL url = im.getImage(item);
-//			if (url != null) {
-//				return url;
-//			}
-//		}
-//		return ((ItemType) it).getImage();
-//	}
 	
 	public String getImageURIFrom(TypeDefinition it, Item item) {
 		if (it == null || it.isExtendedType())
@@ -476,11 +467,7 @@ public class WSPlugin extends AbstractUIPlugin {
 		           
 		      }
 	public static ImageDescriptor createFromURI(String url) {
-		// TODO Auto-generated method stub
-		//.createFromURL(url)())
 		ImageRegistry ir = getDefault().getImageRegistry();
-		Image im = loadImage(url);
-		if (im == null) return null;
-		return ImageDescriptor.createFromImage(im);
+		return getDefault().getImageDescriptorFromURL(ir, url);
 	}
 }
