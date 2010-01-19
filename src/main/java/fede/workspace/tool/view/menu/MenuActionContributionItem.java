@@ -137,15 +137,7 @@ public class MenuActionContributionItem extends ContributionItem implements List
 			try {
 				String url = aMenuAction.getImage();
 				if (url != null) {
-					ImageRegistry ir = WSPlugin.getDefault().getImageRegistry();
-					Image image = ir.get(url);
-					if (image == null) {
-						ImageDescriptor desc = WSPlugin.createFromURI(url);
-						image = desc.createImage();
-						if (image != null) {
-							ir.put(url, image);
-						}
-					}
+					Image image = WSPlugin.getDefault().getImageFromURL(url);;
 					if (image != null) {
 						mi.setImage(image);
 					}
