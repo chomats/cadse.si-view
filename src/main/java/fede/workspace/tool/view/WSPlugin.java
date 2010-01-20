@@ -63,7 +63,7 @@ public class WSPlugin extends AbstractUIPlugin {
 	 * The unique identifier constant (value "<code>Tool.Workspace.View</code>")
 	 */
 	public static final String	NAMESPACE_ID	= "fede.tool.workspace.view";					//$NON-NLS-1$
-	public static final String	PLUGIN_ID		= "fr.imag.adele.cadse.si.workspace.view";		//$NON-NLS-1$
+	public static final String	PLUGIN_ID		= "fr.imag.adele.cadse.si.view";		//$NON-NLS-1$
 
 	/**
 	 * 
