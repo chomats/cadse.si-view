@@ -150,8 +150,6 @@ public class ItemActionGroup extends ActionGroup {
 			return;
 		}
 
-		Item cxtItem;
-
 		Menu principalMenu = new Menu();
 
 		// create les different context.
@@ -177,88 +175,8 @@ public class ItemActionGroup extends ActionGroup {
 			}
 		}
 
-//		ArrayList<Item> itemsToRecreatePartLink = new ArrayList<Item>();
-//		for (IItemNode in : selection) {
-//			Item i = in.getItem();
-//			if (i == null) {
-//				continue;
-//			}
-//			Item p = i.getPartParent();
-//			if (p == null) {
-//				continue;
-//			}
-//			Link l = Accessor.getPartParentLink(i);
-//			if (l != null) {
-//				continue;
-//			}
-//			itemsToRecreatePartLink.add(i);
-//		}
-//		if (itemsToRecreatePartLink.size() != 0) {
-//			principalMenu.insert(IMenuAction.CONTEXT_5_MENU, new RecreatePartLinkAction(itemsToRecreatePartLink,
-//					getShellProvider()), true);
-//		}
-//
-//		if (ssel.size() == 1 && ssel.getFirstElement() instanceof IItemNode) {
-//			IItemNode iiv = (IItemNode) ssel.getFirstElement();
-//			cxtItem = iiv.getItem();
-//			if (cxtItem != null) {
-//				Menu newmenu = computeNewMenu(workbenchWindow, cxtItem);
-//				if (newmenu != null) {
-//					principalMenu.insert(IMenuAction.CONTEXT_1_MENU, newmenu, true);
-//				}
-//			}
-//		} else if (ssel.size() == 0) {
-//			Menu newmenu = computeNewMenu(workbenchWindow, null);
-//			if (newmenu != null) {
-//				principalMenu.insert(IMenuAction.CONTEXT_1_MENU, newmenu, true);
-//			}
-//		}
-//
-//		Set<IItemNode> itemsToDelete = getItemsToDelete(ssel);
-//		if (itemsToDelete.size() != 0) {
-//			principalMenu.insert(IMenuAction.CONTEXT_1_MENU, new DeleteItemAction(itemsToDelete, getShellProvider()), true);
-//		}
-//
-//		if (Platform.inDevelopmentMode()) {
-//			Set<IItemNode> itemsToRename = getItemsToRename(ssel);
-//			if (itemsToRename.size() != 0) {
-//				principalMenu.insert(IMenuAction.CONTEXT_1_MENU, new RenameAction(itemsToRename, getShellProvider()),
-//						true);
-//			}
-//		}
-//
-//		Set<IItemNode> linksToDelete = getLinksToDelete(ssel);
-//		if (linksToDelete.size() != 0) {
-//			principalMenu.insert(IMenuAction.CONTEXT_2_MENU, new DeleteLinkAction(linksToDelete, getShellProvider()),
-//					true);
-//		}
-//
-//		Set<IItemNode> itemsToRefesh = getItemsToRefresh(ssel);
-//		if (itemsToRefesh.size() != 0) {
-//			principalMenu.insert(IMenuAction.CONTEXT_2_MENU, new RefreshAction(itemsToRefesh, getCadseTreeViewerUI()),
-//					true);
-//		}
-//
-//		List<Item> generateContent = getGenerateObject(ssel);
-//		if (generateContent.size() != 0) {
-//			principalMenu.insert(IMenuAction.CONTEXT_2_MENU, new GenerateAction(generateContent), true);
-//		}
-//
-//		if (ssel.size() == 1) {
-//			AbstractCadseViewNode node = (AbstractCadseViewNode) ssel.getFirstElement();
-//			Item item = node.getItem();
-//
-//			if (item != null
-//					&& item.isResolved()
-//					&& LinkRootNode.getLinkTypeNodeAndItemTypeNode(new LinkRootNode(), item.getType(), item,
-//							viewUIController).length != 0) {
-//				principalMenu.insert(IMenuAction.CONTEXT_2_MENU, new CreateLinkAction(item, getShellProvider(),
-//						viewUIController), true);
-//			}
-//		}
 		Set<IActionContributor> visited = new HashSet<IActionContributor>();
 		for (ItemType it : types) {
-			it.getItemManager().contributeMenuAction(principalMenu, selection);
 			runContributor(viewUIController, visited, principalMenu, selection, it);
 		}
 		if (types.size() == 0) {
@@ -268,58 +186,21 @@ public class ItemActionGroup extends ActionGroup {
 				runContributor(viewUIController, visited, principalMenu, selection, CadseCore.theItem);
 		}
 
-//		principalMenu.insert(IMenuAction.CONTEXT_2_MENU, new AddCadseModelAction(), true);
-
-//		if (viewComponent.getTestService() != null && viewComponent.getTestService().isEnableTests()) {
-//			Menu testMenu = new Menu("test", "Test", null);
-//			if (viewComponent.getTestService().isRecordedTests()) {
-//				testMenu.insert(null, new StopTestAction(), true);
-//				testMenu.insert(null, new CancelTestAction(getShellProvider()), true);
-////				if (selection.length == 1) {
-////					IItemNode node = selection[0];
-////					Menu testCheckMenu = new Menu("check", "check", null);
-////					testCheckMenu.insert(null, new CheckItemInviewer(node, this.viewUIController.getViewPart()), true);
-////					Item item = node.getItem();
-////					if (item != null) {
-////						testCheckMenu.insert(null, new CheckItemInModel(item, viewComponent), true);
-////						testCheckMenu.insert(null, new CheckContentInModel(item, viewComponent), true);
-////
-////						String[] keys = item.getType().getAttributeTypeIds();
-////						ArrayList<String> allKeys = new ArrayList<String>(Arrays.asList(item.getAttributeKeys()));
-////						allKeys.addAll(Arrays.asList(keys));
-////						keys = allKeys.toArray(new String[allKeys.size()]);
-////						if (keys.length != 0) {
-////							Arrays.sort(keys);
-////							testCheckMenu.insert(null, IMenuAction.SEPARATOR, true);
-////							for (String k : keys) {
-////								testCheckMenu.insert(null, new CheckAttributeInModel(item, k, viewComponent), true);
-////							}
-////						}
-////					}
-////					testMenu.insert(null, testCheckMenu, true);
-////				}
-//			} else {
-//				//testMenu.insert(null, new StartTestAction(getShellProvider()), true);
-//			}
-//			//testMenu.insert(null, new RunTestAction(getShellProvider()), true);
-//			principalMenu.insert(IMenuAction.CONTEXT_2_MENU, testMenu, true);
-//		}
-
 		manager.add(new MenuActionContributionItem(workbenchWindow, selection, principalMenu.getChildren()));
 	}
 
 	private void runContributor(ViewDescription viewDescription, Set<IActionContributor> visited, Menu principalMenu,
 			IItemNode[] selection, ItemType it) {
-		IActionContributor[] c = it.getAllActionContribution();
-		for (int i = 0; i < c.length; i++) {
-			if (visited.contains(c[i])) {
+		Set<IActionContributor> c = it.getAllActionContribution();
+		for (IActionContributor action : c) {
+			if (visited.contains(action)) {
 				continue;
 			}
-			visited.add(c[i]);
+			visited.add(action);
 			try {
-				c[i].contributeMenuAction(viewDescription, principalMenu, selection);
+				action.contributeMenuAction(viewDescription, principalMenu, selection);
 			} catch (Throwable e) {
-				it.getCadseDomain().log("CallContributor", "call an contributor " + c[i].getClass(), e);
+				it.getCadseDomain().log("CallContributor", "call an contributor " + action.getClass(), e);
 			}
 		}
 	}
