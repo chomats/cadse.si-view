@@ -37,6 +37,7 @@ import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.LinkType;
 import fr.imag.adele.cadse.core.ui.Pages;
+import fr.imag.adele.cadse.core.ui.view.NewContext;
 import fr.imag.adele.fede.workspace.si.view.View;
 
 /**
@@ -53,6 +54,7 @@ public class MenuNewAction extends IMenuAction {
 	private final ItemType		destItemType;
 	private LinkType			lt;
 	private String				label;
+	private NewContext			context;
 
 	/**
 	 * Creates a new wizard shortcut menu for the IDE.
@@ -71,6 +73,31 @@ public class MenuNewAction extends IMenuAction {
 		this.workbenchWindow = window;
 		this.parent = parent;
 		this.destItemType = destination;
+		this.lt = lt;
+		if (label == null) {
+			label = this.destItemType.getDisplayName();
+		}
+		this.label = label;
+	}
+	
+	/**
+	 * Creates a new wizard shortcut menu for the IDE.
+	 * 
+	 * @param window
+	 *            the window containing the menu
+	 * @param parent
+	 *            the item parent for the new item or the item from the new item
+	 *            is created..
+	 * @param string
+	 *            label
+	 */
+	public MenuNewAction(IWorkbenchWindow window, NewContext context, String label) {
+		Assert.isNotNull(window);
+
+		this.context = context;
+		this.workbenchWindow = window;
+		this.parent = context.getPartParent();
+		this.destItemType = context.getDestinationType();
 		this.lt = lt;
 		if (label == null) {
 			label = this.destItemType.getDisplayName();
@@ -114,7 +141,10 @@ public class MenuNewAction extends IMenuAction {
 	@Override
 	public void run(IItemNode[] selection) throws CadseException {
 		try {
-			View.getInstance().getSwtService().showCreateWizardWithError(workbenchWindow.getShell(), parent, lt, destItemType);
+			if (context == null)
+				View.getInstance().getSwtService().showCreateWizardWithError(workbenchWindow.getShell(), parent, lt, destItemType);
+			else
+				View.getInstance().getSwtService().showCreateWizardWithError(workbenchWindow.getShell(), context);
 			
 		} catch (Throwable e1) {
 			e1.printStackTrace();
