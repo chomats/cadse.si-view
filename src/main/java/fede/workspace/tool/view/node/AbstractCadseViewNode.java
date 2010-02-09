@@ -33,6 +33,8 @@ public abstract class AbstractCadseViewNode extends ItemInViewer implements IIte
 	public static final AbstractCadseViewNode[]	EMPTY	= new AbstractCadseViewNode[0];
 
 	protected CadseViewModelController			ctl;
+	
+
 	List<AbstractCadseViewNode>					children;
 
 	private int									state	= -1;
@@ -49,6 +51,10 @@ public abstract class AbstractCadseViewNode extends ItemInViewer implements IIte
 
 	public List<AbstractCadseViewNode> children() {
 		return children;
+	}
+	
+	public CadseViewModelController getCtl() {
+		return ctl;
 	}
 
 	public AbstractCadseViewNode[] recomputeChildren() {
