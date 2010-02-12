@@ -34,8 +34,6 @@ import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import java.util.UUID;
 import fr.imag.adele.cadse.core.content.ContentItem;
-import fr.imag.adele.cadse.core.Item;
-import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.attribute.IAttributeType;
 import fr.imag.adele.cadse.core.impl.ContentItemImpl;
 import fr.imag.adele.cadse.core.var.ContextVariable;
@@ -73,6 +71,24 @@ public class FileContentManager extends ContentItemImpl {
 		variableName = name;
 		variablePath = path;
 	}
+	
+	/**
+	 * Instantiates a new file content manager.
+	 * 
+	 * @param parent
+	 *            the parent
+	 * @param item
+	 *            the item
+	 * @param name
+	 *            the name
+	 * @param path
+	 *            the path
+	 */
+	public FileContentManager(UUID id, Variable path) {
+		super(id);
+		variableName = null;
+		variablePath = path;
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -96,6 +112,11 @@ public class FileContentManager extends ContentItemImpl {
 	 * @return the file name
 	 */
 	public String getFileName(ContextVariable context) {
+		if (variableName == null) {
+			String path = variablePath.compute(context, getOwnerItem());
+			Path pathObj = new Path(path);
+			return pathObj.lastSegment();
+		}
 		return variableName.compute(context, getOwnerItem());
 	}
 
@@ -108,6 +129,11 @@ public class FileContentManager extends ContentItemImpl {
 	 * @return the folder path
 	 */
 	public String getFolderPath(ContextVariable context) {
+		if (variableName == null) {
+			String path = variablePath.compute(context, getOwnerItem());
+			Path pathObj = new Path(path);
+			return pathObj.removeLastSegments(1).toPortableString();
+		}
 		return variablePath.compute(context, getOwnerItem());
 	}
 
@@ -120,6 +146,9 @@ public class FileContentManager extends ContentItemImpl {
 	 * @return the path
 	 */
 	public String getPath(ContextVariable context) {
+		if (variableName == null) {
+			return variablePath.compute(context, getOwnerItem());
+		}
 		return getFolderPath(context) + "/" + getFileName(context);
 	}
 
@@ -292,29 +321,10 @@ public class FileContentManager extends ContentItemImpl {
 	 
 	 @Override
 	public <T> T internalGetOwnerAttribute(IAttributeType<T> type) {
-		if (type == CadseGCST.FILE_CONTENT_MODEL_at_FILE_NAME_)
-			return (T) getFileName(ContextVariableImpl.DEFAULT);
 		if (type == CadseGCST.FILE_CONTENT_MODEL_at_FILE_PATH_)
-			return (T) getFolderPath(ContextVariableImpl.DEFAULT);
+			return (T) getPath(ContextVariableImpl.DEFAULT);
 		
 		return super.internalGetOwnerAttribute(type);
 	}
-	// /*
-	// * (non-Javadoc)
-	// *
-	// * @see
-	// fr.imag.adele.cadse.core.ContentManager#computeRenameChange(org.eclipse.ltk.core.refactoring.CompositeChange,
-	// * fr.imag.adele.cadse.core.var.ContextVariable,
-	// * fr.imag.adele.cadse.core.var.ContextVariable)
-	// */
-	// @Override
-	// public RefactoringStatus computeRenameChange(CompositeChange change,
-	// ContextVariable newCxt, ContextVariable oldCxt) {
-	// Path newName = new Path(getPath(newCxt));
-	// IFile f = getFile(oldCxt);
-	// change.add(new RenameResourceChange(null, f, newName.lastSegment(),
-	// "Rename project"));
-	// return new RefactoringStatus();
-	// }
 
 }
