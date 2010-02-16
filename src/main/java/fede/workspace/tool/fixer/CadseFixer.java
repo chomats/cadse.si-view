@@ -62,6 +62,8 @@ public class CadseFixer implements IMarkerResolutionGenerator2 {
 
 	public boolean hasResolutions(IMarker marker) {
 		LogicalWorkspace workspace	= CadseCore.getLogicalWorkspace();
+		if (workspace == null)
+			return false;
 		
     	Item item 			= ValidationMarker.getItem(marker,workspace);
     	if (item == null)
