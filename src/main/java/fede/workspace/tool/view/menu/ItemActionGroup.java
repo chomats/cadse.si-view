@@ -307,7 +307,7 @@ public class ItemActionGroup extends ActionGroup {
 				continue;
 			}
 			Item item = iiv.getItem();
-			if (item == null || !item.isResolved() || item.isStatic()) {
+			if (item == null || !item.isResolved() || item.isRuntime()) {
 				continue;
 			}
 
@@ -347,7 +347,7 @@ public class ItemActionGroup extends ActionGroup {
 			Item item = iiv.getItem();
 
 			// cannot rename a readonly item, a static item is readonly
-			if (item.isReadOnly() || item.isStatic()) {
+			if (item.isReadOnly() || item.isRuntime()) {
 				continue;
 			}
 			if (item.getType().getItemManager().canRenameItem(item) != null) {
