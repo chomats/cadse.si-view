@@ -48,7 +48,7 @@ public interface FilterItem {
 
 	public static class ItemNotStaticFilter implements FilterItem {
 		public boolean accept(Item item) {
-			return item.isStatic();
+			return item.isRuntime();
 		}
 	}
 
