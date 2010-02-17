@@ -144,7 +144,7 @@ public class ProjectContentManager extends EclipseContentManager implements IVie
 		if (getOwnerItem() != null) {
 			View.setItemPersistenceID(p, getOwnerItem());
 		}
-		MelusineProjectManager.addMelusineProject(p, View.getDefaultMonitor());
+		//MelusineProjectManager.addMelusineProject(p, View.getDefaultMonitor());
 	}
 
 	/**
