@@ -33,7 +33,12 @@ public class ItemIdModelController extends AbstractModelController implements Ru
 
 	public void notifieValueChanged(UIField field, Object value) {
 		Item item = getItem();
-		item.setQualifiedName((String) value);
+		try {
+			item.setQualifiedName((String) value);
+		} catch (CadseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
