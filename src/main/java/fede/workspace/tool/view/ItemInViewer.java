@@ -35,12 +35,12 @@ import fr.imag.adele.cadse.core.LinkType;
 
 public abstract class ItemInViewer implements IItemNode, IAdaptable, IActionFilter, IContributorResourceAdapter {
 	
-	final protected ItemInViewer parent;
+	final protected IItemNode parent;
 	final protected int kind;
 	protected boolean open = false;
 
 	
-    protected ItemInViewer(int kind, ItemInViewer parent) {
+    protected ItemInViewer(int kind, IItemNode parent) {
         super();
         this.parent = parent;
         this.kind = kind;
@@ -102,7 +102,7 @@ public abstract class ItemInViewer implements IItemNode, IAdaptable, IActionFilt
 		}
 	}
 	
-	public ItemInViewer getParent() {
+	public IItemNode getParent() {
 		return parent;
 	}
 	
@@ -115,10 +115,6 @@ public abstract class ItemInViewer implements IItemNode, IAdaptable, IActionFilt
 	abstract public LinkType getLinkType();
 	
 	abstract public ItemType getItemType();
-	
-	@Deprecated
-	abstract public ItemInViewer[] getChildren(int flag);
-	
 	
 	
 	public void open() {

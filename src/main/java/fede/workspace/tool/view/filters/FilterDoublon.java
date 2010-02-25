@@ -28,7 +28,6 @@ import java.util.ArrayList;
 import java.util.UUID;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Link;
-import fede.workspace.tool.view.ItemInViewer;
 
 public class FilterDoublon extends ViewerFilter {
 
@@ -40,16 +39,16 @@ public class FilterDoublon extends ViewerFilter {
 			ArrayList out = new ArrayList(size);
 			for (int i = 0; i < size; ++i) {
 				Object element = elements[i];
-				if (element instanceof ItemInViewer) {
-					ItemInViewer itemInViewer = ((ItemInViewer) element);
-					ItemInViewer parent = itemInViewer.getParent();
+				if (element instanceof IItemNode) {
+					IItemNode itemInViewer = ((IItemNode) element);
+					IItemNode parent = itemInViewer.getParent();
 					if (parent == null) {
 						out.add(element);
 						continue;
 					}
 
 					int kind = itemInViewer.getKind();
-					if (kind != ItemInViewer.LINK_OUTGOING) {
+					if (kind != IItemNode.LINK_OUTGOING) {
 						out.add(element);
 						continue;
 					}
@@ -65,7 +64,7 @@ public class FilterDoublon extends ViewerFilter {
 					int indexfirst_derived = -1;
 					for (int j = 0; j < elements.length; j++) {
 						IItemNode child = (IItemNode) elements[j];
-						if (child.getKind() != ItemInViewer.LINK_OUTGOING)
+						if (child.getKind() != IItemNode.LINK_OUTGOING)
 							continue;
 						Link l = child.getLink();
 						if (l == null)

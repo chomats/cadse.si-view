@@ -28,6 +28,7 @@ public class RootNode extends AbstractCadseViewNode {
 		super(ROOT, null);
 		ctl = viewer;
 		// ctl.add(this);
+		open = true;
 	}
 
 	protected RootNode() {

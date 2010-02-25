@@ -107,7 +107,7 @@ class TT extends AbstractCadseTreeViewUI {
 class MainPageExportWizard extends MainPageExportImportWizard {
 
 	private CheckboxTreeViewer		fTreeViewer;
-	List<ItemInViewer>				root;
+	List<IItemNode>					root;
 	List<Item>						selectedExport;
 	private AbstractCadseTreeViewUI	uicontroller;
 
@@ -115,7 +115,7 @@ class MainPageExportWizard extends MainPageExportImportWizard {
 			IWorkbenchWindow workbenchWindow, IWorkbenchPartSite workbenchPartSite, IViewSite viewsite) {
 		super("Exports items and resources");
 		this.selectedExport = selectedExport;
-		root = new ArrayList<ItemInViewer>();
+		root = new ArrayList<IItemNode>();
 		uicontroller = new TT(shellprovider, workbenchWindow, workbenchPartSite, viewsite);
 	}
 
@@ -141,7 +141,7 @@ class MainPageExportWizard extends MainPageExportImportWizard {
 			ItemInViewer l = new OldItemInViewer(selectedExport);
 			fTreeViewer.setInput(l);
 			fTreeViewer.setExpandedState(l, true);
-			ItemInViewer[] ii = l.getChildren(0);
+			IItemNode[] ii = l.getChildren();
 			int max = ii.length - (selectLast ? 0 : 1);
 			for (int j = 0; j < max; j++) {
 				fTreeViewer.setChecked(ii[j], true);
@@ -183,7 +183,7 @@ class MainPageExportWizard extends MainPageExportImportWizard {
 
 	@Override
 	protected void selectAll() {
-		for (ItemInViewer ii : root) {
+		for (IItemNode ii : root) {
 			fTreeViewer.setSubtreeChecked(ii, true);
 		}
 		checkedItem = fTreeViewer.getCheckedElements();
@@ -192,7 +192,7 @@ class MainPageExportWizard extends MainPageExportImportWizard {
 
 	@Override
 	protected void deselectAll() {
-		for (ItemInViewer ii : root) {
+		for (IItemNode ii : root) {
 			fTreeViewer.setSubtreeChecked(ii, false);
 		}
 		checkedItem = fTreeViewer.getCheckedElements();

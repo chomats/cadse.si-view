@@ -60,26 +60,26 @@ public class OldItemInViewer extends ItemInViewer implements IAdaptable, IAction
 	}
 
 	// TO or FROM
-	public OldItemInViewer(ItemInViewer parent, LinkType rt, int kind) {
+	public OldItemInViewer(IItemNode parent, LinkType rt, int kind) {
 		super(kind, parent);
 		this.value = rt;
 	}
 
 	// LINK_TO or LINK_FROM
-	public OldItemInViewer(ItemInViewer parent, Link l, int kind) {
+	public OldItemInViewer(IItemNode parent, Link l, int kind) {
 		super(kind, parent);
 		this.value = l;
 	}
 
 	// ROOT
-	public OldItemInViewer(ItemInViewer newInput) {
+	public OldItemInViewer(IItemNode newInput) {
 		super(ROOT, null);
 		this.value = newInput;
 	}
 
 	// ORPHAN_LINK
 	// ORPHAN
-	public OldItemInViewer(ItemInViewer parent, Item item) {
+	public OldItemInViewer(IItemNode parent, Item item) {
 		super(ITEM, parent);
 		this.value = item;
 	}
@@ -203,7 +203,7 @@ public class OldItemInViewer extends ItemInViewer implements IAdaptable, IAction
 	}
 
 	@Override
-	public ItemInViewer getParent() {
+	public IItemNode getParent() {
 		return parent;
 	}
 
@@ -231,7 +231,6 @@ public class OldItemInViewer extends ItemInViewer implements IAdaptable, IAction
 		return null;
 	}
 
-	@Override
 	public OldItemInViewer[] getChildren(int flag) {
 		if (children != null) {
 			return children;
