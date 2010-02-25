@@ -159,7 +159,7 @@ class WSViewViewUI extends AbstractCadseTreeViewUI {
 
 	@Override
 	public boolean isAggregationLink(Link arg0) {
-		return arg0.isAggregation();
+		return arg0.getLinkType().isAggregation();
 	}
 
 	@Override
@@ -263,7 +263,7 @@ class WSViewViewUI extends AbstractCadseTreeViewUI {
 				List<? extends Link> incomings = anItem.getIncomingLinks();
 				if (incomings != null) {
 					for (Link l : incomings) {
-						if (l.isAggregation()) {
+						if (l.getLinkType().isAggregation()) {
 							continue ONE;
 						}
 						if (l.getLinkType().isPart()) {
@@ -293,7 +293,7 @@ class WSViewViewUI extends AbstractCadseTreeViewUI {
 			List<? extends Link> incomings = item.getIncomingLinks();
 			if (incomings != null) {
 				for (Link l : incomings) {
-					if (l.isAggregation()) {
+					if (l.getLinkType().isAggregation()) {
 						break ONE;
 					}
 					if (l.getLinkType().isPart()) {

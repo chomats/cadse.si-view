@@ -83,6 +83,7 @@ public abstract class AbstractCadseViewNode extends ItemInViewer implements IIte
 		children.addAll(Arrays.asList(children2));
 		return children2;
 	}
+	
 
 	public AbstractCadseViewNode[] getChildren() {
 		if (children == null) {
@@ -113,11 +114,6 @@ public abstract class AbstractCadseViewNode extends ItemInViewer implements IIte
 	@Override
 	public boolean hasChildren() {
 		return ctl.hasChildren(this);
-	}
-
-	@Override
-	public ItemInViewer[] getChildren(int flag) {
-		return getChildren();
 	}
 
 	public ItemNode getOrCreateNode(Item item) {

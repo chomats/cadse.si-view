@@ -56,6 +56,7 @@ import org.eclipse.ui.views.properties.IPropertySheetPage;
 
 import fede.plugin.workspace.filters.CustomFiltersActionGroup;
 import fede.workspace.tool.view.node.OldItemInViewer;
+import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.WSModelState;
@@ -78,20 +79,20 @@ import fr.imag.adele.fede.workspace.si.view.View;
 public class WSLinkView extends ViewPart implements ISelectionListener {
 
 	private static final class RefreshWSView implements Runnable {
-		private final Collection<ItemInViewer>	structUpdateItems;
-		private final Collection<ItemInViewer>	updateItems;
+		private final Collection<IItemNode>	structUpdateItems;
+		private final Collection<IItemNode>	updateItems;
 		private final TreeViewer				fTreeViewer;
-		private final ItemInViewer				rootWS;
+		private final IItemNode					rootWS;
 		private final int						structFlag;
 		private final boolean					recursifUpdate;
 
-		private RefreshWSView(TreeViewer fTreeViewer, ItemInViewer rootWS, int structFlag, ItemInViewer structUpdateItem) {
+		private RefreshWSView(TreeViewer fTreeViewer, IItemNode rootWS, int structFlag, IItemNode structUpdateItem) {
 			this(fTreeViewer, rootWS, structFlag, Collections.singleton(structUpdateItem), Collections.EMPTY_LIST,
 					false);
 		}
 
-		private RefreshWSView(TreeViewer fTreeViewer, ItemInViewer rootWS, int structFlag,
-				Collection<ItemInViewer> structUpdateItems, Collection<ItemInViewer> updateItems, boolean recursifUpdate) {
+		private RefreshWSView(TreeViewer fTreeViewer, IItemNode rootWS, int structFlag,
+				Collection<IItemNode> structUpdateItems, Collection<IItemNode> updateItems, boolean recursifUpdate) {
 			this.structUpdateItems = structUpdateItems;
 			this.fTreeViewer = fTreeViewer;
 			this.rootWS = rootWS;
@@ -105,7 +106,7 @@ public class WSLinkView extends ViewPart implements ISelectionListener {
 			ISelection s = fTreeViewer.getSelection();
 			if (updateItems.size() != 0) {
 				if (recursifUpdate) {
-					for (ItemInViewer iiv : updateItems) {
+					for (IItemNode iiv : updateItems) {
 						udpateLocal(iiv);
 					}
 				} else {
@@ -114,8 +115,8 @@ public class WSLinkView extends ViewPart implements ISelectionListener {
 
 			}
 
-			for (ItemInViewer iiv : structUpdateItems) {
-				ItemInViewer theLocalIIV = iiv;
+			for (IItemNode iiv : structUpdateItems) {
+				IItemNode theLocalIIV = iiv;
 				if (theLocalIIV.getParent() == rootWS) {
 					theLocalIIV = rootWS;
 				}
@@ -127,7 +128,7 @@ public class WSLinkView extends ViewPart implements ISelectionListener {
 				}
 				if (theLocalIIV == rootWS) {
 					theLocalIIV.open();
-					theLocalIIV.getChildren(structFlag);
+					theLocalIIV.getChildren();
 				}
 				fTreeViewer.update(iiv, null);
 
@@ -142,18 +143,18 @@ public class WSLinkView extends ViewPart implements ISelectionListener {
 			fTreeViewer.setSelection(s);
 		}
 
-		private void udpateLocal(final ItemInViewer iiv) {
+		private void udpateLocal(final IItemNode iiv) {
 			fTreeViewer.update(iiv, null);
 			if (iiv.isOpen()) {
-				for (ItemInViewer childIIv : iiv.getChildren(structFlag)) {
+				for (IItemNode childIIv : iiv.getChildren()) {
 					udpateLocal(childIIv);
 				}
 			}
 		};
 
-		private void expandIIV(final ItemInViewer iiv) {
+		private void expandIIV(final IItemNode iiv) {
 			fTreeViewer.setExpandedState(iiv, true);
-			for (ItemInViewer childIIv : iiv.getChildren(structFlag)) {
+			for (IItemNode childIIv : iiv.getChildren()) {
 				if (childIIv.isOpen()) {
 					expandIIV(childIIv);
 				}
@@ -172,7 +173,7 @@ public class WSLinkView extends ViewPart implements ISelectionListener {
 	private static final String			KEY_SHOW_LINK_TYPE_NAME	= WSPlugin.NAMESPACE_ID
 																		+ ".view.KEY_SHOW_LINK_TYPE_NAME";
 
-	private ItemInViewer				rootWS					= new OldItemInViewer();
+	private IItemNode					rootWS					= new OldItemInViewer();
 
 	private DrillDownAdapter			drillDownAdapter;
 
@@ -533,7 +534,7 @@ public class WSLinkView extends ViewPart implements ISelectionListener {
 		return _contentProviderFlag;
 	}
 
-	public void refresh(final ItemInViewer iiv) {
+	public void refresh(final IItemNode iiv) {
 		if (iiv == null) {
 			throw new CadseIllegalArgumentException("The item is null!!!");
 		}
@@ -548,7 +549,7 @@ public class WSLinkView extends ViewPart implements ISelectionListener {
 
 	}
 
-	public ItemInViewer getRootWS() {
+	public IItemNode getRootWS() {
 		return rootWS;
 	}
 
@@ -573,8 +574,8 @@ public class WSLinkView extends ViewPart implements ISelectionListener {
 					refreshUpdate.add(itemDelta.getItem());
 				}
 			}
-			final Set<ItemInViewer> refreshItemsStruct = findItemInViewer(refreshStruct, true);
-			final Set<ItemInViewer> refreshItemsUpdate = findItemInViewer(refreshUpdate, true);
+			final Set<IItemNode> refreshItemsStruct = findItemInViewer(refreshStruct, true);
+			final Set<IItemNode> refreshItemsUpdate = findItemInViewer(refreshUpdate, true);
 
 			PlatformUI.getWorkbench().getDisplay().asyncExec(
 					new RefreshWSView(fTreeViewer, rootWS, getContentProviderFlag(), refreshItemsStruct,
@@ -583,13 +584,13 @@ public class WSLinkView extends ViewPart implements ISelectionListener {
 		}
 	}
 
-	private Set<ItemInViewer> findItemInViewer(Set<Item> itemFound, boolean returnIfFound) {
-		Set<ItemInViewer> ret = new HashSet<ItemInViewer>();
+	private Set<IItemNode> findItemInViewer(Set<Item> itemFound, boolean returnIfFound) {
+		Set<IItemNode> ret = new HashSet<IItemNode>();
 		findItemInViewer(ret, getRootWS(), itemFound, returnIfFound);
 		return ret;
 	}
 
-	private void findItemInViewer(Set<ItemInViewer> refreshItems, ItemInViewer current, Set<Item> itemFound,
+	private void findItemInViewer(Set<IItemNode> refreshItems, IItemNode current, Set<Item> itemFound,
 			boolean returnIfFound) {
 		if (itemFound.contains(current.getItem())) {
 			refreshItems.add(current);
@@ -598,7 +599,7 @@ public class WSLinkView extends ViewPart implements ISelectionListener {
 			}
 		}
 		if (current.hasChildren()) {
-			for (ItemInViewer childIIV : current.getChildren(getContentProviderFlag())) {
+			for (IItemNode childIIV : current.getChildren()) {
 				findItemInViewer(refreshItems, childIIV, itemFound, returnIfFound);
 			}
 		}
@@ -612,12 +613,12 @@ public class WSLinkView extends ViewPart implements ISelectionListener {
 		});
 	}
 
-	private void refreshUnresolvedLink(ItemInViewer riiv) {
-		ItemInViewer iiv;
+	private void refreshUnresolvedLink(IItemNode riiv) {
+		IItemNode iiv;
 		if (!riiv.isOpen()) {
 			return;
 		}
-		ItemInViewer[] children = riiv.getChildren(getContentProviderFlag());
+		IItemNode[] children = riiv.getChildren();
 		for (int i = 0; i < children.length; i++) {
 			iiv = children[i];
 			Link l = iiv.getLink();
@@ -642,12 +643,12 @@ public class WSLinkView extends ViewPart implements ISelectionListener {
 		refresh(rootWS, item);
 	}
 
-	private void refresh(ItemInViewer iiv, Item item) {
+	private void refresh(IItemNode iiv, Item item) {
 		if (iiv.getItem() == item) {
 			refresh(iiv);
 		}
 		if (iiv.hasChildren()) {
-			for (ItemInViewer childIIV : iiv.getChildren(getContentProviderFlag())) {
+			for (IItemNode childIIV : iiv.getChildren()) {
 				refresh(childIIV, item);
 			}
 		}

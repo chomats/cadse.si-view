@@ -130,15 +130,15 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 	private final class TreeViewerListener implements ITreeViewerListener {
 		public void treeCollapsed(TreeExpansionEvent event) {
 			if (event.getElement() instanceof ItemInViewer) {
-				ItemInViewer iiv = (ItemInViewer) event.getElement();
+				IItemNode iiv = (IItemNode) event.getElement();
 				iiv.close();
 			}
 
 		}
 
 		public void treeExpanded(TreeExpansionEvent event) {
-			if (event.getElement() instanceof ItemInViewer) {
-				ItemInViewer iiv = (ItemInViewer) event.getElement();
+			if (event.getElement() instanceof IItemNode) {
+				IItemNode iiv = (IItemNode) event.getElement();
 				iiv.open();
 			}
 		}
@@ -272,6 +272,7 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 	public AbstractCadseTreeViewUI(IShellProvider shellprovider, IWorkbenchWindow workbenchWindow,
 			IWorkbenchPartSite workbenchPartSite, IViewSite viewsite) {
 		rootWS = new RootNode(this);
+
 		add(rootWS);
 		this.shellprovider = shellprovider;
 		this.workbenchWindow = workbenchWindow;
@@ -1495,7 +1496,9 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 		while (!visite.isEmpty()) {
 			AbstractCadseViewNode node = visite.remove(visite.size() - 1);
 
-			if (node.getElementModel() == element) {
+			if (element instanceof Item && node.getItem() == element) {
+				ret.add(node);
+			} else if (node.getElementModel() == element) {
 				ret.add(node);
 			}
 
@@ -1545,7 +1548,7 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 			Item source = (Item) element;
 			for (Link il : source.getIncomingLinks()) {
 				if (isLink(il)) {
-					ret.add(il);
+					ret.add(il.getSource());
 				}
 			}
 			if (isFirstItem(source, cadseModel)) {
