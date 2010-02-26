@@ -34,11 +34,11 @@ import fr.imag.adele.cadse.core.ui.UIField;
 public class StringToEnumModelController<T extends Enum<T>> extends MC_AttributesItem {
 
 	private Class<T> enumclass;
-	private T defaultValue;
+	//private T defaultValue;
 	
 	public StringToEnumModelController(Class<T> enumclass, T defaulfvalue) {
 		this.enumclass = enumclass;
-		this.defaultValue = defaulfvalue;
+//		this.defaultValue = defaulfvalue;
 	}
 	
 	 
@@ -46,10 +46,10 @@ public class StringToEnumModelController<T extends Enum<T>> extends MC_Attribute
 	public Object getValue() {
 			Object value = super.getValue();
 		if (value == null ) {
-			if (defaultValue == null)
-				return null;
-			super.notifieValueChanged( getUIField(), defaultValue.toString());
-			return defaultValue;
+//			if (defaultValue == null)
+//				return null;
+//			super.notifieValueChanged( getUIField(), defaultValue.toString());
+			return null;
 		}
 		if (value instanceof String)
 			return convertFromString(value);
@@ -61,13 +61,6 @@ public class StringToEnumModelController<T extends Enum<T>> extends MC_Attribute
 		return type.convertTo(value);
 	}
 
-
-	@Override
-	public void notifieValueChanged(UIField field, Object value) {
-		//TODO
-		super.notifieValueChanged(field, value == null ? null : value.toString());
-	}
-
 	@Override
 	public void init(UIPlatform uiPlatform) {
 		super.init(uiPlatform);
@@ -75,13 +68,13 @@ public class StringToEnumModelController<T extends Enum<T>> extends MC_Attribute
 			EnumAttributeType<T> type = (EnumAttributeType<T>) getAttributeDefinition();
 			if (type != null) {
 				enumclass = (Class<T>) type.getAttributeType();
-				defaultValue = type.getDefaultValue();
+				//defaultValue = type.getDefaultValue();
 			}
 		}
 	}
 
-	@Override
-	public Object defaultValue() {
-		return defaultValue;
-	}	
+//	@Override
+//	public Object defaultValue() {
+//		return defaultValue;
+//	}	
 }
