@@ -404,7 +404,11 @@ public class WSPlugin extends AbstractUIPlugin {
 		}
 		return null;
 	}
-	
+	/**
+	 * The url can be as 'platform:/plugin/<plugin-name>/<path>'
+	 * @param url the icon url
+	 * @return a SWT image.
+	 */
 	public Image getImageFromURL(String url) {
 		try {
 			ImageRegistry ir = getImageRegistry();
