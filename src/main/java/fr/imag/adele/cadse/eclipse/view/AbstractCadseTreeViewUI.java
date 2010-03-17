@@ -1007,7 +1007,9 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 		} else {
 			dest = link.getDestination();
 		}
-		begin.append(node.getItem().getDisplayName());
+		final Item nodeitem = node.getItem();
+		if (nodeitem != null)
+			begin.append(nodeitem.getDisplayName());
 
 		return begin.toString();
 	}
