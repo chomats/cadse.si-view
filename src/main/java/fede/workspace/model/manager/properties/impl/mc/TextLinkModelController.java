@@ -20,9 +20,9 @@ package fede.workspace.model.manager.properties.impl.mc;
 
 import fr.imag.adele.cadse.core.Link;
 import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.impl.ui.mc.LinkModelController;
+import fr.imag.adele.cadse.core.impl.ui.mc.MC_Link;
 
-public class TextLinkModelController extends LinkModelController {
+public class TextLinkModelController extends MC_Link {
 
 	public TextLinkModelController(boolean mandatory, String msg) {
 		super(mandatory, msg);
