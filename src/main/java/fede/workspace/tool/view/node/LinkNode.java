@@ -67,11 +67,6 @@ public class LinkNode extends AbstractCadseViewNode {
 	}
 
 	@Override
-	public boolean equals(Object arg0) {
-		return super.equals(arg0) && this.link == ((LinkNode) arg0).link;
-	}
-
-	@Override
 	public String toString() {
 		if (getKind() == LINK_INCOMING) {
 			return " <-- " + link.getSource().getDisplayName();

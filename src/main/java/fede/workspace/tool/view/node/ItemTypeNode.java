@@ -72,11 +72,6 @@ public class ItemTypeNode extends AbstractCadseViewNode {
 	}
 
 	@Override
-	public boolean equals(Object arg0) {
-		return super.equals(arg0) && this.itemType == ((ItemTypeNode) arg0).itemType;
-	}
-
-	@Override
 	public String toString() {
 		return itemType.getName();
 	}
@@ -87,7 +82,7 @@ public class ItemTypeNode extends AbstractCadseViewNode {
 
 	@Override
 	public Object getElementModel() {
-		return getItemType();
+		return itemType;
 	}
 
 }
