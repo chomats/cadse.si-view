@@ -56,32 +56,58 @@ public abstract class AbstractCadseViewNode extends ItemInViewer implements IIte
 	public CadseViewModelController getCtl() {
 		return ctl;
 	}
+	
+	@Override
+	final public boolean equals(Object arg0) {
+		final Object elementModel = getElementModel();
+		if (elementModel == null)
+			return super.equals(arg0);
+		if (arg0 instanceof IItemNode) {
+			Object e = ((IItemNode)arg0).getElementModel();
+			return (e == elementModel || elementModel.equals(e));
+		}
+		return false;
+	}
+	
+	@Override
+	final public int hashCode() {
+		final Object elementModel = getElementModel();
+		if (elementModel == null || elementModel == this)
+			return super.hashCode();
+		return elementModel.hashCode();
+	}
 
-	public AbstractCadseViewNode[] recomputeChildren() {
+	public boolean recomputeChildren() {
 		if (children == null) {
 			children = new ArrayList<AbstractCadseViewNode>();
 		}
 		AbstractCadseViewNode[] children2 = ctl.getChildren(this);
-		ArrayList<AbstractCadseViewNode> children_removed = new ArrayList<AbstractCadseViewNode>(children);
-		children_removed.removeAll(Arrays.asList(children2));
-		if (children_removed.size() != 0) {
-			for (AbstractCadseViewNode node : children_removed) {
-				node.delete();
+		if (children.equals(Arrays.asList(children2)))
+			return false;
+		
+		ArrayList<AbstractCadseViewNode> children_removed = new ArrayList<AbstractCadseViewNode>();
+		ArrayList<AbstractCadseViewNode> children_added = new ArrayList<AbstractCadseViewNode>();
+		boolean[] ok = new boolean[children.size()];
+		for (int i = 0; i < children2.length; i++) {
+			AbstractCadseViewNode c = children2[i];
+			int indexOld = children.indexOf(c);
+			if (indexOld == -1)
+				children_added.add(c);
+			else {
+				children2[i] = children.get(indexOld);
+				ok[indexOld] =true;
 			}
-			ctl.getFTreeViewer().remove(children_removed.toArray());
 		}
-		ArrayList<AbstractCadseViewNode> children_added = new ArrayList<AbstractCadseViewNode>(Arrays.asList(children2));
-		children_added.removeAll(children);
-		if (children_added.size() != 0) {
-			for (AbstractCadseViewNode node : children_added) {
-				ctl.add(node);
+		for (int i = 0; i < ok.length; i++) {
+			if (!ok[i]) {
+				children_removed.add(children.get(i));
 			}
-			ctl.getFTreeViewer().add(this, children_added.toArray());
 		}
-
+		ctl.getFTreeViewer().add(this, children_added.toArray());
+		ctl.getFTreeViewer().remove(children_removed.toArray());
 		children.clear();
 		children.addAll(Arrays.asList(children2));
-		return children2;
+		return !(children_added.isEmpty() || children_removed.isEmpty());
 	}
 	
 
@@ -91,10 +117,6 @@ public abstract class AbstractCadseViewNode extends ItemInViewer implements IIte
 			AbstractCadseViewNode[] children2 = ctl.getChildren(this);
 
 			children.addAll(Arrays.asList(children2));
-
-			for (AbstractCadseViewNode child : children2) {
-				ctl.add(child);
-			}
 
 			return children2;
 		}
@@ -200,7 +222,6 @@ public abstract class AbstractCadseViewNode extends ItemInViewer implements IIte
 	}
 
 	public void delete() {
-		ctl.remove(this);
 		if (children != null) {
 			for (AbstractCadseViewNode child : children) {
 				child.delete();

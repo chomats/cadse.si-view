@@ -801,11 +801,14 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 				}
 
 				for (IItemNode iiv : refreshStruct) {
-					((AbstractCadseViewNode) iiv).recomputeChildren();
-					if (fTreeViewer.getTree().isDisposed()) {
-						return;
-					}
-					fTreeViewer.refresh(iiv, true);
+					if (iiv.isOpen())
+						((AbstractCadseViewNode) iiv).recomputeChildren();
+					//if (!((AbstractCadseViewNode) iiv).recomputeChildren()) 
+					//	continue;
+//					if (fTreeViewer.getTree().isDisposed()) {
+//						return;
+//					}
+					//fTreeViewer.refresh(iiv, true);
 				}
 
 			}

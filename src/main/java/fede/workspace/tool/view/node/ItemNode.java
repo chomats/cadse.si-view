@@ -75,16 +75,6 @@ public class ItemNode extends AbstractCadseViewNode {
 		return item.getDisplayName();
 	}
 
-	@Override
-	public boolean equals(Object arg0) {
-		return super.equals(arg0) && this.item == ((IItemNode) arg0).getItem();
-	}
-
-	@Override
-	public int hashCode() {
-		return this.item.hashCode();
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -92,6 +82,6 @@ public class ItemNode extends AbstractCadseViewNode {
 	 */
 	@Override
 	public Object getElementModel() {
-		return getItem();
+		return item;
 	}
 }

@@ -37,9 +37,5 @@ public interface CadseViewModelController {
 
 	boolean isAggregationLink(AbstractCadseViewNode node);
 
-	void add(AbstractCadseViewNode node);
-
-	void remove(AbstractCadseViewNode node);
-
 	int isSelected(IItemNode node);
 }

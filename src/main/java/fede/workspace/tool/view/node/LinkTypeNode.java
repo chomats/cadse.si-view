@@ -39,8 +39,6 @@ public class LinkTypeNode extends AbstractCadseViewNode {
 		super(ItemInViewer.LINK_TYPE_OUTGOING, parent);
 		this.linkType = linkType;
 		ctl = viewer;
-		// ctl.add(this);
-
 	}
 
 	@Override
@@ -64,11 +62,6 @@ public class LinkTypeNode extends AbstractCadseViewNode {
 	}
 
 	@Override
-	public boolean equals(Object arg0) {
-		return super.equals(arg0) && this.linkType == ((LinkTypeNode) arg0).linkType;
-	}
-
-	@Override
 	public String toString() {
 		return " -> " + linkType.getName();
 	}
@@ -79,7 +72,7 @@ public class LinkTypeNode extends AbstractCadseViewNode {
 
 	@Override
 	public Object getElementModel() {
-		return getLinkType();
+		return linkType;
 	}
 
 }
