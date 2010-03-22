@@ -117,7 +117,7 @@ public class FilteredItemNode extends AbstractCadseViewNode implements CadseView
 	}
 
 	public boolean hasChildren(AbstractCadseViewNode node) {
-		return node.getChildren().length != 0;
+		return getChildren(node).length != 0;
 	}
 
 	public boolean isAggregationLink(AbstractCadseViewNode node) {

@@ -37,7 +37,7 @@ public abstract class ItemInViewer implements IItemNode, IAdaptable, IActionFilt
 	
 	final protected IItemNode parent;
 	final protected int kind;
-	protected boolean open = false;
+	protected boolean open;
 
 	
     protected ItemInViewer(int kind, IItemNode parent) {

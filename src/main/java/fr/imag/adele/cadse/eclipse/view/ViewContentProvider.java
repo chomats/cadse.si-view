@@ -63,7 +63,10 @@ public class ViewContentProvider implements IStructuredContentProvider,
 	}
 	
 	public boolean hasChildren(Object parent) {
-		return getChildren(parent).length != 0;
+		if (parent instanceof AbstractCadseViewNode) {
+			return ((AbstractCadseViewNode) parent).hasChildren();
+		}
+		return false;
 	}
 	
 	public void inputChanged(Viewer v, Object oldInput, Object newInput) {
