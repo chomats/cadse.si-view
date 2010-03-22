@@ -802,13 +802,9 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 
 				for (IItemNode iiv : refreshStruct) {
 					if (iiv.isOpen())
-						((AbstractCadseViewNode) iiv).recomputeChildren();
-					//if (!((AbstractCadseViewNode) iiv).recomputeChildren()) 
-					//	continue;
-//					if (fTreeViewer.getTree().isDisposed()) {
-//						return;
-//					}
-					//fTreeViewer.refresh(iiv, true);
+						if (((AbstractCadseViewNode) iiv).recomputeChildren()) {
+							fTreeViewer.refresh(iiv, true);
+						}
 				}
 
 			}
@@ -1296,7 +1292,40 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 	}
 
 	public boolean hasChildren(AbstractCadseViewNode node) {
-		return node.getChildren().length != 0;
+		LogicalWorkspace cadseModel = getCadseModel();
+		if (cadseModel == null) {
+			return false;
+		}
+
+		if (node == rootWS) {
+			return rootWS.getChildren().length !=0;
+		}
+		if (node.getKind() == ItemInViewer.ITEM || node.getKind() == ItemInViewer.LINK_OUTGOING) {
+			Item item = node.getItem();
+
+			// if (!item.isResolved()) return AbstractCadseViewNode.EMPTY;
+			List<LinkNode> ret = new ArrayList<LinkNode>();
+			List<? extends Link> outgoingLinks = item.getOutgoingLinks();
+			if (outgoingLinks != null) {
+				for (Link l : outgoingLinks) {
+					if (!isItemType(l.getDestinationType(), cadseModel)) {
+						continue;
+					}
+					if (isLink(l)) {
+						return true;
+					}
+				}
+			}
+			if (_showIncomings) {
+				List<? extends Link> incomingsLinks = item.getIncomingLinks();
+				if (incomingsLinks != null) {
+					for (Link l : incomingsLinks) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
 	}
 
 	public boolean isRecomputeChildren() {
@@ -1485,8 +1514,6 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 	public boolean canCreateLinkFrom(Item parentitem, LinkType alt) {
 		return true;
 	}
-
-	// private HashMap<Object, Object> elements;
 
 	public void add(AbstractCadseViewNode node) {}
 

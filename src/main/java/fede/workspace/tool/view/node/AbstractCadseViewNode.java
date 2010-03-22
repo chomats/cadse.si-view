@@ -107,30 +107,16 @@ public abstract class AbstractCadseViewNode extends ItemInViewer implements IIte
 		ctl.getFTreeViewer().remove(children_removed.toArray());
 		children.clear();
 		children.addAll(Arrays.asList(children2));
-		return !(children_added.isEmpty() || children_removed.isEmpty());
+		return !(children_added.isEmpty() && children_removed.isEmpty());
 	}
 	
 
 	public AbstractCadseViewNode[] getChildren() {
-		if (children == null) {
-			children = new ArrayList<AbstractCadseViewNode>();
-			AbstractCadseViewNode[] children2 = ctl.getChildren(this);
-
-			children.addAll(Arrays.asList(children2));
-
-			return children2;
-		}
-		if (!ctl.isRecomputeChildren()) {
-			return children.toArray(new AbstractCadseViewNode[children.size()]);
+		if (children == null /*|| ctl.isRecomputeChildren()*/) {
+			recomputeChildren();
 		}
 
-		AbstractCadseViewNode[] children2 = ctl.getChildren(this);
-		
-		children.clear();
-		children.addAll(Arrays.asList(children2));
-		
-		// ctl.getFTreeViewer().add(this, children.toArray());
-		return children2;
+		return children.toArray(new AbstractCadseViewNode[children.size()]);
 	}
 
 	@Override
