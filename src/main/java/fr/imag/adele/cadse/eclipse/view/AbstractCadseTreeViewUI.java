@@ -762,6 +762,7 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 				}
 				if (wd.getLoadedItems() != null) {
 					rootWS.recomputeChildren();
+					fTreeViewer.refresh();
 					return;
 				}
 
@@ -801,10 +802,14 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 				}
 
 				for (IItemNode iiv : refreshStruct) {
-					if (iiv.isOpen())
+					if (iiv.isOpen()) {
 						if (((AbstractCadseViewNode) iiv).recomputeChildren()) {
 							fTreeViewer.refresh(iiv, true);
 						}
+					} else {
+						if (iiv.getParent() != null && iiv.getParent().isOpen())
+							fTreeViewer.refresh(iiv, true);
+					}
 				}
 
 			}
