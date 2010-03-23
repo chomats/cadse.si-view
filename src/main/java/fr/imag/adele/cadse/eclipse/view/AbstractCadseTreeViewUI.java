@@ -756,8 +756,9 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 				Set<IItemNode> refreshUpdate = new HashSet<IItemNode>();
 
 				if (wd.currentModelHasState(WSModelState.RUN)) {
-					rootWS.recomputeChildren();
 					loadView();
+					rootWS.recomputeChildren();
+					fTreeViewer.refresh();
 					return;
 				}
 				if (wd.getLoadedItems() != null) {
