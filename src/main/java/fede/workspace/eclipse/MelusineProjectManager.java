@@ -244,7 +244,7 @@ public class MelusineProjectManager {
 	 * @throws CoreException
 	 */
 	public static UUID getUUIDItem(IResource resource) throws CoreException {
-		return WSPlugin.sGetUUIDFromResource(resource);
+		return WSPlugin.sGetUUIDFromResource(resource, true);
 	}
 
 	public static void addBuilder(IProject project, String builderName) throws CoreException {
