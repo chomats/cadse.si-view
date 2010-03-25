@@ -80,8 +80,7 @@ public class ValidationBuilder extends MelusineBuilder implements IItemManager.P
 		// verify there is a Melusine item associated with this project
 		Item item = getItem(p);
 		if (item == null) {
-			throw new CoreException(new Status(Status.ERROR, WSPlugin.PLUGIN_ID, "Cannot found item from "
-					+ p.getName()));
+			return new IProject[0];
 		}
 
 		List<Item> neededItems = validate(item, monitor);
