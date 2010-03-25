@@ -123,6 +123,6 @@ public abstract class MelusineBuilder extends IncrementalProjectBuilder {
 	}
 
 	protected Item getItem(IProject project) throws CoreException {
-		return WSPlugin.sGetItemFromResource(project);
+		return WSPlugin.sGetItemFromResource(project, false);
 	}
 }
