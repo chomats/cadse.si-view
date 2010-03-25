@@ -28,6 +28,11 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.eclipse.core.runtime.Assert;
+import org.eclipse.jdt.internal.ui.IJavaHelpContextIds;
+import org.eclipse.jdt.internal.ui.JavaPluginImages;
+import org.eclipse.jdt.internal.ui.actions.ActionMessages;
+import org.eclipse.jdt.internal.ui.actions.CollapseAllAction;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.GroupMarker;
 import org.eclipse.jface.action.IAction;
@@ -36,6 +41,7 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
+import org.eclipse.jface.commands.ActionHandler;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -64,6 +70,8 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionContext;
+import org.eclipse.ui.handlers.CollapseAllHandler;
+import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.ui.part.DrillDownAdapter;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 
@@ -127,6 +135,32 @@ import fr.imag.adele.fede.workspace.si.view.View;
 
 public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implements CadseViewModelController,
 		IViewLinkManager, IViewDisplayConfiguration, ViewDescription {
+	
+	
+	static class CollapseAllAction extends Action {
+
+		private final TreeViewer fViewer;
+
+		public CollapseAllAction(TreeViewer viewer) {
+			super(ActionMessages.CollapsAllAction_label, JavaPluginImages.DESC_ELCL_COLLAPSEALL);
+			setToolTipText(ActionMessages.CollapsAllAction_tooltip);
+			setDescription(ActionMessages.CollapsAllAction_description);
+			Assert.isNotNull(viewer);
+			fViewer= viewer;
+		}
+
+		public void run() {
+			try {
+				fViewer.getControl().setRedraw(false);
+				fViewer.collapseAll();
+			} finally {
+				fViewer.getControl().setRedraw(true);
+			}
+		}
+
+	}
+
+	
 	private final class TreeViewerListener implements ITreeViewerListener {
 		public void treeCollapsed(TreeExpansionEvent event) {
 			if (event.getElement() instanceof ItemInViewer) {
@@ -266,6 +300,8 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 
 	private Action						openPropertyView;
 
+	private fr.imag.adele.cadse.eclipse.view.AbstractCadseTreeViewUI.CollapseAllAction _collapseAllAction;
+
 	/**
 	 * The constructor.
 	 */
@@ -387,8 +423,14 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 		setSelectionProvider();
 
 		makeActions();
+		activateHandlers((IHandlerService) getViewSite().getService(IHandlerService.class));
+		
 		hookContextMenu();
 		contributeToActionBars();
+	}
+
+	protected void activateHandlers(IHandlerService handlerService) {
+		handlerService.activateHandler(CollapseAllHandler.COMMAND_ID, new ActionHandler(_collapseAllAction));
 	}
 
 	private void setSelectionProvider() {
@@ -469,9 +511,9 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 	}
 
 	protected void fillLocalToolBar(IToolBarManager manager) {
-
 		manager.add(new Separator());
 		drillDownAdapter.addNavigationActions(manager);
+		manager.add(_collapseAllAction);
 	}
 
 	public TreeViewer getFTreeViewer() {
@@ -541,6 +583,10 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 
 	// create view actions
 	protected void makeActions() {
+		
+		_collapseAllAction= new CollapseAllAction((TreeViewer) getFTreeViewer());
+		_collapseAllAction.setActionDefinitionId(CollapseAllHandler.COMMAND_ID);
+		
 		_actionSet = createActionSet();
 
 		openPropertyView = new Action("Open properties view", IAction.AS_PUSH_BUTTON) {
