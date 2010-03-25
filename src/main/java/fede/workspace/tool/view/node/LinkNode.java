@@ -48,7 +48,10 @@ public class LinkNode extends AbstractCadseViewNode {
 
 	@Override
 	public Item getItem() {
-		return link.getDestination(false);
+		if (kind == LINK_INCOMING)
+			return link.getSource();
+		else
+			return link.getDestination(false);
 	}
 
 	@Override
