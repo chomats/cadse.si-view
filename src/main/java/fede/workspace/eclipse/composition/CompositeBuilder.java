@@ -71,8 +71,7 @@ public class CompositeBuilder extends MelusineBuilder {
 		IProject p = getProject();
 		Item root = getItem(p);
 		if (root == null) {
-			throw new CoreException(new Status(Status.ERROR, WSPlugin.PLUGIN_ID, "Cannot found item from "
-					+ p.getName()));
+			return ;
 		}
 		cleanItem(root, context);
 		context.getMonitor().done();
