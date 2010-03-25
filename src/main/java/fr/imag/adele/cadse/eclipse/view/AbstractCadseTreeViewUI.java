@@ -1260,10 +1260,9 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 		if (node == rootWS) {
 			return getFirstChildren();
 		}
-		if (node.getKind() == ItemInViewer.ITEM || node.getKind() == ItemInViewer.LINK_OUTGOING) {
+		if (node.getKind() == ItemInViewer.ITEM || node.getKind() == ItemInViewer.LINK_OUTGOING || node.getKind() == ItemInViewer.LINK_INCOMING) {
 			Item item = node.getItem();
 
-			// if (!item.isResolved()) return AbstractCadseViewNode.EMPTY;
 			List<LinkNode> ret = new ArrayList<LinkNode>();
 			List<? extends Link> outgoingLinks = item.getOutgoingLinks();
 			if (outgoingLinks != null) {
