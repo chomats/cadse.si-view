@@ -218,7 +218,7 @@ public class WSPlugin extends AbstractUIPlugin {
 			return null;
 		}
 	}
-
+	
 	/**
 	 * Get the item associated with an eclipse resource.
 	 * 
@@ -231,7 +231,29 @@ public class WSPlugin extends AbstractUIPlugin {
 	 *             the core exception
 	 */
 	public static Item sGetItemFromResource(IResource resource) throws CoreException {
-		UUID id = sGetUUIDFromResource(resource);
+		UUID id = sGetUUIDFromResource(resource, true);
+		LogicalWorkspace wl = CadseCore.getLogicalWorkspace();
+		if (wl == null) {
+			return null;
+		}
+		return wl.getItem(id);
+	}
+
+	/**
+	 * Get the item associated with an eclipse resource.
+	 * 
+	 * @param resource
+	 *            the resource
+	 * 
+	 * @return the item from resource
+	 * 
+	 * @throws CoreException
+	 *             the core exception
+	 */
+	public static Item sGetItemFromResource(IResource resource, boolean throwEx) throws CoreException {
+		UUID id = sGetUUIDFromResource(resource, throwEx);
+		if (id == null && !throwEx)
+			return null;
 		LogicalWorkspace wl = CadseCore.getLogicalWorkspace();
 		if (wl == null) {
 			return null;
@@ -250,12 +272,16 @@ public class WSPlugin extends AbstractUIPlugin {
 	 * @throws CoreException
 	 *             the core exception
 	 */
-	public static UUID sGetUUIDFromResource(IResource resource) throws CoreException {
+	public static UUID sGetUUIDFromResource(IResource resource, boolean throwEx) throws CoreException {
 		if (resource == null) {
+			if (!throwEx)
+				return null;
 			throw new CoreException(new Status(Status.ERROR, WSPlugin.PLUGIN_ID, "the resouces is null"));
 		}
 
 		if (!resource.exists()) {
+			if (!throwEx)
+				return null;
 			throw new CoreException(new Status(Status.ERROR, WSPlugin.PLUGIN_ID, "the resouces doesn't exist."));
 		}
 
@@ -264,6 +290,8 @@ public class WSPlugin extends AbstractUIPlugin {
 		// If there is no item identification associated with this resource
 		// check parent resource
 		if (idStr == null) {
+			if (!throwEx)
+				return null;
 			throw new CoreException(new Status(Status.ERROR, WSPlugin.PLUGIN_ID,
 					"the resouces doesn't have id property."));
 		}
@@ -271,6 +299,8 @@ public class WSPlugin extends AbstractUIPlugin {
 		try {
 			return UUID.fromString(idStr);
 		} catch (Throwable e) {
+			if (!throwEx)
+				return null;
 			throw new CoreException(new Status(Status.ERROR, WSPlugin.PLUGIN_ID, "the id property is not valid "
 					+ idStr + " for " + resource.getFullPath().toPortableString(), e));
 
