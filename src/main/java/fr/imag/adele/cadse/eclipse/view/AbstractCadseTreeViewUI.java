@@ -95,6 +95,7 @@ import fede.workspace.tool.view.node.RootNode;
 import fede.workspace.tool.view.oper.WSCheckItemInViewer;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
+import fr.imag.adele.cadse.core.CadseRuntime;
 import fr.imag.adele.cadse.core.ChangeID;
 import fr.imag.adele.cadse.core.DerivedLink;
 import fr.imag.adele.cadse.core.IItemManager;
@@ -812,7 +813,7 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 					fTreeViewer.refresh();
 					return;
 				}
-
+					
 				for (ImmutableItemDelta itemDelta : wd.getItems()) {
 
 					if (itemDelta.isDeleted()) {
