@@ -55,6 +55,8 @@ import org.eclipse.jface.window.IShellProvider;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.Transfer;
+import org.eclipse.swt.events.FocusEvent;
+import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.Image;
@@ -93,6 +95,7 @@ import fede.workspace.tool.view.node.LinkNode;
 import fede.workspace.tool.view.node.LinkTypeNode;
 import fede.workspace.tool.view.node.RootNode;
 import fede.workspace.tool.view.oper.WSCheckItemInViewer;
+import fr.imag.adele.cadse.core.CadseDomain;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
 import fr.imag.adele.cadse.core.CadseRuntime;
@@ -303,6 +306,8 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 
 	private fr.imag.adele.cadse.eclipse.view.AbstractCadseTreeViewUI.CollapseAllAction _collapseAllAction;
 
+	private boolean _init = false;
+
 	/**
 	 * The constructor.
 	 */
@@ -405,7 +410,17 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 		fTreeViewer.addDropSupport(ops, transfers, new WSViewDropAdapter(fTreeViewer));
 
 		fTreeViewer.addDragSupport(ops, transfers, new WSViewDragListener(fTreeViewer));
-
+		fTreeViewer.getTree().addFocusListener(new FocusListener() {
+			
+			@Override
+			public void focusLost(FocusEvent e) {
+			}
+			
+			@Override
+			public void focusGained(FocusEvent e) {
+				resetIfNeed();
+			}
+		});
 		if (View.getInstance() != null && View.getInstance().getWorkspaceDomain() != null
 				&& View.getInstance().getWorkspaceDomain().getLogicalWorkspace() != null) {
 			View.getInstance().getWorkspaceDomain().getLogicalWorkspace().addListener(this, 0xFFFFF);
@@ -431,6 +446,27 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 		
 		hookContextMenu();
 		contributeToActionBars();
+	}
+
+	protected void resetIfNeed() {
+		if (_init ) return;
+		
+		if (View.getInstance() == null)
+			return;
+		CadseDomain ws = View.getInstance().getWorkspaceDomain();
+		if (ws == null)
+			return;
+		
+		LogicalWorkspace lw = ws.getLogicalWorkspace();
+		if (lw == null)
+			return;
+		
+		if (lw.getState() != WSModelState.RUN)
+			return;
+		_init = true;
+		loadView();
+		rootWS.recomputeChildren();
+		fTreeViewer.refresh();
 	}
 
 	protected void activateHandlers(IHandlerService handlerService) {
@@ -806,9 +842,7 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 				Set<IItemNode> refreshUpdate = new HashSet<IItemNode>();
 
 				if (wd.currentModelHasState(WSModelState.RUN) || wd.getLoadedItems() != null) {
-					loadView();
-					rootWS.recomputeChildren();
-					fTreeViewer.refresh();
+					resetIfNeed();
 					return;
 				}
 					
