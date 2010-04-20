@@ -409,6 +409,9 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 		if (View.getInstance() != null && View.getInstance().getWorkspaceDomain() != null
 				&& View.getInstance().getWorkspaceDomain().getLogicalWorkspace() != null) {
 			View.getInstance().getWorkspaceDomain().getLogicalWorkspace().addListener(this, 0xFFFFF);
+		} else {
+			Logger log = Logger.getLogger("Cadseview");
+			log.log(Level.WARNING, "cannot register listener");
 		}
 		if (getSite() != null) {
 			fCustomFiltersActionGroup = new CustomFiltersActionGroup(getSite().getId(), this.fTreeViewer);
@@ -802,13 +805,8 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 				Set<IItemNode> refreshRemoveNode = new HashSet<IItemNode>();
 				Set<IItemNode> refreshUpdate = new HashSet<IItemNode>();
 
-				if (wd.currentModelHasState(WSModelState.RUN)) {
+				if (wd.currentModelHasState(WSModelState.RUN) || wd.getLoadedItems() != null) {
 					loadView();
-					rootWS.recomputeChildren();
-					fTreeViewer.refresh();
-					return;
-				}
-				if (wd.getLoadedItems() != null) {
 					rootWS.recomputeChildren();
 					fTreeViewer.refresh();
 					return;
