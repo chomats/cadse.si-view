@@ -370,10 +370,17 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 
 		View.addAfterListener(new ViewAfterInit() {
 			public void afterInit() {
-
+				Logger log = Logger.getLogger("Cadseview");
+				log.log(Level.WARNING, "register listener (after)");
+				
 				View.getInstance().getWorkspaceDomain().getLogicalWorkspace().addListener(AbstractCadseTreeViewUI.this,
 						0xFFFFF);
-				refresh();
+				fTreeViewer.getTree().getDisplay().asyncExec(new Runnable() {
+					@Override
+					public void run() {
+						resetIfNeed();
+					}
+				});
 			}
 		});
 	}
@@ -424,9 +431,11 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 		if (View.getInstance() != null && View.getInstance().getWorkspaceDomain() != null
 				&& View.getInstance().getWorkspaceDomain().getLogicalWorkspace() != null) {
 			View.getInstance().getWorkspaceDomain().getLogicalWorkspace().addListener(this, 0xFFFFF);
+			Logger log = Logger.getLogger("Cadseview");
+			log.log(Level.WARNING, "register listener");
 		} else {
 			Logger log = Logger.getLogger("Cadseview");
-			log.log(Level.WARNING, "cannot register listener");
+			log.log(Level.WARNING, "Must register listener after");
 		}
 		if (getSite() != null) {
 			fCustomFiltersActionGroup = new CustomFiltersActionGroup(getSite().getId(), this.fTreeViewer);
