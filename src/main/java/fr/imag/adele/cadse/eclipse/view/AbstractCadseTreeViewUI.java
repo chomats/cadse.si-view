@@ -19,9 +19,7 @@
 package fr.imag.adele.cadse.eclipse.view;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -29,10 +27,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.eclipse.core.runtime.Assert;
-import org.eclipse.jdt.internal.ui.IJavaHelpContextIds;
 import org.eclipse.jdt.internal.ui.JavaPluginImages;
 import org.eclipse.jdt.internal.ui.actions.ActionMessages;
-import org.eclipse.jdt.internal.ui.actions.CollapseAllAction;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.GroupMarker;
 import org.eclipse.jface.action.IAction;
@@ -98,9 +94,7 @@ import fede.workspace.tool.view.oper.WSCheckItemInViewer;
 import fr.imag.adele.cadse.core.CadseDomain;
 import fr.imag.adele.cadse.core.CadseException;
 import fr.imag.adele.cadse.core.CadseGCST;
-import fr.imag.adele.cadse.core.CadseRuntime;
 import fr.imag.adele.cadse.core.ChangeID;
-import fr.imag.adele.cadse.core.DerivedLink;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
@@ -111,16 +105,15 @@ import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.TypeDefinition;
 import fr.imag.adele.cadse.core.WSModelState;
 import fr.imag.adele.cadse.core.WorkspaceListener;
-import fr.imag.adele.cadse.core.transaction.delta.ImmutableItemDelta;
-import fr.imag.adele.cadse.core.transaction.delta.ImmutableWorkspaceDelta;
-import fr.imag.adele.cadse.core.transaction.delta.ItemDelta;
 import fr.imag.adele.cadse.core.attribute.IAttributeType;
 import fr.imag.adele.cadse.core.impl.CadseIllegalArgumentException;
 import fr.imag.adele.cadse.core.key.Key;
 import fr.imag.adele.cadse.core.oper.WSCheckAttribute;
 import fr.imag.adele.cadse.core.oper.WSCheckItem;
 import fr.imag.adele.cadse.core.transaction.LogicalWorkspaceTransaction;
-import fr.imag.adele.cadse.core.ui.view.FilterContext;
+import fr.imag.adele.cadse.core.transaction.delta.ImmutableItemDelta;
+import fr.imag.adele.cadse.core.transaction.delta.ImmutableWorkspaceDelta;
+import fr.imag.adele.cadse.core.transaction.delta.ItemDelta;
 import fr.imag.adele.cadse.core.ui.view.NewContext;
 import fr.imag.adele.cadse.core.ui.view.ViewDescription;
 import fr.imag.adele.cadse.core.ui.view.ViewFilter;
@@ -128,19 +121,14 @@ import fr.imag.adele.cadse.util.ArraysUtil;
 import fr.imag.adele.fede.workspace.si.view.View;
 
 /**
- * Cette vue repr?sente les item du workspace courant. Nous avons trois mode
- * d'affichage : - aggr?gations; - relations et link - relations et relations
- * inverse.
- * 
- * Le menu contextuel a une zone particuli?re. "WS-Actions" pour les actions du
- * workspace.
- * 
+ * Cette vue repr?sente les item du workspace courant. Nous avons trois mode d'affichage : - aggr?gations; - relations
+ * et link - relations et relations inverse. Le menu contextuel a une zone particuli?re. "WS-Actions" pour les actions
+ * du workspace.
  */
 
 public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implements CadseViewModelController,
 		IViewLinkManager, IViewDisplayConfiguration, ViewDescription {
-	
-	
+
 	static class CollapseAllAction extends Action {
 
 		private final TreeViewer fViewer;
@@ -150,21 +138,22 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 			setToolTipText(ActionMessages.CollapsAllAction_tooltip);
 			setDescription(ActionMessages.CollapsAllAction_description);
 			Assert.isNotNull(viewer);
-			fViewer= viewer;
+			fViewer = viewer;
 		}
 
+		@Override
 		public void run() {
 			try {
 				fViewer.getControl().setRedraw(false);
 				fViewer.collapseAll();
-			} finally {
+			}
+			finally {
 				fViewer.getControl().setRedraw(true);
 			}
 		}
 
 	}
 
-	
 	private final class TreeViewerListener implements ITreeViewerListener {
 		public void treeCollapsed(TreeExpansionEvent event) {
 			if (event.getElement() instanceof ItemInViewer) {
@@ -204,7 +193,8 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 						}
 					}
 				}
-			} catch (Throwable e) {
+			}
+			catch (Throwable e) {
 			}
 
 		}
@@ -229,11 +219,13 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 			ItemDelta oper = copy.getItem(item.getId());
 			if (oper == null) {
 				copy.rollback();
-			} else {
+			}
+			else {
 				oper.doubleClick();
 				try {
 					copy.commit();
-				} catch (CadseException e) {
+				}
+				catch (CadseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
@@ -242,67 +234,66 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 		}
 	}
 
-	private ItemActionGroup				_actionSet;
+	private ItemActionGroup _actionSet;
 
-	public static final String			WS_MB_ADDITIONS			= "WS-Actions";
+	public static final String WS_MB_ADDITIONS = "WS-Actions";
 
-	private static final String			KEY_SHOW_LINKTYPE		= WSPlugin.NAMESPACE_ID + ".view.SHOW_LINKTYPE";	//$NON-NLS-1$
+	private static final String KEY_SHOW_LINKTYPE = WSPlugin.NAMESPACE_ID + ".view.SHOW_LINKTYPE"; //$NON-NLS-1$
 
-	private static final String			KEY_SHOW_TOOLTIP		= WSPlugin.NAMESPACE_ID + ".view.SHOW_TOOLTIP";
+	private static final String KEY_SHOW_TOOLTIP = WSPlugin.NAMESPACE_ID + ".view.SHOW_TOOLTIP";
 
-	private static final String			KEY_SHOW_KIND			= WSPlugin.NAMESPACE_ID + ".view.KEY_SHOW_KIND";
+	private static final String KEY_SHOW_KIND = WSPlugin.NAMESPACE_ID + ".view.KEY_SHOW_KIND";
 
-	private static final String			KEY_SHOW_Incomings		= WSPlugin.NAMESPACE_ID + ".view.Incomings";
+	private static final String KEY_SHOW_Incomings = WSPlugin.NAMESPACE_ID + ".view.Incomings";
 
-	private static final String			KEY_SHOW_LINK_TYPE_NAME	= WSPlugin.NAMESPACE_ID
-																		+ ".view.KEY_SHOW_LINK_TYPE_NAME";
+	private static final String KEY_SHOW_LINK_TYPE_NAME = WSPlugin.NAMESPACE_ID + ".view.KEY_SHOW_LINK_TYPE_NAME";
 
-	protected AbstractCadseViewNode		rootWS;
+	protected AbstractCadseViewNode rootWS;
 
-	private DrillDownAdapter			drillDownAdapter;
+	private DrillDownAdapter drillDownAdapter;
 
-	private TreeViewer					fTreeViewer;
+	private TreeViewer fTreeViewer;
 
-	private int							_contentProviderFlag	= 0;
+	private int _contentProviderFlag = 0;
 
-	private CustomFiltersActionGroup	fCustomFiltersActionGroup;
+	private CustomFiltersActionGroup fCustomFiltersActionGroup;
 
-	private ViewContentProvider			contentProvider;
+	private ViewContentProvider contentProvider;
 
 	// private Action showLinkType;
-	private Action						showToolTips;
-	private Action						showLinkTypeName;
-	private Action						showKind;
-	private Action						showIncomings;
+	private Action showToolTips;
+	private Action showLinkTypeName;
+	private Action showKind;
+	private Action showIncomings;
 
-	protected boolean					_showToolTip			= false;
+	protected boolean _showToolTip = false;
 
-	private TreeToolTipListener			toolTipListener			= null;
+	private TreeToolTipListener toolTipListener = null;
 
-	private boolean						_showKind;
-	private boolean						_showIncomings;
+	private boolean _showKind;
+	private boolean _showIncomings;
 
-	private boolean						_showLinkTypeName;
+	private boolean _showLinkTypeName;
 
-	private IMemento					localMemento;
+	private IMemento localMemento;
 
-	protected boolean					_isRecomputeChildren	= false;
+	protected boolean _isRecomputeChildren = false;
 
-	protected Font						italique;
+	protected Font italique;
 
-	protected Font						gras;
+	protected Font gras;
 
-	private final IShellProvider		shellprovider;
+	private final IShellProvider shellprovider;
 
-	private final IWorkbenchWindow		workbenchWindow;
+	private final IWorkbenchWindow workbenchWindow;
 
-	private final IWorkbenchPartSite	workbenchPartSite;
+	private final IWorkbenchPartSite workbenchPartSite;
 
-	private final IViewSite				viewsite;
+	private final IViewSite viewsite;
 
-	private Action						refresh;
+	private Action refresh;
 
-	private Action						openPropertyView;
+	private Action openPropertyView;
 
 	private fr.imag.adele.cadse.eclipse.view.AbstractCadseTreeViewUI.CollapseAllAction _collapseAllAction;
 
@@ -353,8 +344,7 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 	}
 
 	/**
-	 * This is a callback that will allow us to create the viewer and initialize
-	 * it.
+	 * This is a callback that will allow us to create the viewer and initialize it.
 	 */
 	public void createPartControl(final Composite parent) {
 		if (View.getInstance() == null) {
@@ -372,7 +362,7 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 			public void afterInit() {
 				Logger log = Logger.getLogger("Cadseview");
 				log.log(Level.WARNING, "register listener (after)");
-				
+
 				View.getInstance().getWorkspaceDomain().getLogicalWorkspace().addListener(AbstractCadseTreeViewUI.this,
 						0xFFFFF);
 				fTreeViewer.getTree().getDisplay().asyncExec(new Runnable() {
@@ -418,11 +408,11 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 
 		fTreeViewer.addDragSupport(ops, transfers, new WSViewDragListener(fTreeViewer));
 		fTreeViewer.getTree().addFocusListener(new FocusListener() {
-			
+
 			@Override
 			public void focusLost(FocusEvent e) {
 			}
-			
+
 			@Override
 			public void focusGained(FocusEvent e) {
 				resetIfNeed();
@@ -433,7 +423,8 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 			View.getInstance().getWorkspaceDomain().getLogicalWorkspace().addListener(this, 0xFFFFF);
 			Logger log = Logger.getLogger("Cadseview");
 			log.log(Level.WARNING, "register listener");
-		} else {
+		}
+		else {
 			Logger log = Logger.getLogger("Cadseview");
 			log.log(Level.WARNING, "Must register listener after");
 		}
@@ -442,7 +433,8 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 			if (localMemento != null) {
 				fCustomFiltersActionGroup.restoreState(localMemento);
 			}
-		} else {
+		}
+		else {
 			Logger log = Logger.getLogger("Cadseview");
 			log.log(Level.WARNING, "Get site is null, cannot instanciate Custom filter");
 		}
@@ -452,26 +444,36 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 
 		makeActions();
 		activateHandlers((IHandlerService) getViewSite().getService(IHandlerService.class));
-		
+
 		hookContextMenu();
 		contributeToActionBars();
 	}
 
 	protected void resetIfNeed() {
-		if (_init ) return;
-		
-		if (View.getInstance() == null)
+		if (_init) {
 			return;
+		}
+
+		if (View.getInstance() == null) {
+			return;
+		}
 		CadseDomain ws = View.getInstance().getWorkspaceDomain();
-		if (ws == null)
+		if (ws == null) {
 			return;
-		
+		}
+
 		LogicalWorkspace lw = ws.getLogicalWorkspace();
-		if (lw == null)
+		if (lw == null) {
 			return;
-		
-		if (lw.getState() != WSModelState.RUN)
+		}
+
+		if (lw.getState() != WSModelState.RUN) {
 			return;
+		}
+
+		Logger log = Logger.getLogger("Cadseview");
+		log.log(Level.WARNING, "reset view " + this);
+
 		_init = true;
 		loadView();
 		rootWS.recomputeChildren();
@@ -590,8 +592,8 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 	}
 
 	/**
-	 * Restore the state of this view : three options : show all items, show the
-	 * relations "to", show the relations "from"
+	 * Restore the state of this view : three options : show all items, show the relations "to", show the relations
+	 * "from"
 	 */
 	public void loadState(IMemento memento) throws PartInitException {
 		if (memento != null) {
@@ -616,8 +618,8 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 	}
 
 	/**
-	 * Save the state of this view through the sessions : three options : show
-	 * all items, show the relations "to", show the relations "from"
+	 * Save the state of this view through the sessions : three options : show all items, show the relations "to", show
+	 * the relations "from"
 	 */
 	public void saveState(IMemento memento) {
 		memento.putInteger(KEY_SHOW_LINKTYPE, _contentProviderFlag);
@@ -632,10 +634,10 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 
 	// create view actions
 	protected void makeActions() {
-		
-		_collapseAllAction= new CollapseAllAction((TreeViewer) getFTreeViewer());
+
+		_collapseAllAction = new CollapseAllAction(getFTreeViewer());
 		_collapseAllAction.setActionDefinitionId(CollapseAllHandler.COMMAND_ID);
-		
+
 		_actionSet = createActionSet();
 
 		openPropertyView = new Action("Open properties view", IAction.AS_PUSH_BUTTON) {
@@ -645,7 +647,8 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 				try {
 					PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView(
 							"org.eclipse.ui.views.PropertySheet");
-				} catch (PartInitException e) {
+				}
+				catch (PartInitException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
@@ -854,7 +857,7 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 					resetIfNeed();
 					return;
 				}
-					
+
 				for (ImmutableItemDelta itemDelta : wd.getItems()) {
 
 					if (itemDelta.isDeleted()) {
@@ -895,9 +898,11 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 						if (((AbstractCadseViewNode) iiv).recomputeChildren()) {
 							fTreeViewer.refresh(iiv, true);
 						}
-					} else {
-						if (iiv.getParent() != null && iiv.getParent().isOpen())
+					}
+					else {
+						if (iiv.getParent() != null && iiv.getParent().isOpen()) {
 							fTreeViewer.refresh(iiv, true);
+						}
 					}
 				}
 
@@ -908,7 +913,6 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 
 	/**
 	 * You can create item when the view is loaded.
-	 * 
 	 */
 	protected void loadView() {
 
@@ -984,9 +988,7 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayImage
+	 * @see fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayImage
 	 * (fede.workspace.tool.view.node.LinkNode)
 	 */
 	public Image getDisplayImage(LinkNode node) {
@@ -1003,9 +1005,7 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayImage
+	 * @see fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayImage
 	 * (fr.imag.adele.cadse.core.IItemNode)
 	 */
 	public Image getDisplayImage(IItemNode node) {
@@ -1022,9 +1022,7 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayText
+	 * @see fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayText
 	 * (fr.imag.adele.cadse.core.IItemNode)
 	 */
 	public String getDisplayText(IItemNode node) {
@@ -1038,22 +1036,26 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 		ret.append("[");
 		if (lt.isPart()) {
 			ret.append("p");
-		} else {
+		}
+		else {
 			ret.append(" ");
 		}
 		if (lt.isAggregation()) {
 			ret.append("a");
-		} else {
+		}
+		else {
 			ret.append(" ");
 		}
 		if (lt.isRequire()) {
 			ret.append("r");
-		} else {
+		}
+		else {
 			ret.append(" ");
 		}
 		if (lt.isComposition()) {
 			ret.append("c");
-		} else {
+		}
+		else {
 			ret.append(" ");
 		}
 		ret.append("] ");
@@ -1063,9 +1065,7 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayText
+	 * @see fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayText
 	 * (fede.workspace.tool.view.node.LinkNode)
 	 */
 	public String getDisplayText(LinkNode node) {
@@ -1080,14 +1080,16 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 		if (getShowKind()) {
 			if (lt == null) {
 				begin.append("[???] ");
-			} else {
+			}
+			else {
 				begin.append(toStringKind(lt));
 			}
 		}
 		if (getShowLinkTypeName()) {
 			if (lt == null) {
 				begin.append("??? ");
-			} else {
+			}
+			else {
 				begin.append(lt.getDisplayName()).append(" ");
 			}
 		}
@@ -1097,22 +1099,22 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 		Item dest = null;
 		if (node.getKind() == ItemInViewer.LINK_INCOMING) {
 			dest = link.getSource();
-		} else {
+		}
+		else {
 			dest = link.getDestination();
 		}
 		final Item nodeitem = node.getItem();
-		if (nodeitem != null)
+		if (nodeitem != null) {
 			begin.append(nodeitem.getDisplayName());
+		}
 
 		return begin.toString();
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayText
-	 * (fr.imag.adele.cadse.core.Link, fr.imag.adele.cadse.core.Item)
+	 * @see fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayText (fr.imag.adele.cadse.core.Link,
+	 * fr.imag.adele.cadse.core.Item)
 	 */
 	public String getDisplayText(Link link, Item destination) {
 		return destination.getDisplayName();
@@ -1120,10 +1122,7 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayToolTip
-	 * (fr.imag.adele.cadse.core.Item)
+	 * @see fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayToolTip (fr.imag.adele.cadse.core.Item)
 	 */
 	public String getDisplayToolTip(Item theItem) {
 		StringBuilder sb = new StringBuilder();
@@ -1136,11 +1135,13 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 			Key key = theItem.getKey();
 			if (key == null) {
 				sb.append("\n#key        : null key");
-			} else {
+			}
+			else {
 				sb.append("\n#key        : ");
 				key.getQualifiedString(sb);
 			}
-		} else {
+		}
+		else {
 			sb.append("\n#key        : no key");
 		}
 		sb.append("\n#qualified name  : ").append(theItem.getQualifiedName());
@@ -1150,37 +1151,37 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 		if (theItem.isReadOnly()) {
 			sb.append("\nitem readonly");
 		}
-//		List<Item> parentComposite = theItem.getCompositeParent();
-//		if (parentComposite != null && parentComposite.size() > 0) {
-//			sb.append("\ncomposite parent:\n");
-//			for (Item pitem : parentComposite) {
-//				sb.append("   - ");
-//				sb.append(pitem.getQualifiedName());
-//
-//			}
-//		}
-//		Set<Item> comp = theItem.getComponents();
-//		if (comp.size() > 0) {
-//			sb.append("\ncomponants:");
-//			Item[] linkArray = comp.toArray(new Item[0]);
-//			Arrays.sort(linkArray, new Comparator<Item>() {
-//
-//				public int compare(Item o1, Item o2) {
-//					return o1.getQualifiedName().compareTo(o2.getQualifiedName());
-//				}
-//			});
-//			for (Item link2 : linkArray) {
-//				sb.append("\n   - ").append(link2.getQualifiedName());
-//			}
-//		}
-//		Set<DerivedLink> derivedLink = theItem.getDerivedLinks();
-//		if (derivedLink.size() > 0) {
-//			sb.append("\nderived links:");
-//			for (DerivedLink link2 : derivedLink) {
-//				sb.append("\n   - ").append(link2.getDestinationQualifiedName()).append(" (").append(
-//						link2.getLinkType().getName()).append(")");
-//			}
-//		}
+		// List<Item> parentComposite = theItem.getCompositeParent();
+		// if (parentComposite != null && parentComposite.size() > 0) {
+		// sb.append("\ncomposite parent:\n");
+		// for (Item pitem : parentComposite) {
+		// sb.append("   - ");
+		// sb.append(pitem.getQualifiedName());
+		//
+		// }
+		// }
+		// Set<Item> comp = theItem.getComponents();
+		// if (comp.size() > 0) {
+		// sb.append("\ncomponants:");
+		// Item[] linkArray = comp.toArray(new Item[0]);
+		// Arrays.sort(linkArray, new Comparator<Item>() {
+		//
+		// public int compare(Item o1, Item o2) {
+		// return o1.getQualifiedName().compareTo(o2.getQualifiedName());
+		// }
+		// });
+		// for (Item link2 : linkArray) {
+		// sb.append("\n   - ").append(link2.getQualifiedName());
+		// }
+		// }
+		// Set<DerivedLink> derivedLink = theItem.getDerivedLinks();
+		// if (derivedLink.size() > 0) {
+		// sb.append("\nderived links:");
+		// for (DerivedLink link2 : derivedLink) {
+		// sb.append("\n   - ").append(link2.getDestinationQualifiedName()).append(" (").append(
+		// link2.getLinkType().getName()).append(")");
+		// }
+		// }
 
 		return sb.toString();
 	}
@@ -1200,10 +1201,7 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayToolTip
-	 * (fr.imag.adele.cadse.core.Link)
+	 * @see fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayToolTip (fr.imag.adele.cadse.core.Link)
 	 */
 	public String getDisplayToolTip(Link link) {
 		StringBuilder sb = new StringBuilder();
@@ -1223,7 +1221,8 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 		ItemType itemType = theItem.getType();
 		if (itemType == null) {
 			sb.append("\n#type: no volue !!!");
-		} else {
+		}
+		else {
 			sb.append("\n#type: ").append(itemType.getId());
 			sb.append("\n     : ").append(itemType.getName());
 		}
@@ -1233,11 +1232,13 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 				Key key = theItem.getKey();
 				if (key == null) {
 					sb.append("\n#key        : null key");
-				} else {
+				}
+				else {
 					sb.append("\n#key        : ");
 					key.getQualifiedString(sb);
 				}
-			} else {
+			}
+			else {
 				sb.append("\n#key        : no key");
 			}
 		}
@@ -1250,38 +1251,38 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 			if (/* heItem.isResolved() && */theItem.isReadOnly()) {
 				sb.append("\nitem readonly");
 			}
-//			List<Item> parentComposite = theItem.getCompositeParent();
-//			if (parentComposite != null && parentComposite.size() > 0) {
-//				sb.append("\ncomposite parent:\n");
-//				for (Item pitem : parentComposite) {
-//					sb.append("   - ");
-//					sb.append(pitem.getQualifiedName());
-//
-//				}
-//			}
-//
-//			Set<Item> comp = theItem.getComponents();
-//			if (comp != null && comp.size() > 0) {
-//				sb.append("\ncomponants:");
-//				Item[] linkArray = comp.toArray(new Item[0]);
-//				Arrays.sort(linkArray, new Comparator<Item>() {
-//
-//					public int compare(Item o1, Item o2) {
-//						return o1.getQualifiedName().compareTo(o2.getQualifiedName());
-//					}
-//				});
-//				for (Item link2 : linkArray) {
-//					sb.append("\n   - ").append(link2.getQualifiedName());
-//				}
-//			}
-//			Set<DerivedLink> derivedLink = theItem.getDerivedLinks();
-//			if (derivedLink != null && derivedLink.size() > 0) {
-//				sb.append("\nderived links:");
-//				for (DerivedLink link2 : derivedLink) {
-//					sb.append("\n   - ").append(link2.getDestinationQualifiedName()).append(" (").append(
-//							link2.getLinkType().getName()).append(")");
-//				}
-//			}
+			// List<Item> parentComposite = theItem.getCompositeParent();
+			// if (parentComposite != null && parentComposite.size() > 0) {
+			// sb.append("\ncomposite parent:\n");
+			// for (Item pitem : parentComposite) {
+			// sb.append("   - ");
+			// sb.append(pitem.getQualifiedName());
+			//
+			// }
+			// }
+			//
+			// Set<Item> comp = theItem.getComponents();
+			// if (comp != null && comp.size() > 0) {
+			// sb.append("\ncomponants:");
+			// Item[] linkArray = comp.toArray(new Item[0]);
+			// Arrays.sort(linkArray, new Comparator<Item>() {
+			//
+			// public int compare(Item o1, Item o2) {
+			// return o1.getQualifiedName().compareTo(o2.getQualifiedName());
+			// }
+			// });
+			// for (Item link2 : linkArray) {
+			// sb.append("\n   - ").append(link2.getQualifiedName());
+			// }
+			// }
+			// Set<DerivedLink> derivedLink = theItem.getDerivedLinks();
+			// if (derivedLink != null && derivedLink.size() > 0) {
+			// sb.append("\nderived links:");
+			// for (DerivedLink link2 : derivedLink) {
+			// sb.append("\n   - ").append(link2.getDestinationQualifiedName()).append(" (").append(
+			// link2.getLinkType().getName()).append(")");
+			// }
+			// }
 		}
 
 		// case NOT_ATTACHED_OR_ONLY_IN_WORKSPACE:
@@ -1302,7 +1303,8 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 		if (node == rootWS) {
 			return getFirstChildren();
 		}
-		if (node.getKind() == ItemInViewer.ITEM || node.getKind() == ItemInViewer.LINK_OUTGOING || node.getKind() == ItemInViewer.LINK_INCOMING) {
+		if (node.getKind() == ItemInViewer.ITEM || node.getKind() == ItemInViewer.LINK_OUTGOING
+				|| node.getKind() == ItemInViewer.LINK_INCOMING) {
 			Item item = node.getItem();
 
 			List<LinkNode> ret = new ArrayList<LinkNode>();
@@ -1352,10 +1354,12 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 				try {
 					itemByType = it.getItems();
 					break;
-				} catch (Throwable e) {
+				}
+				catch (Throwable e) {
 					try {
 						Thread.sleep(20);
-					} catch (InterruptedException e1) {
+					}
+					catch (InterruptedException e1) {
 					}
 				}
 			}
@@ -1391,7 +1395,7 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 		}
 
 		if (node == rootWS) {
-			return rootWS.getChildren().length !=0;
+			return rootWS.getChildren().length != 0;
 		}
 		if (node.getKind() == ItemInViewer.ITEM || node.getKind() == ItemInViewer.LINK_OUTGOING) {
 			Item item = node.getItem();
@@ -1431,9 +1435,7 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayToolTip
+	 * @see fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayToolTip
 	 * (fr.imag.adele.cadse.core.LinkType)
 	 */
 	public String getDisplayToolTip(LinkType linkType) {
@@ -1442,9 +1444,7 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayImage
+	 * @see fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayImage
 	 * (fede.workspace.tool.view.node.LinkTypeNode)
 	 */
 	public Image getDisplayImage(LinkTypeNode node) {
@@ -1460,9 +1460,7 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayText
+	 * @see fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayText
 	 * (fede.workspace.tool.view.node.LinkTypeNode)
 	 */
 	public String getDisplayText(LinkTypeNode node) {
@@ -1471,9 +1469,7 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayFont
+	 * @see fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayFont
 	 * (fede.workspace.tool.view.node.LinkTypeNode)
 	 */
 	public Font getDisplayFont(LinkTypeNode node) {
@@ -1482,9 +1478,7 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayToolTip
+	 * @see fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayToolTip
 	 * (fr.imag.adele.cadse.core.ItemType)
 	 */
 	public String getDisplayToolTip(ItemType itemType) {
@@ -1493,9 +1487,7 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayImage
+	 * @see fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayImage
 	 * (fede.workspace.tool.view.node.ItemTypeNode)
 	 */
 	public Image getDisplayImage(ItemTypeNode node) {
@@ -1510,9 +1502,7 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayText
+	 * @see fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayText
 	 * (fede.workspace.tool.view.node.ItemTypeNode)
 	 */
 	public String getDisplayText(ItemTypeNode node) {
@@ -1521,9 +1511,7 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayFont
+	 * @see fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayFont
 	 * (fede.workspace.tool.view.node.ItemTypeNode)
 	 */
 	public Font getDisplayFont(ItemTypeNode node) {
@@ -1540,9 +1528,7 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayToolTip
+	 * @see fr.imag.adele.cadse.eclipse.view.IViewDisplayConfiguration#getDisplayToolTip
 	 * (fede.workspace.tool.view.node.AbstractCadseViewNode)
 	 */
 	public String getDisplayToolTip(AbstractCadseViewNode node) {
@@ -1608,7 +1594,8 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 		return true;
 	}
 
-	public void add(AbstractCadseViewNode node) {}
+	public void add(AbstractCadseViewNode node) {
+	}
 
 	public void remove(AbstractCadseViewNode node) {
 	}
@@ -1623,7 +1610,8 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 
 			if (element instanceof Item && node.getItem() == element) {
 				ret.add(node);
-			} else if (node.getElementModel() == element) {
+			}
+			else if (node.getElementModel() == element) {
 				ret.add(node);
 			}
 
@@ -1660,12 +1648,13 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 			if (l.getSource() != null && isFirstItem(l.getSource(), cadseModel)) {
 				ret.add(l.getSource());
 			}
-			if (l.getSource() != null)
+			if (l.getSource() != null) {
 				for (Link il : l.getSource().getIncomingLinks()) {
 					if (isLink(il)) {
 						ret.add(il);
 					}
 				}
+			}
 			return ret;
 		}
 		if (element instanceof Item) {
@@ -1702,7 +1691,7 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 		return ret;
 	}
 
-	AbstractCadseView	viewPart;
+	AbstractCadseView viewPart;
 
 	public AbstractCadseView getViewPart() {
 		return viewPart;
@@ -1716,7 +1705,7 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 		return IItemNode.DESELECTED;
 	}
 
-	ViewFilter[]	_filters	= null;
+	ViewFilter[] _filters = null;
 
 	final public void addFilter(ViewFilter f) {
 		_filters = ArraysUtil.add(ViewFilter.class, _filters, f);
@@ -1732,16 +1721,18 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 
 	@Override
 	public boolean filterNew(NewContext context) {
-		
+
 		if (context.getOutgoingDestination(CadseGCST.ITEM_lt_PARENT) != null) {
-			if (!canCreateFrom(context.getPartParent(), context.getPartLinkType(), context.getDestinationType()))
+			if (!canCreateFrom(context.getPartParent(), context.getPartLinkType(), context.getDestinationType())) {
 				return true;
+			}
 		}
 		else {
-			if (!canCreateItem(context.getDestinationType()))
+			if (!canCreateItem(context.getDestinationType())) {
 				return true;
+			}
 		}
-		
+
 		if (_filters != null) {
 			for (ViewFilter f : _filters) {
 				if (f.isPositifFilter() && f.acceptNew(context)) {
@@ -1760,12 +1751,12 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 	public boolean canCreateDestination(LinkType lt) {
 		return isCreateLink(lt);
 	}
-	
+
 	@Override
 	public ItemType[] getCreatableItemType() {
 		return getFirstItemType(getCadseModel());
 	}
-	
+
 	public ItemType[] getFirstItemType() {
 		return getFirstItemType(getCadseModel());
 	}
