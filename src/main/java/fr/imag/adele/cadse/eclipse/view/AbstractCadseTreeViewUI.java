@@ -368,7 +368,7 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 				fTreeViewer.getTree().getDisplay().asyncExec(new Runnable() {
 					@Override
 					public void run() {
-						resetIfNeed();
+						resetIfNeed(true);
 					}
 				});
 			}
@@ -415,7 +415,7 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 
 			@Override
 			public void focusGained(FocusEvent e) {
-				resetIfNeed();
+				resetIfNeed(false);
 			}
 		});
 		if (View.getInstance() != null && View.getInstance().getWorkspaceDomain() != null
@@ -449,8 +449,8 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 		contributeToActionBars();
 	}
 
-	protected void resetIfNeed() {
-		if (_init) {
+	protected void resetIfNeed(boolean force) {
+		if (_init && !force) {
 			return;
 		}
 
@@ -854,7 +854,7 @@ public abstract class AbstractCadseTreeViewUI extends WorkspaceListener implemen
 				Set<IItemNode> refreshUpdate = new HashSet<IItemNode>();
 
 				if (wd.currentModelHasState(WSModelState.RUN) || wd.getLoadedItems() != null) {
-					resetIfNeed();
+					resetIfNeed(wd.getLoadedItems() != null);
 					return;
 				}
 
