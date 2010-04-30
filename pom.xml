@@ -186,10 +186,6 @@
         	<groupId>org.eclipse</groupId>
         	<artifactId>org.eclipse.emf.ecore</artifactId>
         </dependency>
-        <dependency>
-        	<groupId>org.eclipse</groupId>
-        	<artifactId>org.eclipse.jface</artifactId>
-        </dependency>
     </dependencies>
 </project>
 
