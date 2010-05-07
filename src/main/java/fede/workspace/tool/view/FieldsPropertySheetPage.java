@@ -21,7 +21,6 @@ package fede.workspace.tool.view;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -29,33 +28,21 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
-import org.eclipse.ui.forms.widgets.ScrolledPageBook;
 import org.eclipse.ui.part.Page;
 import org.eclipse.ui.part.PageBook;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.IPropertySource;
 
 import fr.imag.adele.cadse.core.CadseException;
-import fr.imag.adele.cadse.core.ChangeID;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.Item;
-import fr.imag.adele.cadse.core.Link;
-import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.WorkspaceListener;
-import fr.imag.adele.cadse.core.transaction.delta.ImmutableItemDelta;
-import fr.imag.adele.cadse.core.transaction.delta.ImmutableWorkspaceDelta;
-import fr.imag.adele.cadse.core.impl.CadseCore;
-import fr.imag.adele.cadse.core.ui.IFieldDescription;
-import fr.imag.adele.cadse.core.ui.view.FilterContext;
+import fr.imag.adele.cadse.core.ui.UIField;
 import fr.imag.adele.cadse.eclipse.view.AbstractCadseTreeViewUI;
 import fr.imag.adele.cadse.eclipse.view.AbstractCadseView;
-import fr.imag.adele.fede.workspace.as.eclipse.SWTService;
 import fr.imag.adele.fede.workspace.as.eclipse.SWTService.MyPropertySheetPage;
 import fr.imag.adele.fede.workspace.si.view.View;
-import org.eclipse.ui.forms.widgets.FormToolkit;
 
 /**
  * @see IPropertySource
@@ -99,15 +86,6 @@ public class FieldsPropertySheetPage extends Page implements IPropertySheetPage 
 	@Override
 	public void setFocus() {
 		pageBook.setFocus();
-	}
-
-	private LinkType getContainmentLinkTypeParent(Item item) {
-		for (Link l : item.getIncomingLinks()) {
-			if (l.getLinkType().isPart()) {
-				return l.getLinkType();
-			}
-		}
-		return null;
 	}
 
 	protected IItemNode descFormSel(ISelection selection) {
@@ -159,6 +137,10 @@ public class FieldsPropertySheetPage extends Page implements IPropertySheetPage 
 		scrolledFrom.getBody().setLayout(new GridLayout());
 		
 		propertySource.createControl(scrolledFrom.getBody());
+		Control control = propertySource.getControl();
+		Object data = control.getData(UIField.CADSE_MODEL_KEY);
+		if (data != null)
+			pageBook.setData(UIField.CADSE_MODEL_KEY, data);
 		pageBook.showPage(scrolledFrom);
 		
 		
