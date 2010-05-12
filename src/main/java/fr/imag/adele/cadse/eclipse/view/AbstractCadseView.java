@@ -34,8 +34,6 @@ import fede.workspace.tool.view.node.AbstractCadseViewNode;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.impl.CadseCore;
-import fr.imag.adele.fede.workspace.as.eclipse.SWTService;
-import fr.imag.adele.fede.workspace.si.view.View;
 
 /**
  * Cette vue represente les item du workspace courant. Nous avons trois mode
