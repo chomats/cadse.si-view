@@ -101,7 +101,7 @@ public class View implements IEclipse {
 	/**
 	 * @generated
 	 */
-	IPlatformIDE					platformEclipse;
+	IPlatformIDE						platformEclipse;
 	
 	SWTService							_swtService;
 	
