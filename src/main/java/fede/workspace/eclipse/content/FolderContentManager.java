@@ -89,7 +89,8 @@ public class FolderContentManager extends ContentItemImpl implements IViewConten
 	public void create() throws CadseException {
 		try {
 			IFolder f = getFolder();
-
+			if	(f == null) return;
+			
 			MappingManager.createFolder(f, View.getDefaultMonitor());
 			View.setItemPersistenceID(f, getOwnerItem());
 		} catch (CoreException e) {
@@ -127,18 +128,35 @@ public class FolderContentManager extends ContentItemImpl implements IViewConten
 		}
 	}
 
+	/**
+	 * Can return null if not found.
+	 * @return
+	 */
 	protected IFolder getFolder() {
 		return getFolder(ContextVariableImpl.DEFAULT);
 	}
 
+	/**
+	 * Return the folder for this content. Can be null if the folder is not require ({@link FolderContentManager#isRequireFolder()})
+	 * 
+	 * @param cxt
+	 * @return a folder or null
+	 * @throws CadseIllegalArgumentException if parent is not found and if the folder is require.
+	 */
 	public IFolder getFolder(ContextVariable cxt) {
 		IContainer c = getParentContainer(cxt);
 		if (c == null) {
-			throw new CadseIllegalArgumentException("Cannot get folder from {0} : parent container is null !!!",
+			if (isRequireFolder())
+				throw new CadseIllegalArgumentException("Cannot get folder from {0} : parent container is null !!!",
 					getOwnerItem().getDisplayName());
+			return null;
 		}
 		IFolder _retf = c.getFolder(new Path(getPath(cxt)));
 		return _retf;
+	}
+
+	protected boolean isRequireFolder() {
+		return true;
 	}
 
 	@Override
