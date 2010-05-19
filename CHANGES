@@ -1,0 +1,19 @@
+
+25-09-07-1458
+	Add somes test and try catch
+	
+6.006 : 13/09/07 (build 13-09-07-1048) (svn 5025)
+	add exproted package fede.workspace.tool.view.node
+6.005 : 12/10/05
+	detete the associated item at a eclipse resource.
+	correction mineur.
+6.004 : 010/10/05
+	- CONFIG_ID contenait une mauvaise valeur.
+6.003 : 05/10/05
+	- use CU.Workspace.Workspace 6.006
+	- changed WSResourceChangeListener
+6.002 : 05/10/05
+	- refreshAll qui reload le viewer
+	- refresh d'un item
+6.001 : 29/09/05
+	- bug sur add in workspace
