@@ -18,6 +18,8 @@
  */
 package fede.workspace.tool.view.node;
 
+import org.eclipse.ui.internal.ide.actions.LTKLauncher;
+
 import fede.workspace.tool.view.ItemInViewer;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.Link;
@@ -74,7 +76,15 @@ public class LinkNode extends AbstractCadseViewNode {
 		if (getKind() == LINK_INCOMING) {
 			return " <-- " + link.getSource().getDisplayName();
 		} else {
-			return " --> " + link.getDestination(false).getDisplayName();
+			Item destination = link.getDestination(false);
+			if (destination == null) {
+				LinkType linkType = link.getLinkType();
+				if (linkType == null)
+					return "--> ???? ????";
+				return "--> ???? "+linkType.getName();
+			}
+			
+			return " --> " + destination.getDisplayName();
 		}
 	}
 
