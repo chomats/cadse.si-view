@@ -19,6 +19,7 @@
 package fede.workspace.eclipse.validation;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -36,9 +37,11 @@ import org.eclipse.core.runtime.SubProgressMonitor;
 import fede.workspace.eclipse.MelusineBuilder;
 import fede.workspace.eclipse.MelusineProjectManager;
 import fede.workspace.tool.view.WSPlugin;
+import fr.imag.adele.cadse.core.AdaptableObjectImpl;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
+import fr.imag.adele.cadse.core.Validator;
 import fr.imag.adele.cadse.core.impl.CadseCore;
 
 /**
@@ -50,7 +53,7 @@ import fr.imag.adele.cadse.core.impl.CadseCore;
  * @author vega
  * 
  */
-public class ValidationBuilder extends MelusineBuilder implements IItemManager.ProblemReporter {
+public class ValidationBuilder extends MelusineBuilder implements Validator.ProblemReporter {
 
 	public final static String	ID		= "fede.tool.workspace.view.validation.builder";
 
@@ -152,10 +155,13 @@ public class ValidationBuilder extends MelusineBuilder implements IItemManager.P
 	 */
 	private List<Item> performValidation(Item item, IProgressMonitor monitor) throws CoreException {
 		monitor.subTask("Item Validation " + item.getName());
-		IItemManager manager = item.getType().getItemManager();
-		List<Item> dependantOnItems = manager.validate(item, this);
-		if (dependantOnItems == null) {
-			dependantOnItems = Collections.emptyList();
+		Validator[] validators = item.getType().adapts(Validator.class);
+		if (validators == null) return Collections.emptyList();
+		List<Item> dependantOnItems = new ArrayList<Item>();
+		for (Validator v : validators) {
+			List<Item> ditems = v.validate(item, this);
+			if (ditems != null)
+				dependantOnItems.addAll(ditems);
 		}
 		monitor.worked(1);
 		return dependantOnItems;

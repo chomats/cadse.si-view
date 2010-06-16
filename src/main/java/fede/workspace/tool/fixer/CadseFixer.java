@@ -27,6 +27,7 @@ import org.eclipse.ui.IMarkerResolution;
 import org.eclipse.ui.IMarkerResolutionGenerator2;
 
 import fr.imag.adele.cadse.core.DefaultItemManager;
+import fr.imag.adele.cadse.core.DefaultValidator;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.impl.CadseCore;
@@ -52,7 +53,7 @@ public class CadseFixer implements IMarkerResolutionGenerator2 {
     	int errorCode		= ValidationMarker.getErrorCode(marker);
 		//String parameters[]	= ValidationMarker.getParameters(marker);
 		switch (errorCode) {
-			case DefaultItemManager.CODE_MISSING_PARENT :
+			case DefaultValidator.CODE_MISSING_PARENT :
 				resolutions.add(new RemoveItemResolution(this,marker, item,true));
 				break;
 		}
@@ -72,7 +73,7 @@ public class CadseFixer implements IMarkerResolutionGenerator2 {
 		int errorCode		= ValidationMarker.getErrorCode(marker);
 		
 		switch (errorCode) {
-			case DefaultItemManager.CODE_MISSING_PARENT : 
+			case DefaultValidator.CODE_MISSING_PARENT : 
 				return true;
 		}
 		
