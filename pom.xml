@@ -35,7 +35,6 @@
                         <Include-Resource>
 			              plugin.xml=plugin.xml,
 			              plugin.properties=plugin.properties,
-			              schema=schema,
 			              icons=icons,
 			              workspace-ant.jar=workspace-ant.jar
 			            </Include-Resource>
