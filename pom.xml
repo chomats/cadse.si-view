@@ -7,11 +7,11 @@
     <groupId>fr.imag.adele.cadse</groupId>
     <artifactId>si.view</artifactId>
     <name>fr.imag.adele.cadse.si.view</name>
-    <version>2.3.0-SNAPSHOT</version>
+    <version>2.3.0</version>
     <parent>
 		<artifactId>fr.imag.adele.cadse.parent.ipojo</artifactId>
 		<groupId>fr.imag.adele.cadse</groupId>
-		<version>2.3.0-SNAPSHOT</version>
+		<version>2.3.2</version>
 		<relativePath>../fr.imag.adele.cadse.parent.ipojo</relativePath>
 	</parent>
 	
@@ -64,37 +64,37 @@
         <dependency>
 		<groupId>fr.imag.adele.cadse</groupId>
         	<artifactId>custom.filter</artifactId>
-		<version>2.3.0-SNAPSHOT</version>
+		<version>2.3.0</version>
         </dependency>
    	<dependency>
 		<groupId>fr.imag.adele.cadse</groupId>
         	<artifactId>as.persistence</artifactId>
-		<version>2.3.0-SNAPSHOT</version>
+		<version>2.3.2</version>
         </dependency>
         <dependency>
 		<groupId>fr.imag.adele.cadse</groupId>
         	<artifactId>as.platformeIDE</artifactId>
-		<version>2.3.0-SNAPSHOT</version>
+		<version>2.3.0</version>
         </dependency>
         <dependency>
 		<groupId>fr.imag.adele.cadse</groupId>
         	<artifactId>as.initmodel</artifactId>
-		<version>2.3.0-SNAPSHOT</version>
+		<version>2.3.0</version>
         </dependency>
         <dependency>
 		<groupId>fr.imag.adele.cadse</groupId>
         	<artifactId>as.test</artifactId>
-		<version>2.3.0-SNAPSHOT</version>
+		<version>2.3.0</version>
         </dependency>
         <dependency>
 		<groupId>fr.imag.adele.cadse</groupId>
         	<artifactId>as.eclipse</artifactId>
-		<version>2.3.0-SNAPSHOT</version>
+		<version>2.3.0</version>
         </dependency>
         <dependency>
         	<groupId>fr.imag.adele.cadse</groupId>
         	<artifactId>cu.core</artifactId>
-		<version>2.3.0-SNAPSHOT</version>
+		<version>2.3.0</version>
         </dependency>
 
         <dependency>
