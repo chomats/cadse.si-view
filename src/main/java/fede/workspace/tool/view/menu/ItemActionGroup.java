@@ -18,22 +18,12 @@
  */
 package fede.workspace.tool.view.menu;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
-import org.eclipse.core.runtime.Platform;
-import org.eclipse.jdt.internal.ui.preferences.OverlayPreferenceStore.TypeDescriptor;
-import org.eclipse.jface.action.IContributionItem;
-import org.eclipse.jface.action.IContributionManager;
 import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.jface.action.MenuManager;
-import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.window.IShellProvider;
@@ -41,35 +31,14 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.actions.ActionContext;
 import org.eclipse.ui.actions.ActionGroup;
 
-import fede.workspace.tool.view.WSPlugin;
-import fede.workspace.tool.view.actions.CreateLinkAction;
-import fede.workspace.tool.view.actions.DeleteLinkAction;
-import fede.workspace.tool.view.actions.GenerateAction;
-import fede.workspace.tool.view.actions.RefreshAction;
-import fede.workspace.tool.view.actions.test.CancelTestAction;
-import fede.workspace.tool.view.actions.test.CheckAttributeInModel;
-import fede.workspace.tool.view.actions.test.CheckContentInModel;
-import fede.workspace.tool.view.actions.test.CheckItemInModel;
-import fede.workspace.tool.view.actions.test.CheckItemInviewer;
-import fede.workspace.tool.view.actions.test.StopTestAction;
-import fede.workspace.tool.view.addlink.LinkRootNode;
-import fede.workspace.tool.view.node.AbstractCadseViewNode;
-import fede.workspace.tool.view.node.RootNode;
-import fr.imag.adele.cadse.core.ExtendedType;
-import fr.imag.adele.cadse.core.IGenerateContent;
-import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.IItemNode;
 import fr.imag.adele.cadse.core.IMenuAction;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.ItemType;
 import fr.imag.adele.cadse.core.Link;
-import fr.imag.adele.cadse.core.LinkType;
-import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.Menu;
 import fr.imag.adele.cadse.core.MenuGroup;
-import fr.imag.adele.cadse.core.TypeDefinition;
 import fr.imag.adele.cadse.core.impl.CadseCore;
-import fr.imag.adele.cadse.core.impl.internal.Accessor;
 import fr.imag.adele.cadse.core.ui.IActionContributor;
 import fr.imag.adele.cadse.core.ui.view.ViewDescription;
 import fr.imag.adele.cadse.eclipse.view.AbstractCadseTreeViewUI;
