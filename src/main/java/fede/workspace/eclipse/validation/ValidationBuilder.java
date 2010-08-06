@@ -37,7 +37,6 @@ import org.eclipse.core.runtime.SubProgressMonitor;
 import fede.workspace.eclipse.MelusineBuilder;
 import fede.workspace.eclipse.MelusineProjectManager;
 import fede.workspace.tool.view.WSPlugin;
-import fr.imag.adele.cadse.core.AdaptableObjectImpl;
 import fr.imag.adele.cadse.core.IItemManager;
 import fr.imag.adele.cadse.core.Item;
 import fr.imag.adele.cadse.core.LogicalWorkspace;
