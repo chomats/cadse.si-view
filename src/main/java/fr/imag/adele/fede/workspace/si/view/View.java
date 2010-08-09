@@ -67,6 +67,7 @@ import fr.imag.adele.cadse.core.LogicalWorkspace;
 import fr.imag.adele.cadse.core.WSModelState;
 import fr.imag.adele.cadse.core.WorkspaceListener;
 import fr.imag.adele.cadse.core.content.ContentItem;
+import fr.imag.adele.cadse.core.impl.CadseCore;
 import fr.imag.adele.cadse.core.transaction.delta.ImmutableItemDelta;
 import fr.imag.adele.cadse.core.transaction.delta.ImmutableWorkspaceDelta;
 import fr.imag.adele.cadse.eclipse.view.ViewAfterInit;
@@ -137,7 +138,7 @@ public class View implements IEclipse {
 
 		Runnable r = new Runnable() {
 			public void run() {
-				while (getWorkspaceDomain() == null || getWorkspaceDomain().getLogicalWorkspace() == null) {
+				while (CadseCore.getLogicalWorkspace() == null) {
 					try {
 						Thread.sleep(5000);
 					} catch (InterruptedException e) {
