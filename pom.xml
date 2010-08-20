@@ -64,7 +64,7 @@
         <dependency>
 		<groupId>fr.imag.adele.cadse</groupId>
         	<artifactId>custom.filter</artifactId>
-		<version>2.3.0</version>
+		<version>2.3.1-SNAPSHOT</version>
         </dependency>
    	<dependency>
 		<groupId>fr.imag.adele.cadse</groupId>
